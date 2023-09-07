@@ -90,7 +90,6 @@
 }
 
 
-
 @media only screen and (max-width: 979px) {
   .ag-courses_item {
     -ms-flex-preferred-size: calc(50% - 30px);
@@ -109,17 +108,17 @@
 }
 @media only screen and (max-width: 639px) {
   .ag-courses_item {
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
   }
   .ag-courses-item_title {
     min-height: 72px;
     line-height: 1;
 
-    font-size: 24px;
+    font-size: 10px;
   }
   .ag-courses-item_link {
-    padding: 22px 40px;
+    padding: 10px 20px;
   }
 }
 
