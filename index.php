@@ -24,7 +24,7 @@
 
 <body>
   <!-- NavBar   -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
+  <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"><strong>AQI</strong></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,14 +54,14 @@
         </ul>
       </div>
     </div>
-  </nav>
+  </nav><br><br>
   <!-- NavBar    -->
 
   <!-- Card -->
-  <div class="ag-format-container" style="width:90%">
+  <div class="ag-format-container" style="width:95%;">
     <div class="ag-courses_box">
       <div class="ag-courses_item">
-        <a href="#myChart" class="ag-courses-item_link" onclick="Chart_PM();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM();">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -72,7 +72,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChart" class="ag-courses-item_link" onclick="Chart_Temp();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Temp();">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -83,30 +83,31 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChart" class="ag-courses-item_link" onclick="Chart_Humid();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Humid();">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
             Humidity <br><br>
-            <i class="fa-solid fa-droplet"></i> 24.04 g/m<sup>3</sup>
+            <i class="fa-solid fa-droplet"></i> 24.04 g/m3
+            <!-- g/m<sup>3</sup> -->
           </div>
 
         </a>
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChart" class="ag-courses-item_link" onclick="Chart_Pressure();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Pressure();">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
             Air Pressure <br><br>
-            <i class="fa-solid fa-cloud"></i><sup><i class="fa-solid fa-arrow-down"></i></sup> 1,013.24 hPa
+            <i class="fa-solid fa-cloud"></i><!--<sup><i class="fa-solid fa-arrow-down"></i></sup>--> 1,013.24 hPa
           </div>
         </a>
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChart" class="ag-courses-item_link" onclick="Chart_Speed();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Speed();">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -118,7 +119,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChart" class="ag-courses-item_link" onclick="Chart_Direction();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Direction();">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -133,7 +134,11 @@
     <!-- Card -->
 
     <!-- Chart -->
+    <div class="chart">
+    <div class="chartBox">
     <canvas id="myChart"></canvas>
+    </div>
+    </div>
     <script src="js/Chart.js"></script>
     <br>
     <!-- Chart -->

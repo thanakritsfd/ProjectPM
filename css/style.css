@@ -1,8 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 body{
-    font-family: 'Prompt', sans-serif !important;
+    font-family: 'Itim', cursive !important;
 }
 html{
     overflow-y: auto !important;
     scroll-behavior: smooth;
+}
+#myChart{
+    font-weight: bold!important;
 }

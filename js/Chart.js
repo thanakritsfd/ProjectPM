@@ -10,7 +10,7 @@ const ctx = document.getElementById('myChart');
         backgroundColor: "#f9b234",
         borderColor: "#f9b234",
         borderWidth: 3,
-        yAxisID: 'y1'
+        yAxisID: 'y'
       },
     ]
     },
@@ -24,19 +24,37 @@ const ctx = document.getElementById('myChart');
       plugins: {
         title: {
           display: true,
-          text: 'Chart PM2.5 Value'
+          text: 'Chart PM2.5 Value',
+          font:{
+            size: 17,
+            weight: 'bold',
+            family:'Itim',
+          }
         },
         legend:{
           display: false,
         }
       },
       scales: {
-        y1: {
+        x:{
+          ticks:{
+            font:{
+              weight: 'bold',
+            }
+          }
+        },
+        y: {
           type: 'linear',
           display: true,
           position: 'left',
+          ticks:{
+            font:{
+              weight: 'bold',
+            }
+          }
         },
-      }
+      },
+      maintainAspectRatio:false,
     },
   });
 
