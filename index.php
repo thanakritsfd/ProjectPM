@@ -112,7 +112,7 @@
 
           <div class="ag-courses-item_title">
             Wind Speed <br><br>
-            <i class="fa-solid fa-wind"></i> 1,013.24 km/h
+            <i class="fa-solid fa-wind"></i> 40 km/h
           </div>
 
         </a>
