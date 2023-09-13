@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,19 +13,21 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-  <title>AQI</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="js/getValues.js"></script>
+  <title>PM2.5</title>
 </head>
 <style>
   html {
     overflow-y: auto !important;
   }
 </style>
-
 <body>
+
   <!-- NavBar   -->
   <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><strong>AQI</strong></a>
+      <a class="navbar-brand" href="#"><strong>PM2.5</strong></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -56,7 +57,6 @@
     </div>
   </nav><br><br>
   <!-- NavBar    -->
-
   <!-- Card -->
   <div class="ag-format-container" style="width:95%;">
     <div class="ag-courses_box">
@@ -66,7 +66,7 @@
 
           <div class="ag-courses-item_title">
             PM2.5 <br><br>
-            <i class="fa-solid fa-mask-face"></i> 15 ug/m3
+            <i class="fa-solid fa-mask-face"></i> <span id="pmValue"></span> ug/m3
           </div>
         </a>
       </div>
@@ -77,7 +77,7 @@
 
           <div class="ag-courses-item_title">
             Temperature <br><br>
-            <i class="fa-solid fa-temperature-three-quarters"></i> 32.20<sup>๐<sub>C</sub></sup>
+            <i class="fa-solid fa-temperature-three-quarters"></i> <span id="tempValue"></span><sup>๐<sub>C</sub></sup>
           </div>
         </a>
       </div>
@@ -88,7 +88,7 @@
 
           <div class="ag-courses-item_title">
             Humidity <br><br>
-            <i class="fa-solid fa-droplet"></i> 24.04 g/m3
+            <i class="fa-solid fa-droplet"></i> <span id="humidValue"></span> g/m3
             <!-- g/m<sup>3</sup> -->
           </div>
 
@@ -101,7 +101,7 @@
 
           <div class="ag-courses-item_title">
             Air Pressure <br><br>
-            <i class="fa-solid fa-cloud"></i><!--<sup><i class="fa-solid fa-arrow-down"></i></sup>--> 1,013.24 hPa
+            <i class="fa-solid fa-cloud"></i><!--<sup><i class="fa-solid fa-arrow-down"></i></sup>--> <span id="airValue"></span> hPa
           </div>
         </a>
       </div>
@@ -112,7 +112,7 @@
 
           <div class="ag-courses-item_title">
             Wind Speed <br><br>
-            <i class="fa-solid fa-wind"></i> 40 km/h
+            <i class="fa-solid fa-wind"></i> <span id="speedValue"></span> km/h
           </div>
 
         </a>
@@ -124,7 +124,7 @@
 
           <div class="ag-courses-item_title">
             Wind Direction <br><br>
-            <i class="fa-solid fa-compass"></i> North
+            <i class="fa-solid fa-compass"></i> <span id="windValue"></span> <sup>๐</sup>
           </div>
 
         </a>
@@ -162,7 +162,6 @@
       </footer>
     </div>
     <!-- footer -->
-
 </body>
 
-</html>
+</html>  
