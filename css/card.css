@@ -99,6 +99,9 @@
     align-items: center;
     justify-content: center;
   }
+  .ag-format-container{
+    width: 80%!important;
+  }
 }
 
 @media only screen and (max-width: 979px) {

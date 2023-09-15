@@ -20,6 +20,9 @@
   html {
     overflow-y: auto !important;
   }
+  @media only screen and (max-width: 639px) {/*Mobile*/
+  .ag-courses_box{margin-left:10px!important;}
+  }
 </style>
 <body>
 
@@ -55,14 +58,14 @@
       </div>
     </div>
   </nav><br><br>
-  <!-- NavBar    -->
+  <!-- NavBar -->
+
   <!-- Card -->
-  <div class="ag-format-container" style="width:95%;">
+<div class="ag-format-container" style="width: 95%;">
     <div class="ag-courses_box">
       <div class="ag-courses_item">
         <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(1);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
-
           <div class="ag-courses-item_title">
             PM2.5 <br><br>
             <i class="fa-solid fa-mask-face"></i> <span id="pmValue"></span> ug/m3
@@ -84,20 +87,17 @@
       <div class="ag-courses_item">
         <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(1);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
-
           <div class="ag-courses-item_title">
             Humidity <br><br>
             <i class="fa-solid fa-droplet"></i> <span id="humidValue"></span> g/m3
             <!-- g/m<sup>3</sup> -->
           </div>
-
         </a>
       </div>
 
       <div class="ag-courses_item">
         <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(1);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
-
           <div class="ag-courses-item_title">
             Air Pressure <br><br>
             <i class="fa-solid fa-cloud"></i><!--<sup><i class="fa-solid fa-arrow-down"></i></sup>--> <span id="airValue"></span> hPa
@@ -108,30 +108,26 @@
       <div class="ag-courses_item">
         <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(1);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
-
           <div class="ag-courses-item_title">
             Wind Speed <br><br>
             <i class="fa-solid fa-wind"></i> <span id="speedValue"></span> km/h
           </div>
-
         </a>
       </div>
 
       <div class="ag-courses_item">
         <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(1);">
           <div class="ag-courses-item_bg"></div>
-
           <div class="ag-courses-item_title">
             Wind Direction <br><br>
             <i class="fa-solid fa-compass"></i> <span id="windValue"></span> <sup>๐</sup>
           </div>
-
         </a>
       </div>
-
     </div>
+</div>
     <!-- Card -->
-
+  
     <!-- Chart -->
     <div class="chart">
     <div class="chartBox">
@@ -163,5 +159,4 @@
     </div>
     <!-- footer -->
 </body>
-
 </html>  

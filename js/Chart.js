@@ -102,7 +102,8 @@ function Chart_PM(stop){
         const readingTimes = data.map(item => {
           const dateTimeParts = item.Reading_Time.split(' ');
           const dateParts = dateTimeParts[0].split('-');
-          const dateTH = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;//เรียง dd-MM-yyy
+          const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
+          const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
           const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
