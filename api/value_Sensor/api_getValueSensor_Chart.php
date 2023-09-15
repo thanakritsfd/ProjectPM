@@ -2,8 +2,6 @@
 header("Access-control-allow-origin: *");
 header("content-type: application/json; charset=UTF-8");//ทำให้ไม่อ่าน html
 
-// include_once "databaseconnect.php";
-// include_once "model/value_Sensor.php";
 include_once "./../../databaseconnect.php";
  include_once "./../../model/value_Sensor.php"; //พอ include หรือ Require ไปใช้ต้องเปลี่ยน พาท
 
@@ -13,7 +11,7 @@ $connDB = $databaseConnect->getConnection();
 $value_Sensor = new value_Sensor($connDB);
 
 //เรียกใช้ Function ตามวัตถุประสงค์ของ API ตัวนี้
-$stmt = $value_Sensor->getValueSensor();
+$stmt = $value_Sensor->getValueSensor_Chart();
 
 //นับแถวเพื่อดูว่าได้ข้อมูลมาไหม 
 $numrow = $stmt->rowCount();
@@ -34,6 +32,7 @@ if ($numrow > 0) {
             "Air_Pressure" => $Air_Pressure,
             "Wind_Speed" => $Wind_Speed,
             "Wind_Direction" => $Wind_Direction,
+            "Reading_Time" => $Reading_Time,
         );
 
         array_push($value_Sensor_arr, $value_Sensor_item);
@@ -48,13 +47,5 @@ if ($numrow > 0) {
 
 //คำสั่งจัดการข้อมูลให้เป็น JSON เพื่อส่งกลับ
 http_response_code(200);
-echo json_encode($value_Sensor_arr[0]);
-// $data = json_encode($value_Sensor_arr);
-// $value_Sensor_arr = json_decode($data);
+echo json_encode($value_Sensor_arr);
 
-    // $pmValue = $value_Sensor_arr[0]->PM;
-    // $tempValue = $value_Sensor_arr[0]->Temperature;
-    // $humidValue = $value_Sensor_arr[0]->Humidity;
-    // $airValue = $value_Sensor_arr[0]->Air_Pressure;
-    // $speedValue = $value_Sensor_arr[0]->Wind_Speed;
-    // $windValue = $value_Sensor_arr[0]->Wind_Direction;

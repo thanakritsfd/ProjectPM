@@ -14,7 +14,6 @@
   <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="js/getValues.js"></script>
   <title>PM2.5</title>
 </head>
 <style>
@@ -61,7 +60,7 @@
   <div class="ag-format-container" style="width:95%;">
     <div class="ag-courses_box">
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(1);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -72,7 +71,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Temp();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(1);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -83,7 +82,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Humid();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(1);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -96,7 +95,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Pressure();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(1);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -107,7 +106,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Speed();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(1);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -119,7 +118,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_Direction();">
+        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(1);">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -140,6 +139,7 @@
     </div>
     </div>
     <script src="js/Chart.js"></script>
+    <script src="js/getValues.js"></script>
     <br>
     <!-- Chart -->
 

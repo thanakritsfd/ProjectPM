@@ -35,6 +35,20 @@ class Value_Sensor{
         return $stmt;
     }
 
+
+    //ฟังก์ชั่นต่าง ๆ ที่จะทำงานกับ Database ตาม API ที่เราจะทำการสร้างมันขึ้นมา ซึ่งมีมากน้อยแล้วแต่
+    //function getValueSensor_Chart
+    function getValueSensor_Chart()
+    {
+        $strSQL = "SELECT PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction, Reading_Time FROM(SELECT * FROM value_tb ORDER BY ID DESC LIMIT 6)AS T1 ORDER BY t1.ID";
+
+        $stmt = $this->conn->prepare($strSQL);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     //function insertValue ที่ทำงานกับ api_insertValue.php
     function insertValue(){
         $strSQL = "INSERT INTO value_tb (PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction) VALUES(:PM, :Temperature, :Humidity, :Air_Pressure, :Wind_Speed, :Wind_Direction)";
