@@ -89,7 +89,7 @@
   background-color: #4c49ea;
 }
 
-@media only screen and (min-width: 979px) {/*Desktop*/
+@media only screen and (min-width: 980px) {/*Desktop*/
   .chartBox{
     width: 85%;
     height: 80vh;
@@ -104,7 +104,7 @@
   }
 }
 
-@media only screen and (max-width: 979px) {
+@media only screen and (max-width: 979px)  {/*ipad แนวตั้ง*/
   .ag-courses_item {
     -ms-flex-preferred-size: calc(50% - 30px);
     flex-basis: calc(50% - 30px);
@@ -114,7 +114,7 @@
   }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px)  {
   .ag-format-container {
     width: 100%;
   }
@@ -149,3 +149,4 @@
   }
 }
 
+/* -------------------------------------AQI------------------------------------- */

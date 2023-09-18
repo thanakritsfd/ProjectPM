@@ -6,10 +6,11 @@
   <meta name="description" content="PM 2.5">
   <meta name="keywords" content="PM 2.5">
   <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/card.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel='stylesheet' href='https://rawcdn.githack.com/SochavaAG/example-mycode/master/_common/css/reset.css'>
-  <link rel="stylesheet" href="css/card.css">
+  
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
@@ -22,7 +23,26 @@
   }
   @media only screen and (max-width: 639px) {/*Mobile*/
   .ag-courses_box{margin-left:10px!important;}
+  .font_air{
+    font-size: 30px!important;
+    /* text-shadow: 2px 2px 0px #D0F0C0!important; */
   }
+  .pod{
+    font-size: 25px!important;
+    /* text-shadow: 2px 2px 0px #043927!important; */
+  }
+  #AQI{
+    font-size: 30px!important;
+    /* text-shadow: 2px 2px 0px #043927!important; */
+  }
+  #card_aqi{
+    padding: 10px 10px!important;/* top side */
+    padding-bottom:0px!important;
+  }
+  }
+  .explain{
+  text-align: center!important;
+}
 </style>
 <body>
 
@@ -62,7 +82,20 @@
 
   <!-- Card -->
 <div class="ag-format-container" style="width: 95%;">
-    <div class="ag-courses_box">
+  <div class="ag-courses_item" style="margin-top: 45px;border-top-right-radius: 200px; /* กำหนดความโค้งด้านขวามุม */
+  border-bottom-right-radius: 200px; /* กำหนดความโค้งด้านขวามุม */">
+        <a href="#" class="ag-courses-item_link" id="card_aqi">
+          <div class="ag-courses-item_title">
+          <span class="font_air" id="font_air" style="font-size:50px;">Air Quality Index </span>  <br><br>
+          <div>
+            <i id="icon" class="fa-solid fa-lungs pod" style="font-size:40px;"></i> <span id="AQI" style="font-size:50px;"></span>
+            &nbsp;&nbsp;<span id="explain"></span>
+          </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="ag-courses_box" style="margin-top: -50px;">
       <div class="ag-courses_item">
         <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(1);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
@@ -136,6 +169,7 @@
     </div>
     <script src="js/Chart.js"></script>
     <script src="js/getValues.js"></script>
+    <script src="js/AQI.js"></script>
     <br>
     <!-- Chart -->
 

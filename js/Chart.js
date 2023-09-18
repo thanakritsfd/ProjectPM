@@ -6,19 +6,20 @@ var myChart;//สร้างตัวแปร myChart นอกฟังก์
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-const formattedData = data.map(item => {
-    const dateTimeParts = item.Reading_Time.split(' ');
-    const dateParts = dateTimeParts[0].split('-');
-    const dateTH = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;//เรียง dd-MM-yyy
-    const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
-    const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
-    return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
-});
+          const readingTimes = data.map(item => {
+            const dateTimeParts = item.Reading_Time.split(' ');
+            const dateParts = dateTimeParts[0].split('-');
+            const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
+            const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
+            const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+            const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
+            return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
+        });
           const PM = data.map(item => parseInt(item.PM));//แปลงค่า PM เป็นตัวเลขและนำมาใส่ในอาเรย์ จาก JSON โดยใช้ obj item เพื่อเข้าถึง Values
            myChart =  new Chart(ctx, {
             type: 'line',
             data: {
-              labels: formattedData,//time
+              labels: readingTimes,//time
               datasets: [{
                 // label: 'PM2.5',
                 data: PM,
@@ -137,7 +138,8 @@ function Chart_Temp(stop){
         const readingTimes = data.map(item => {
           const dateTimeParts = item.Reading_Time.split(' ');
           const dateParts = dateTimeParts[0].split('-');
-          const dateTH = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;//เรียง dd-MM-yyy
+          const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
+          const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
           const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
@@ -171,7 +173,8 @@ function Chart_Humid(stop){
         const readingTimes = data.map(item => {
           const dateTimeParts = item.Reading_Time.split(' ');
           const dateParts = dateTimeParts[0].split('-');
-          const dateTH = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;//เรียง dd-MM-yyy
+          const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
+          const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
           const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
@@ -205,7 +208,8 @@ function Chart_Pressure(stop){
         const readingTimes = data.map(item => {
           const dateTimeParts = item.Reading_Time.split(' ');
           const dateParts = dateTimeParts[0].split('-');
-          const dateTH = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;//เรียง dd-MM-yyy
+          const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
+          const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
           const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
@@ -238,7 +242,8 @@ function Chart_Speed(stop){
         const readingTimes = data.map(item => {
           const dateTimeParts = item.Reading_Time.split(' ');
           const dateParts = dateTimeParts[0].split('-');
-          const dateTH = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;//เรียง dd-MM-yyy
+          const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
+          const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
           const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
@@ -271,7 +276,8 @@ function Chart_Direction(stop){
         const readingTimes = data.map(item => {
           const dateTimeParts = item.Reading_Time.split(' ');
           const dateParts = dateTimeParts[0].split('-');
-          const dateTH = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;//เรียง dd-MM-yyy
+          const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
+          const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
           const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่

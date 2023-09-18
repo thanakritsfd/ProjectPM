@@ -35,6 +35,17 @@ class Value_Sensor{
         return $stmt;
     }
 
+    function getPM_avg()
+    {
+        $strSQL = "SELECT AVG(PM) AS PMavg FROM value_tb ORDER BY ID DESC LIMIT 288";
+
+        $stmt = $this->conn->prepare($strSQL);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
 
     //ฟังก์ชั่นต่าง ๆ ที่จะทำงานกับ Database ตาม API ที่เราจะทำการสร้างมันขึ้นมา ซึ่งมีมากน้อยแล้วแต่
     //function getValueSensor_Chart
