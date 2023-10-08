@@ -9,7 +9,7 @@ $(document).ready(function() {
 });
    function values() {
     $.ajax({
-        url: './api/value_Sensor/api_getvaluesensor.php',
+        url: './api/value_Sensor/api_getValueSensor.php',
         type: 'GET',
         dataType: 'json',
         success: function(data) {

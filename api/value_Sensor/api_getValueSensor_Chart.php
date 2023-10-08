@@ -3,7 +3,7 @@ header("Access-control-allow-origin: *");
 header("content-type: application/json; charset=UTF-8");//ทำให้ไม่อ่าน html
 
 include_once "./../../databaseconnect.php";
- include_once "./../../model/value_Sensor.php"; //พอ include หรือ Require ไปใช้ต้องเปลี่ยน พาท
+include_once "./../../model/value_Sensor.php"; //พอ include หรือ Require ไปใช้ต้องเปลี่ยน พาท
 
 $databaseConnect = new DatabaseConnect();
 $connDB = $databaseConnect->getConnection();

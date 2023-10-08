@@ -51,7 +51,7 @@ class Value_Sensor{
     //function getValueSensor_Chart
     function getValueSensor_Chart()
     {
-        $strSQL = "SELECT PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction, Reading_Time FROM(SELECT * FROM value_tb ORDER BY ID DESC LIMIT 6)AS T1 ORDER BY t1.ID";
+        $strSQL = "SELECT PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction, Reading_Time FROM(SELECT * FROM value_tb ORDER BY ID DESC LIMIT 6)AS T1 ORDER BY T1.ID";
 
         $stmt = $this->conn->prepare($strSQL);
 

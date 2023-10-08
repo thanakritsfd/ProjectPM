@@ -6,7 +6,7 @@
     private $host = "localhost";   //ชื่อ Server ของ DB Server
     private $uname = "root";  //username ที่เข้าใช้งานฐานข้อมูล
     private $pword = "123456789";   //password ที่เข้าใช้งานฐานข้อมูล
-    private $dbname = "aqi_db";  //ชื่อฐานข้อมูลที่จะทำงานด้วย
+    private $dbname = "pm_db";  //ชื่อฐานข้อมูลที่จะทำงานด้วย
  
     //ประกาศตัวแปรเพื่อใช้สำหรับการติดต่อกับฐานข้อมูล
     public $conn;
