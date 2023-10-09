@@ -1,9 +1,3 @@
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
- }
-
-var first_AQI = 1;
-
 $(document).ready(function() { 
     setInterval(AQI, 10000); 
 });
@@ -13,11 +7,6 @@ $(document).ready(function() {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-            let Time = new Date();
-            let Minute = Time.getMinutes().toString();
-            let LastMinute = Minute.charAt(Minute.length - 1);
-            if(LastMinute == 0 || LastMinute == 5 || first_AQI == 1){
-                first_AQI = 0;
                 let PMavg = parseFloat(data.PMavg);
                 let Imin;
                 let Imax;
@@ -171,8 +160,7 @@ $(document).ready(function() {
                 
                 var x = window.matchMedia("(max-width: 639px)")
                 myFunction(x) // Call listener function at run time
-                x.addListener(myFunction) // Attach listener function on state changes
-        }
+                x.addListener(myFunction) // Attach listener function on state changes        
     }
     });
    }
