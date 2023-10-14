@@ -56,7 +56,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-house"></i> Home</a>
+            <a class="nav-link active" aria-current="page" href="index.php"><i class="fa-solid fa-house"></i> Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fa-solid fa-phone"></i> Contact Us</a>
@@ -66,7 +66,7 @@
               Menu
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">menu 1</a></li>
+              <li><a class="dropdown-item" href="historical.php">Historical Data</a></li>
               <li><a class="dropdown-item" href="#">menu 2</a></li>
               <li>
                 <hr class="dropdown-divider">

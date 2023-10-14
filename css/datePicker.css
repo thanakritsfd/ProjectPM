@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+body{
+    font-family: 'Itim', cursive !important;
+}
+
+html{
+    overflow-y: auto !important;
+    scroll-behavior: smooth;
+}
+
+#startDate {
+    position: relative;
+    width: 140px;
+    color: white;
+}
+
+#startDate:before {
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+}
+
+#startDate::-webkit-datetime-edit, #startDate::-webkit-inner-spin-button, #startDate::-webkit-clear-button {
+    display: none;
+}
+
+#startDate::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0;
+    color: black;
+    opacity: 1;
+}
+
+#endDate {
+    position: relative;
+    width: 140px;
+    color: white;
+}
+
+#endDate:before {
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+}
+
+#endDate::-webkit-datetime-edit,
+#endDate::-webkit-inner-spin-button,
+#endDate::-webkit-clear-button {
+    display: none;
+}
+
+#endDate::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0;
+    color: black;
+    opacity: 1;
+}
