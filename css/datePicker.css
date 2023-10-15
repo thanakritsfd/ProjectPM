@@ -1,17 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
-body{
-    font-family: 'Itim', cursive !important;
-}
-
-html{
-    overflow-y: auto !important;
-    scroll-behavior: smooth;
-}
-
 #startDate {
     position: relative;
-    width: 140px;
+    width: 120px;
     color: white;
+    height: 40px;
 }
 
 #startDate:before {
@@ -33,8 +24,9 @@ html{
 
 #endDate {
     position: relative;
-    width: 140px;
+    width: 120px;
     color: white;
+    height: 40px;
 }
 
 #endDate:before {
@@ -54,4 +46,52 @@ html{
     right: 0;
     color: black;
     opacity: 1;
+}
+
+
+@media only screen and (max-width: 639px)  {/*ipad แนวตั้ง*/
+  #startDate, #endDate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    color: white;
+}
+}
+
+/* pagination */
+/* Pagination when active */
+.pagination .page-item.active .page-link {
+  background-color: #000;
+  color: #fff; /* เปลี่ยนสีตัวอักษรเป็นขาว */
+  border-color: #000; /* เปลี่ยนสีเส้นขอบ */
+}
+
+/* Pagination when active on focus (clicked) */
+div.dataTables_wrapper div.dataTables_paginate ul.pagination .page-item.active .page-link:focus {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Pagination when hovered */
+.pagination .page-item.active .page-link:hover {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Pagination non-active items */
+.pagination .page-item:not(.active) .page-link {
+  background-color: #fff; /* สีพื้นหลังเริ่มต้น */
+  color: #000; /* สีตัวอักษรเริ่มต้น */
+  border-color: #000; /* สีเส้นขอบเริ่มต้น */
+}
+
+/* Pagination non-active items on hover */
+.pagination .page-item:not(.active) .page-link:hover {
+  background-color: #000; /* สีพื้นหลังเมื่อ hover */
+  color: #fff; /* สีตัวอักษรเมื่อ hover */
+  border-color: #000; /* สีเส้นขอบเมื่อ hover */
 }

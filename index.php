@@ -46,10 +46,10 @@
 </style>
 <body>
 
-  <!-- NavBar   -->
-  <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
+    <!-- NavBar   -->
+    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><strong>PM2.5</strong></a>
+      <a class="navbar-brand" href="index.php"><strong>PM2.5</strong></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -59,20 +59,10 @@
             <a class="nav-link active" aria-current="page" href="index.php"><i class="fa-solid fa-house"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-phone"></i> Contact Us</a>
+            <a class="nav-link" href="historical.php"><i class="fa-solid fa-clock-rotate-left"></i> Historical Data</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Menu
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="historical.php">Historical Data</a></li>
-              <li><a class="dropdown-item" href="#">menu 2</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">menu 3</a></li>
-            </ul>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa-solid fa-phone"></i> Contact Us</a>
           </li>
         </ul>
       </div>

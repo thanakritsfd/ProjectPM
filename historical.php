@@ -7,9 +7,11 @@
   <meta name="keywords" content="PM 2.5">
   <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
   <link rel="stylesheet" href="./css/datePicker.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel='stylesheet' href='https://rawcdn.githack.com/SochavaAG/example-mycode/master/_common/css/reset.css'>
   <link rel="stylesheet" href="./css/table.css">
   <link rel="stylesheet" href="./css/table2.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -17,16 +19,16 @@
   <script src='https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js'></script>
   <script src='https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js'></script>
   <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
-  <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/Historical.js"></script>
+  <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
+  <script src="js/Historical.js"></script>  
     <title>Historical Data</title>
 </head>
 <body>
     <!-- NavBar   -->
   <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><strong>PM2.5</strong></a>
+      <a class="navbar-brand" href="index.php"><strong>PM2.5</strong></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -36,20 +38,10 @@
             <a class="nav-link active" aria-current="page" href="index.php"><i class="fa-solid fa-house"></i> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-phone"></i> Contact Us</a>
+            <a class="nav-link" href="historical.php"><i class="fa-solid fa-clock-rotate-left"></i> Historical Data</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Menu
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="historical.php">Historical Data</a></li>
-              <li><a class="dropdown-item" href="#">menu 2</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">menu 3</a></li>
-            </ul>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="fa-solid fa-phone"></i> Contact Us</a>
           </li>
         </ul>
       </div>
@@ -57,7 +49,7 @@
   </nav><br><br>
   <!-- NavBar -->
 
-      <main class="cd__main" style="margin-top: 4%;">
+      <main class="cd__main" style="margin-top: 2%;">
 
 <!-- form -->
 <form id="myForm" class="rows gy-2 gx-3 align-items-center">
@@ -77,14 +69,14 @@
   <div class="col">
   <label class="form-label" for="date2">&nbsp;</label>
     <div class="form-outline">
-      <button type="button" class="btn btn-primary btn-block mb-4"><b>Confirm</b></button>
+      <button type="button" id="confirm" class="btn btn-dark btn-block mb-4"><b>Confirm</b></button>
     </div>
   </div>
 </div>
 </form>
 <!-- form -->
 
-         <table id="example" class="table table-striped" style="width:100%!important">
+         <table id="example" class="table table-striped" style="width:100%!important;font-size:16px">
         <thead>
             <tr>
                 <th>No.</th>
@@ -97,12 +89,12 @@
                 <th>Date & Time</th>
             </tr>
         </thead>
-        <tbody><?php include_once "./api/value_Sensor/api_getValueTable.php"; ?>
+        <tbody>
         </tbody>
     </table>
          <!-- END EDMO HTML (Happy Coding!)-->
       </main>
-      <!-- footer -->
+    <!-- footer -->
     <div class="container">
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center">
@@ -154,4 +146,80 @@ function formatDate(date = new Date()) {
     padTo2Digits(date.getDate()),
   ].join('-');
 }
+
+
+
+  // รับค่าเวลาเมื่อปุ่ม "Confirm" ถูกคลิก
+  $("#confirm").on("click", function() {
+    var table = $('#example').DataTable();
+    table.destroy();//ต้องเคลียร์ทุกครั้งที่เรียกใช้ตาราง เพื่อเอาข้อมูลเก่าออกก่อน
+
+    var startDate = $("#startDate").attr("data-date");
+    var endDate = $("#endDate").attr("data-date");
+    
+    // แปลงรูปแบบ "dd/mm/yyyy" เป็น "yyyy-mm-dd"
+    var Start_Date = formatDate_Table(startDate);
+    var End_Date = formatDate_Table(endDate);
+
+    // โหลดข้อมูลและใช้ .draw() เพื่ออัปเดต DataTable
+    loadTableData(Start_Date, End_Date);
+  });
+
+  // ฟังก์ชันสำหรับโหลดข้อมูลและอัปเดต DataTable
+  function loadTableData(startDate, endDate) {
+    //ถ้า startDate เป็นค่าว่างหรือ null หรือ undefined จะกำหนดค่าเริ่มต้นให้เป็นสายอักขระว่าง (empty string) คือ ''.
+    startDate = startDate || '';
+    endDate = endDate || '';
+
+    $.ajax({
+      url: './api/value_Sensor/api_getValueTable.php',
+      type: 'GET',
+      data: {
+        start_date: startDate,
+        end_date: endDate
+      },
+      dataType: 'html', // ใช้ 'html' เนื่องจากข้อมูลที่ส่งกลับเป็น HTML ของตาราง
+      success: function(data) {
+        // อัปเดตข้อมูลใน DataTable
+        $('#example tbody').html(data);
+
+        $('#example').DataTable({
+      "searching": false, // Disable the search feature
+      //disable sorting on last column
+      "columnDefs": [
+        { "orderable": false, "targets": 5 }
+      ],
+      language: {
+        //customize pagination prev and next buttons: use arrows instead of words
+        'paginate': {
+          'previous': '<span class="fa fa-chevron-left"></span>',
+          'next': '<span class="fa fa-chevron-right"></span>'
+        },
+        //customize number of elements to be displayed
+        "lengthMenu": 'Display <select class="form-control input-sm">'+
+        '<option value="10">10</option>'+
+        '<option value="20">20</option>'+
+        '<option value="30">30</option>'+
+        '<option value="40">40</option>'+
+        '<option value="50">50</option>'+
+        '<option value="-1">All</option>'+
+        '</select> results'
+      }
+    });
+      },
+      error: function(xhr, status, error) {
+        console.error('เกิดข้อผิดพลาด:', error);
+      }
+    });
+  }
+
+  // ฟังก์ชันสำหรับแปลงรูปแบบ "dd/mm/yyyy" เป็น "yyyy-mm-dd"
+  function formatDate_Table(date) {
+    var dateParts = date.split('/');
+    var year = dateParts[2];
+    var month = dateParts[1];
+    var day = dateParts[0];
+    return year + '-' + month + '-' + day;
+  }
+
 </script>

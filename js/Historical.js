@@ -23,34 +23,3 @@ $(document).ready(function() {
       }
     })  
 } );
-
-    //date-picker
-    document.getElementById('startDate').value = formatDate();
-    document.getElementById('endDate').value = formatDate();
-
-    $("#startDate").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format( this.getAttribute("data-date-format") )
-        )
-    }).trigger("change")
-
-    $("#endDate").on("change", function() {
-        this.setAttribute(
-            "data-date",
-            moment(this.value, "YYYY-MM-DD")
-            .format( this.getAttribute("data-date-format") )
-        )
-    }).trigger("change")
-
-function padTo2Digits(num) {
-  return num.toString().padStart(2, '0');//padStart(มี 2 ตำแหน่ง, เริ่มด้วย '0') Ex. '02'
-}
-function formatDate(date = new Date()) {
-  return [
-    date.getFullYear(),
-    padTo2Digits(date.getMonth() + 1),
-    padTo2Digits(date.getDate()),
-  ].join('-');
-}
