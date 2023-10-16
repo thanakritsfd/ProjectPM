@@ -53,26 +53,34 @@
 
 <!-- form -->
 <form id="myForm" class="rows gy-2 gx-3 align-items-center">
-<div class="row">
-  <div class="col">
-  <label class="form-label" for="date2">Start Date</label>
-    <div class="form-outline">
-    <input type="date" id="startDate" class="form-control" data-date="" data-date-format="DD/MM/YYYY"><!-- DatePicker -->
+  <div class="row">
+    <div class="col">
+      <label class="form-label" for="date2">Start Date</label>
+      <div class="form-outline">
+        <input type="date" id="startDate" class="form-control" data-date="" data-date-format="DD/MM/YYYY">
+      </div>
+    </div>
+    <div class="col">
+      <label class="form-label" for="date2">End Date</label>
+      <div class="form-outline">
+        <input type="date" id="endDate" class="form-control" data-date="" data-date-format="DD/MM/YYYY">
+      </div>
+    </div>
+    <div class="col">
+      <label class="form-label" for="date2">&nbsp;</label>
+      <div class="form-outline d-flex justify-content-start align-items-center">
+        <button type="button" id="confirm" class="btn btn-dark btn-block mb-4" style="width: 120px;"><i class="fa-solid fa-check"></i> Confirm</button>
+      </div>
+    </div>
+    <div class="col d-flex justify-content-start align-items-center">
+      <label class="form-label" for="date2">&nbsp;</label>
+      <div class="form-outline d-flex justify-content-center">
+        <button type="button" id="export" class="btn btn-light mb-4 mb-lg-0" style="width: 120px;" disabled>
+          <i class="fa-solid fa-table"></i> Export
+        </button>
+      </div>
     </div>
   </div>
-  <div class="col">
-  <label class="form-label" for="date2">End Date</label>
-    <div class="form-outline">
-      <input type="date" id="endDate" class="form-control" data-date="" data-date-format="DD/MM/YYYY"><!-- DatePicker -->
-    </div>
-  </div>
-  <div class="col">
-  <label class="form-label" for="date2">&nbsp;</label>
-    <div class="form-outline">
-      <button type="button" id="confirm" class="btn btn-dark btn-block mb-4"><b>Confirm</b></button>
-    </div>
-  </div>
-</div>
 </form>
 <!-- form -->
 
@@ -165,6 +173,41 @@ function formatDate(date = new Date()) {
     loadTableData(Start_Date, End_Date);
   });
 
+  $("#export").on("click", function() {
+    var startDate = $("#startDate").attr("data-date");
+    var endDate = $("#endDate").attr("data-date");
+
+    // Convert the date format from "dd/mm/yyyy" to "yyyy-mm-dd"
+    var Start_Date = formatDate_Table(startDate);
+    var End_Date = formatDate_Table(endDate);
+
+    // Construct the export URL
+    var exportUrl = './api/value_Sensor/api_exportExcel.php';
+    exportUrl += "?start_date=" + Start_Date + "&end_date=" + End_Date;
+
+    // Use the fetch API to download the Excel file (fetch) เป็น method  ที่ให้เราสามารถ รับ-ส่ง ข้อมูล (HTTP Request) ระหว่างเว็บได้จากเว็บบราวเซอร์ ตัว Fetch API จะ return ค่า Promise กลับมา
+    fetch(exportUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a temporary URL for the blob
+            var url = window.URL.createObjectURL(blob);
+
+            // Create a temporary anchor element for downloading
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'exported_data.xlsx'; // Set the filename
+            document.body.appendChild(a);
+            a.click();
+
+            // Cleanup
+            window.URL.revokeObjectURL(url);//ทำการปิดหรือลบ URL ชั่วคราวเนื่องจากมันไม่จำเป็นแล้ว
+            document.body.removeChild(a);
+        })
+        .catch(error => {
+            console.error("An error occurred while exporting the data:", error);
+        });
+});
+
   // ฟังก์ชันสำหรับโหลดข้อมูลและอัปเดต DataTable
   function loadTableData(startDate, endDate) {
     //ถ้า startDate เป็นค่าว่างหรือ null หรือ undefined จะกำหนดค่าเริ่มต้นให้เป็นสายอักขระว่าง (empty string) คือ ''.
@@ -181,6 +224,11 @@ function formatDate(date = new Date()) {
       dataType: 'html', // ใช้ 'html' เนื่องจากข้อมูลที่ส่งกลับเป็น HTML ของตาราง
       success: function(data) {
         // อัปเดตข้อมูลใน DataTable
+        if(data != ""){
+          document.getElementById('export').disabled = false;
+        }else{
+          document.getElementById('export').disabled = true;
+        }
         $('#example tbody').html(data);
 
         $('#example').DataTable({

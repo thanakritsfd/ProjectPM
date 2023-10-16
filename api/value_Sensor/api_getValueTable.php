@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
     echo "<tr><td>".$row["No"]."</td><td>".$row["PM"]."</td><td>".$row["Temperature"]."</td><td>".$row["Humidity"]."</td><td>".$row["Air_Pressure"]."</td><td>".$row["Wind_Speed"]."</td><td>".$row["Wind_Direction"]."</td><td>".$row["Reading_Time"]."</td></tr>";
   }
 } else {
-  // echo "0 Results";
+  return "";
 }
 $conn->close();
 ?>

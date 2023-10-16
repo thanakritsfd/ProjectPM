@@ -3,10 +3,10 @@
     class DatabaseConnect
 {
     //ประกาศตัวแปรเก็บค่าต่างๆ ที่จะต้องใช้ในกาติดต่อกับฐานข้อมูล
-    private $host = "localhost";   //ชื่อ Server ของ DB Server
-    private $uname = "root";  //username ที่เข้าใช้งานฐานข้อมูล
-    private $pword = "123456789";   //password ที่เข้าใช้งานฐานข้อมูล
-    private $dbname = "pm_db";  //ชื่อฐานข้อมูลที่จะทำงานด้วย
+    private $host = "localhost";   //ชื่อ Server ของ DB Server 
+    private $uname = "root";  //username ที่เข้าใช้งานฐานข้อมูล pmstatio_admin root
+    private $pword = "123456789";   //password ที่เข้าใช้งานฐานข้อมูล S@u6419c10004 123456789
+    private $dbname = "pm_db";  //ชื่อฐานข้อมูลที่จะทำงานด้วย pmstatio_db pm_db
  
     //ประกาศตัวแปรเพื่อใช้สำหรับการติดต่อกับฐานข้อมูล
     public $conn;
