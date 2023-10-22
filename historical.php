@@ -6,8 +6,8 @@
   <meta name="description" content="PM 2.5">
   <meta name="keywords" content="PM 2.5">
   <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
-  <link rel="stylesheet" href="./css/datePicker.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/datePicker.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel='stylesheet' href='https://rawcdn.githack.com/SochavaAG/example-mycode/master/_common/css/reset.css'>
   <link rel="stylesheet" href="./css/table.css">
@@ -84,7 +84,7 @@
 </form>
 <!-- form -->
 
-         <table id="example" class="table table-striped" style="width:100%!important;font-size:16px">
+         <table id="example" class="table table-striped" style="width:100%!important;font-size:16px;">
         <thead>
             <tr>
                 <th>No.</th>
@@ -102,7 +102,8 @@
     </table>
          <!-- END EDMO HTML (Happy Coding!)-->
       </main>
-    <!-- footer -->
+
+      <!-- footer -->
     <div class="container">
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center">
@@ -121,6 +122,98 @@
       </footer>
     </div>
     <!-- footer -->
+
+
+    <!-- footer
+<footer class="bg-dark text-center text-lg-start text-white" style="position:absolute;bottom:0;width:100%;">
+<footer class="bg-dark text-center text-lg-start text-white" style="position:absolute;bottom:0;width:100%;"> -->
+  <!-- Grid container 
+  <div class="container p-4">
+    Grid row
+    <div class="row mt-4">-->
+      <!--Grid column
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Contact Us</h5>
+
+        <ul class="list-unstyled mb-0">
+          <li>
+          <i class="fa-solid fa-location-dot"></i> 19/1 ถนนเพชรเกษม เขตหนองแขม กรุงเทพ 10160
+          </li>
+          <li>
+          <i class="fa-solid fa-phone"></i> 02-8074500 ต่อ 190, 192
+          </li>
+          <li>
+          <i class="fa-solid fa-fax"></i> 02-8074528 – 30
+          </li>
+          <li>
+          <i class="fa-solid fa-envelope"></i> info@sau.ac.th
+          </li>
+        </ul>
+      </div>
+      Grid column-->
+
+      <!--Grid column
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Copyright <i class="fa-solid fa-copyright"></i></h5>
+        <ul class="list-unstyled">
+          <li>
+          <i class="fa-brands fa-mdb"><a class="text-white" href="https://mdbootstrap.com/"></a></i> © 2021 by <a class="text-white">MDBootstrap.com</a>
+          </li>
+          <li>
+          <a href="https://getbootstrap.com/" class="text-white"><i class="fa-brands fa-bootstrap"></i></a> © 2023 Company, Inc
+          </li>
+          <li>
+            <a href="https://www.codehim.com/bootstrap/bootstrap-5-table-with-pagination-and-search-and-sorting/" class="text-white"> © 2023 by CodeHim Inc (Yolanda Goex)</a>
+          </li>
+          <li>
+            <a href="https://codepen.io/wikyware-net/pens/" class="text-white">© 2023 by Wikyware Net</a>
+          </li>
+        </ul>
+      </div>
+      Grid column-->
+
+      <!--Grid column
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Publishing house</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!" class="text-white">The BookStore</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white">123 Street</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white">05765 NY</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white"><i class="fas fa-briefcase fa-fw fa-sm me-2"></i>Send us a book</a>
+          </li>
+        </ul>
+      </div>
+      Grid column-->
+
+      <!--Grid column
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Write to us</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#!" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i>Help in purchasing</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Check the order status</a>
+          </li>
+          <li>
+            <a href="#!" class="text-white"><i class="fas fa-envelope fa-fw fa-sm me-2"></i>Join the newsletter</a>
+          </li>
+        </ul>
+      </div>
+      Grid column-->
+   <!-- </div>
+    Grid row
+</footer>
+    footer -->
 </body>
 </html>
 <script type="text/javascript">

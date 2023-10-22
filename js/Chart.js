@@ -1,3 +1,10 @@
+var Close_PM = document.getElementById('Close_PM');
+var Close_Temp = document.getElementById('Close_Temp');
+var Close_Humid = document.getElementById('Close_Humid');
+var Close_Speed = document.getElementById('Close_Speed');
+var Close_Pressure = document.getElementById('Close_Pressure');
+var Close_Direction = document.getElementById('Close_Direction'); 
+
 const ctx = document.getElementById('myChart');
 var myChart;//สร้างตัวแปร myChart นอกฟังก์ชันเพื่อให้เป็น global scope ถ้าไม่สร้างจะกดปุ่ม call funtion ไม่ได้
   function values() {
@@ -90,7 +97,8 @@ var Direction_Interval;
 
 function Chart_PM(stop){
   if(stop == 1){
-    PM_Interval = setInterval(PM, 10000); 
+    clearInterval(PM_Interval);
+    PM_Interval = setInterval(PM, 1000); 
   PM();
   }else{
     clearInterval(PM_Interval);
@@ -125,7 +133,8 @@ function Chart_PM(stop){
 
 function Chart_Temp(stop){
   if(stop == 1){
-    Temp_Interval = setInterval(Temp, 10000); 
+    clearInterval(Temp_Interval);
+    Temp_Interval = setInterval(Temp, 1000); 
   Temp();
   }else{
     clearInterval(Temp_Interval);
@@ -160,7 +169,8 @@ function Chart_Temp(stop){
 
 function Chart_Humid(stop){
   if(stop == 1){
-    Humid_Interval = setInterval(Humid, 10000); 
+    clearInterval(Humid_Interval);
+    Humid_Interval = setInterval(Humid, 1000); 
     Humid();
   }else{
     clearInterval(Humid_Interval);
@@ -195,7 +205,8 @@ function Chart_Humid(stop){
 
 function Chart_Pressure(stop){
   if(stop == 1){
-    Pressure_Interval = setInterval(Pressure, 10000); 
+    clearInterval(Pressure_Interval);
+    Pressure_Interval = setInterval(Pressure, 1000); 
     Pressure();
   }else{
     clearInterval(Pressure_Interval);
@@ -230,7 +241,8 @@ function Chart_Pressure(stop){
 
 function Chart_Speed(stop){
   if(stop == 1){
-    Speed_Interval = setInterval(Speed, 10000); 
+    clearInterval(Speed_Interval);
+    Speed_Interval = setInterval(Speed, 1000); 
     Speed();
   }else{
     clearInterval(Speed_Interval);
@@ -264,7 +276,8 @@ function Chart_Speed(stop){
 
 function Chart_Direction(stop){
   if(stop == 1){
-    Direction_Interval = setInterval(Direction, 10000); 
+    clearInterval(Direction_Interval);
+    Direction_Interval = setInterval(Direction, 1000); 
     Direction();
   }else{
     clearInterval(Direction_Interval);

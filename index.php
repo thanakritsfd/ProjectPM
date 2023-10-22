@@ -43,6 +43,10 @@
   .explain{
   text-align: center!important;
 }
+.disabled{
+  pointer-events: none;
+  cursor: default;
+}
 </style>
 <body>
 
@@ -87,7 +91,7 @@
 
       <div class="ag-courses_box" style="margin-top: -50px;">
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(1);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
+        <a id="Close_PM" class="ag-courses-item_link" onclick="Chart_PM(1);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             PM2.5 <br><br>
@@ -97,7 +101,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(1);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
+        <a id="Close_Temp" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(1);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -108,7 +112,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(1);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
+        <a id="Close_Humid" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(1);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Humidity <br><br>
@@ -119,7 +123,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(1);Chart_Speed(0);Chart_Direction(0);">
+        <a id="Close_Pressure" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(1);Chart_Speed(0);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Air Pressure <br><br>
@@ -129,7 +133,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(1);Chart_Direction(0);">
+        <a id="Close_Speed" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(1);Chart_Direction(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Wind Speed <br><br>
@@ -139,7 +143,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a href="#myChar" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(1);">
+        <a id="Close_Direction" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(1);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Wind Direction <br><br>

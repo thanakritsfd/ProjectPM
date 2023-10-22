@@ -13,7 +13,7 @@ $(document).ready(function() {
                 let Cmin;
                 let Cmax;
                 let AQI_Value;
-                console.log(PMavg);
+                //console.log(PMavg);
 
                 if(PMavg < 26){
                     Imin = 0;
