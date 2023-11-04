@@ -66,7 +66,7 @@
             <a class="nav-link" href="historical.php"><i class="fa-solid fa-clock-rotate-left"></i> Historical Data</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-phone"></i> Contact Us</a>
+            <a class="nav-link" href="predict.php"><i class="fa-solid fa-forward-fast"></i> Predict PM2.5</a>
           </li>
         </ul>
       </div>
@@ -95,7 +95,7 @@
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             PM2.5 <br><br>
-            <i class="fa-solid fa-mask-face"></i> <span id="pmValue"></span> ug/m3
+            <i class="fa-solid fa-mask-face"></i> <span id="pmValue"></span> ug/m <sup>3</sup>
           </div>
         </a>
       </div>
@@ -116,7 +116,7 @@
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Humidity <br><br>
-            <i class="fa-solid fa-droplet"></i> <span id="humidValue"></span> g/m3
+            <i class="fa-solid fa-droplet"></i> <span id="humidValue"></span> g/m <sup>3</sup>
             <!-- g/m<sup>3</sup> -->
           </div>
         </a>

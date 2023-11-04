@@ -21,6 +21,7 @@
   <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/Historical.js"></script>  
     <title>Historical Data</title>
 </head>
@@ -41,7 +42,7 @@
             <a class="nav-link" href="historical.php"><i class="fa-solid fa-clock-rotate-left"></i> Historical Data</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa-solid fa-phone"></i> Contact Us</a>
+            <a class="nav-link" href="predict.php"><i class="fa-solid fa-forward-fast"></i> Predict PM2.5</a>
           </li>
         </ul>
       </div>
@@ -262,10 +263,58 @@ function formatDate(date = new Date()) {
     var Start_Date = formatDate_Table(startDate);
     var End_Date = formatDate_Table(endDate);
 
-    // โหลดข้อมูลและใช้ .draw() เพื่ออัปเดต DataTable
-    loadTableData(Start_Date, End_Date);
+    if (new Date(Start_Date) > new Date(End_Date)) {
+      const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                confirmButton: 'btn btn-success'
+              },
+              buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+              title: 'แจ้งเตือน',
+              text: 'ไม่สามารถเลือกวันที่เริ่มต้น มากกว่าวันที่สิ้นสุดได้',
+              icon: 'info',
+              confirmButtonText: 'OK'
+            })
+            loadTableData2(Start_Date, End_Date);
+
+            document.getElementById('startDate').value = formatDate();
+            document.getElementById('endDate').value = formatDate();
+
+          $("#startDate").on("change", function() {
+              this.setAttribute(
+                  "data-date",
+                  moment(this.value, "YYYY-MM-DD")
+                  .format( this.getAttribute("data-date-format") )
+              )
+          }).trigger("change")
+
+          $("#endDate").on("change", function() {
+              this.setAttribute(
+                  "data-date",
+                  moment(this.value, "YYYY-MM-DD")
+                  .format( this.getAttribute("data-date-format") )
+              )
+          }).trigger("change")
+
+      function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');//padStart(มี 2 ตำแหน่ง, เริ่มด้วย '0') Ex. '02'
+      }
+      function formatDate(date = new Date()) {
+        return [
+          date.getFullYear(),
+          padTo2Digits(date.getMonth() + 1),
+          padTo2Digits(date.getDate()),
+        ].join('-');
+      }
+    }else{
+      // โหลดข้อมูลและใช้ .draw() เพื่ออัปเดต DataTable
+      loadTableData(Start_Date, End_Date);
+    }
   });
 
+  // สำหรับ Export Excel
   $("#export").on("click", function() {
     var startDate = $("#startDate").attr("data-date");
     var endDate = $("#endDate").attr("data-date");
@@ -321,15 +370,77 @@ function formatDate(date = new Date()) {
           document.getElementById('export').disabled = false;
         }else{
           document.getElementById('export').disabled = true;
+
+              const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                confirmButton: 'btn btn-success'
+              },
+              buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+              title: 'แจ้งเตือน',
+              text: 'วันที่เริ่มต้น และวันที่สิ้นสุดที่เลือกไม่มีข้อมูลในระบบ',
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            })
+
         }
         $('#example tbody').html(data);
 
         $('#example').DataTable({
       "searching": false, // Disable the search feature
       //disable sorting on last column
-      "columnDefs": [
-        { "orderable": false, "targets": 5 }
-      ],
+      language: {
+        //customize pagination prev and next buttons: use arrows instead of words
+        'paginate': {
+          'previous': '<span class="fa fa-chevron-left"></span>',
+          'next': '<span class="fa fa-chevron-right"></span>'
+        },
+        //customize number of elements to be displayed
+        "lengthMenu": 'Display <select class="form-control input-sm">'+
+        '<option value="10">10</option>'+
+        '<option value="20">20</option>'+
+        '<option value="30">30</option>'+
+        '<option value="40">40</option>'+
+        '<option value="50">50</option>'+
+        '<option value="-1">All</option>'+
+        '</select> results'
+      }
+    });
+      },
+      error: function(xhr, status, error) {
+        console.error('เกิดข้อผิดพลาด:', error);
+      }
+    });
+  }
+
+   // ฟังก์ชันสำหรับโหลดข้อมูลว่าง
+   function loadTableData2(startDate, endDate) {
+    //ถ้า startDate เป็นค่าว่างหรือ null หรือ undefined จะกำหนดค่าเริ่มต้นให้เป็นสายอักขระว่าง (empty string) คือ ''.
+    startDate = startDate || '';
+    endDate = endDate || '';
+
+    $.ajax({
+      url: './api/value_Sensor/api_getValueTable.php',
+      type: 'GET',
+      data: {
+        start_date: startDate,
+        end_date: endDate
+      },
+      dataType: 'html', // ใช้ 'html' เนื่องจากข้อมูลที่ส่งกลับเป็น HTML ของตาราง
+      success: function(data) {
+        // อัปเดตข้อมูลใน DataTable
+        if(data != ""){
+          document.getElementById('export').disabled = false;
+        }else{
+          document.getElementById('export').disabled = true;
+        }
+        $('#example tbody').html(data);
+
+        $('#example').DataTable({
+      "searching": false, // Disable the search feature
+      //disable sorting on last column
       language: {
         //customize pagination prev and next buttons: use arrows instead of words
         'paginate': {
