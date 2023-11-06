@@ -397,6 +397,9 @@ function formatDate(date = new Date()) {
           'previous': '<span class="fa fa-chevron-left"></span>',
           'next': '<span class="fa fa-chevron-right"></span>'
         },
+              "columnDefs": [
+        { "orderable": false, "targets": 5 }
+      ],
         //customize number of elements to be displayed
         "lengthMenu": 'Display <select class="form-control input-sm">'+
         '<option value="10">10</option>'+

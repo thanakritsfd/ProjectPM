@@ -22,65 +22,70 @@ var myChart;//สร้างตัวแปร myChart นอกฟังก์
             const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
             return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
         });
-          const PM = data.map(item => parseInt(item.PM));//แปลงค่า PM เป็นตัวเลขและนำมาใส่ในอาเรย์ จาก JSON โดยใช้ obj item เพื่อเข้าถึง Values
-           myChart =  new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: readingTimes,//time
-              datasets: [{
-                // label: 'PM2.5',
+        const PM = data.map(item => parseInt(item.PM)); // แปลงค่า PM เป็นตัวเลขและนำมาใส่ในอาเรย์ จาก JSON โดยใช้ obj item เพื่อเข้าถึง Values
+        myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: readingTimes, // time
+            datasets: [
+              {
                 data: PM,
                 backgroundColor: "#f9b234",
                 borderColor: "#f9b234",
                 borderWidth: 3,
                 yAxisID: 'y'
               },
-            ]
+            ],
+          },
+          options: {
+            responsive: true,
+            interaction: {
+              mode: 'index',
+              intersect: false,
             },
-            options: {
-              responsive: true,
-              interaction: {
-                mode: 'index',
-                intersect: false,
+            stacked: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Chart PM2.5 Value',
+                font: {
+                  size: 17,
+                  weight: 'bold',
+                  family: 'Itim',
+                },
               },
-              stacked: true,
-              plugins: {
-                title: {
-                  display: true,
-                  text: 'Chart PM2.5 Value',
-                  font:{
-                    size: 17,
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              x: {
+                ticks: {
+                  maxRotation: 0, // ป้องกันการหมุนแท็ก
+                  font: {
                     weight: 'bold',
-                    family:'Itim',
-                  }
-                },
-                legend:{
-                  display: false,
-                }
-              },
-              scales: {
-                x:{
-                  ticks:{
-                    maxRotation: 0, // ป้องกันการหมุนแท็ก
-                    font:{
-                      weight: 'bold',
-                    }
-                  }
-                },
-                y: {
-                  type: 'linear',
-                  display: true,
-                  position: 'left',
-                  ticks:{
-                    font:{
-                      weight: 'bold',
-                    }
-                  }
+                  },
                 },
               },
-              maintainAspectRatio:false,
+              y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                ticks: {
+                  font: {
+                    weight: 'bold',
+                  },
+                },
+              },
             },
-          });
+            elements: {
+              line: {
+                tension: 0.4, // ปรับค่านี้เพื่อควบคุมการโค้งของเส้นกราฟ
+              },
+            },
+            maintainAspectRatio: false,
+          },
+        });
         }
     });
    }
