@@ -37,7 +37,7 @@ class Value_Sensor{
 
     function getPM_avg()
     {
-        $strSQL = "SELECT AVG(PM) AS PMavg FROM value_tb ORDER BY ID DESC LIMIT 288";
+        $strSQL = "SELECT AVG(PM) AS PMavg FROM (SELECT PM FROM value_tb ORDER BY ID DESC LIMIT 24)AS t1";
 
         $stmt = $this->conn->prepare($strSQL);
 

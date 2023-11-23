@@ -37,7 +37,7 @@
   justify-content: center;
   align-items: center;
   color: white; /* สีข้อความ */
-  font-size: 20px; /* ขนาดข้อความ */
+  font-size: 50px; /* ขนาดข้อความ */
   border: 2px solid white; /* เพิ่ม border สีขาวขนาด 2px */
   box-sizing: border-box; /* ควบคุมการหารายได้และเส้นขอบ */
   padding: 10px; /* เพิ่มระยะห่างด้านในขอบขอบ */
@@ -55,6 +55,17 @@
     flex-direction: column; /* เปลี่ยนเป็นการแสดงเป็นคอลัมน์เมื่อหน้าจอเล็กขึ้น */
     text-align: center; /* จัดให้ dot อยู่กึ่งกลางแนวนอน */
   }
+}
+
+@media (max-width: 979px) {
+  .dot-container {
+    flex-direction: column; /* เปลี่ยนเป็นการแสดงเป็นคอลัมน์เมื่อหน้าจอเล็กขึ้น */
+    text-align: center; /* จัดให้ dot อยู่กึ่งกลางแนวนอน */
+  }
+  .dot{
+    height: 300px;
+  width: 300px;
+  } 
 }
   </style>
 </head>
@@ -85,16 +96,16 @@
   <!-- NavBar -->
 
   <div class="dot-container">
-  <span class="dot" id="today" style="font-size: 60px;"></span>
+  <span class="dot" id="today"></span>
   <span class="dot3"></span>
   <span class="dot3"></span>
-  <span class="dot" id="twelve" style="font-size: 60px;"></span>
+  <span class="dot" id="twelve"></span>
   <span class="dot3"></span>
   <span class="dot3"></span>
-  <span class="dot" id="six" style="font-size: 60px;"></span>
+  <span class="dot" id="six"></span>
   <span class="dot3"></span>
   <span class="dot3"></span>
-  <span class="dot" id="day" style="font-size: 60px;"></span>
+  <span class="dot" id="day"></span>
 </div>
 
 <!-- footer -->
