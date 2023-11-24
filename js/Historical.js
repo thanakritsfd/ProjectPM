@@ -1,10 +1,6 @@
 $(document).ready(function() {
     $('#example').DataTable({
       "searching": false, // Disable the search feature
-      //disable sorting on last column
-      "columnDefs": [
-        { "orderable": false, "targets": 5 }
-      ],
       language: {
         //customize pagination prev and next buttons: use arrows instead of words
         'paginate': {
