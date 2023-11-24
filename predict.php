@@ -118,7 +118,7 @@
       </span>
     </div>
     <span>
-      <i class="fa-solid fa-fax"></i> 02-8074528 – 30
+      <i class="fa-solid fa-fax"></i> 02-8074528 - 30
       <br><br><i class="fa-solid fa-envelope"></i> info@sau.ac.th
     </span>
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">

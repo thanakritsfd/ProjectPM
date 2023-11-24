@@ -114,7 +114,7 @@
           </span>
         </div>
         <span>
-          <i class="fa-solid fa-fax"></i> 02-8074528 – 30
+          <i class="fa-solid fa-fax"></i> 02-8074528 - 30
           <br><br><i class="fa-solid fa-envelope"></i> info@sau.ac.th
         </span>
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
@@ -272,8 +272,8 @@ function formatDate(date = new Date()) {
             })
 
             swalWithBootstrapButtons.fire({
-              title: 'แจ้งเตือน',
-              text: 'ไม่สามารถเลือกวันที่เริ่มต้น มากกว่าวันที่สิ้นสุดได้',
+              title: 'แจ้งเตือน ',
+              html: 'ไม่สามารถเลือกวันที่เริ่มต้น มากกว่าวันที่สิ้นสุดได้',
               icon: 'info',
               confirmButtonText: 'OK'
             })
@@ -380,7 +380,7 @@ function formatDate(date = new Date()) {
 
             swalWithBootstrapButtons.fire({
               title: 'แจ้งเตือน',
-              text: 'วันที่เริ่มต้น และวันที่สิ้นสุดที่เลือกไม่มีข้อมูลในระบบ',
+              html: 'วันที่เริ่มต้น และวันที่สิ้นสุดที่เลือกไม่มีข้อมูลในระบบ',
               icon: 'warning',
               confirmButtonText: 'OK'
             })
@@ -476,5 +476,18 @@ function formatDate(date = new Date()) {
     var day = dateParts[0];
     return year + '-' + month + '-' + day;
   }
+
+
+        // Detect Firefox 1.0+
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+
+        //Hide 
+        if (isFirefox) {
+
+            document.querySelector(".anotherBrowser").style.display = "none";
+
+        } else {
+            document.querySelector(".firefox").style.display = "none";
+        }
 
 </script>

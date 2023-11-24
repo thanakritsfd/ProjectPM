@@ -37,7 +37,7 @@ class Value_Sensor{
 
     function getPM_avg()
     {
-        $strSQL = "SELECT AVG(PM) AS PMavg FROM (SELECT PM FROM value_tb ORDER BY ID DESC LIMIT 24)AS t1";
+        $strSQL = "SELECT AVG(PM) AS PMavg FROM (SELECT PM FROM value_tb WHERE PM is not null AND PM!='' AND PM!=0 ORDER BY ID DESC LIMIT 24)AS t1";
 
         $stmt = $this->conn->prepare($strSQL);
 
@@ -62,7 +62,45 @@ class Value_Sensor{
 
     //function insertValue ที่ทำงานกับ api_insertValue.php
     function insertValue(){
-        $strSQL = "INSERT INTO value_tb (PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction) VALUES(:PM, :Temperature, :Humidity, :Air_Pressure, :Wind_Speed, :Wind_Direction)";
+        $strSQL = "INSERT INTO value_tb (PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction) VALUES(:PM, :Temperature, :Humidity, :Air_Pressure, :Wind_Speed, :Wind_Direction);
+		CREATE TEMPORARY TABLE t3 AS
+        SELECT ID, PM
+        FROM value_tb
+        WHERE PM is not null AND PM!='' AND PM!=0
+        ORDER BY ID DESC
+        LIMIT 24;
+      
+		CREATE TEMPORARY TABLE t4 AS
+        SELECT ID, PM
+        FROM value_tb
+        WHERE PM is not null AND PM!='' AND PM!=0
+        ORDER BY ID DESC
+        LIMIT 24;
+        
+        CREATE TEMPORARY TABLE t5 AS
+        SELECT ID, PM
+        FROM value_tb
+        WHERE PM is not null AND PM!='' AND PM!=0
+        ORDER BY ID DESC
+        LIMIT 24;
+        
+        CREATE TEMPORARY TABLE t6 AS
+        SELECT ID, PM
+        FROM value_tb
+        WHERE PM is not null AND PM!='' AND PM!=0
+        ORDER BY ID DESC
+        LIMIT 24;
+      
+      UPDATE value_tb
+      SET AVG_PM = (SELECT AVG(PM) FROM t3),
+      Start_ID = (SELECT MIN(ID) FROM t4),
+      End_ID = (SELECT MAX(ID) FROM t5)
+      WHERE ID = (SELECT MAX(ID) FROM t6);
+      
+      DROP TEMPORARY TABLE IF EXISTS t3;
+      DROP TEMPORARY TABLE IF EXISTS t4;
+      DROP TEMPORARY TABLE IF EXISTS t5;
+      DROP TEMPORARY TABLE IF EXISTS t6;";
 
         $stmt = $this->conn->prepare($strSQL);
 

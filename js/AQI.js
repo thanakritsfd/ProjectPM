@@ -14,39 +14,38 @@ $(document).ready(function() {
                 let Cmax;
                 let AQI_Value;
                 //console.log(PMavg);
-
-                if(PMavg < 26){
+                if(PMavg < 16){
                     Imin = 0;
                     Imax = 25;
                     Cmin = 0;
+                    Cmax = 15;
+                    AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
+                }
+                else if(PMavg < 26){
+                    Imin = 26;
+                    Imax = 50;
+                    Cmin = 15.1;
                     Cmax = 25;
                     AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
                 }
-                else if(PMavg < 38){
-                    Imin = 26;
-                    Imax = 50;
-                    Cmin = 26;
-                    Cmax = 37;
-                    AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
-                }
-                else if(PMavg < 51){
+                else if(PMavg < 37.6){
                     Imin = 51;
                     Imax = 100;
-                    Cmin = 38;
-                    Cmax = 50;
+                    Cmin = 25.1;
+                    Cmax = 37.5;
                     AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
                 }
-                else if(PMavg < 91){
+                else if(PMavg < 76){
                     Imin = 101;
                     Imax = 200;
-                    Cmin = 51;
-                    Cmax = 90;
+                    Cmin = 37.6;
+                    Cmax = 75;
                     AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
                 }
                 else {
                     Imin = 200;
                     Imax = 10000000;
-                    Cmin = 91;
+                    Cmin = 75.1;
                     Cmax = 10000000;
                     AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
                 }
