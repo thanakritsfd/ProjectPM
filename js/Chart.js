@@ -98,6 +98,7 @@ var Humid_Interval;
 var Pressure_Interval;
 var Speed_Interval;
 var Direction_Interval;
+var AQI_Interval;
 
 
 function Chart_PM(stop){
@@ -308,6 +309,41 @@ function Chart_Direction(stop){
         myChart.data.datasets[0].data = Wind_Direction;
         myChart.data.datasets[0].backgroundColor = "#4c49ea";
         myChart.data.datasets[0].borderColor = "#4c49ea";
+        myChart.update();
+      }
+  });
+  }
+}
+
+function Chart_AQI(stop){
+  if(stop == 1){
+    clearInterval(AQI_Interval);
+    AQI_Interval = setInterval(AQI, 1000); 
+    AQI();
+  }else{
+    clearInterval(AQI_Interval);
+  } 
+  function AQI(){
+    $.ajax({
+      url: './api/value_Sensor/api_getValueSensor_Chart.php',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        const readingTimes = data.map(item => {
+          const dateTimeParts = item.Reading_Time.split(' ');
+          const dateParts = dateTimeParts[0].split('-');
+          const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
+          const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
+          const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+          const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
+          return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
+      });
+        const AQI = data.map(item => parseInt(item.AQI));
+        myChart.options.plugins.title.text = "Chart AQI Value";
+        myChart.data.labels = readingTimes;
+        myChart.data.datasets[0].data = AQI;
+        myChart.data.datasets[0].backgroundColor = "#000000";
+        myChart.data.datasets[0].borderColor = "#000000";
         myChart.update();
       }
   });

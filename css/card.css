@@ -150,3 +150,16 @@
 }
 
 /* -------------------------------------AQI------------------------------------- */
+
+#AQI_Card{
+  margin-top: 45px;
+  border-top-right-radius: 200px; /* กำหนดความโค้งด้านขวามุม */
+  border-bottom-right-radius: 200px; /* กำหนดความโค้งด้านขวามุม */
+}
+
+#AQI_Card:hover{
+  margin-top: 45px;
+  border-top-right-radius: 200px; /* กำหนดความโค้งด้านขวามุม */
+  border-bottom-right-radius: 200px; /* กำหนดความโค้งด้านขวามุม */
+  box-shadow: 5px 10px 18px #888888;
+}

@@ -76,9 +76,8 @@
 
   <!-- Card -->
 <div class="ag-format-container" style="width: 95%;">
-  <div class="ag-courses_item" style="margin-top: 45px;border-top-right-radius: 200px; /* กำหนดความโค้งด้านขวามุม */
-  border-bottom-right-radius: 200px; /* กำหนดความโค้งด้านขวามุม */">
-        <a href="#" class="ag-courses-item_link" id="card_aqi">
+  <div class="ag-courses_item" id="AQI_Card">
+        <a class="ag-courses-item_link" id="card_aqi" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);Chart_AQI(1);">
           <div class="ag-courses-item_title">
           <span class="font_air" id="font_air" style="font-size:50px;">Air Quality Index </span>  <br><br>
           <div>
@@ -91,7 +90,7 @@
 
       <div class="ag-courses_box" style="margin-top: -50px;">
       <div class="ag-courses_item">
-        <a id="Close_PM" class="ag-courses-item_link" onclick="Chart_PM(1);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
+        <a id="Close_PM" class="ag-courses-item_link" onclick="Chart_PM(1);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);Chart_AQI(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             PM2.5 <br><br>
@@ -101,7 +100,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a id="Close_Temp" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(1);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
+        <a id="Close_Temp" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(1);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);Chart_AQI(0);">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -112,7 +111,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a id="Close_Humid" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(1);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);">
+        <a id="Close_Humid" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(1);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(0);Chart_AQI(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Humidity <br><br>
@@ -123,7 +122,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a id="Close_Pressure" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(1);Chart_Speed(0);Chart_Direction(0);">
+        <a id="Close_Pressure" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(1);Chart_Speed(0);Chart_Direction(0);Chart_AQI(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Air Pressure <br><br>
@@ -133,7 +132,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a id="Close_Speed" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(1);Chart_Direction(0);">
+        <a id="Close_Speed" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(1);Chart_Direction(0);Chart_AQI(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Wind Speed <br><br>
@@ -143,7 +142,7 @@
       </div>
 
       <div class="ag-courses_item">
-        <a id="Close_Direction" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(1);">
+        <a id="Close_Direction" class="ag-courses-item_link" onclick="Chart_PM(0);Chart_Temp(0);Chart_Humid(0);Chart_Pressure(0);Chart_Speed(0);Chart_Direction(1);Chart_AQI(0);">
           <div class="ag-courses-item_bg"></div>
           <div class="ag-courses-item_title">
             Wind Direction <br><br>
