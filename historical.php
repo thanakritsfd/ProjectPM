@@ -73,7 +73,7 @@
         <button type="button" id="confirm" class="btn btn-dark btn-block mb-4" style="width: 120px;"><i class="fa-solid fa-check"></i> Confirm</button>
       </div>
     </div>
-    <div class="col d-flex justify-content-start align-items-center">
+    <div class="col">
       <label class="form-label" for="date2">&nbsp;</label>
       <div class="form-outline d-flex justify-content-center">
         <button type="button" id="export" class="btn btn-light mb-4 mb-lg-0" style="width: 120px;" disabled>
@@ -126,6 +126,27 @@
 </body>
 </html>
 <script type="text/javascript">
+
+    // ฟังก์ชั่นที่จะทำงานเมื่อมีการเปลี่ยนแปลงขนาดหน้าจอ
+function handleScreenSizeChange(x) {
+  var myForm = document.getElementById("myForm");
+
+  if (x.matches) { // ถ้าขนาดหน้าจอน้อยกว่าหรือเท่ากับ 639px
+    // เพิ่มคลาสให้กับ myForm
+    myForm.classList.add("row", "gy-2", "gx-3", "align-items-center", "mx-auto", "justify-content-center");
+  }
+}
+
+// สร้าง media query
+var x = window.matchMedia("(max-width: 639px)");
+
+// เรียกใช้ฟังก์ชั่นเพื่อตั้งค่าตอนเริ่มต้น
+handleScreenSizeChange(x);
+
+// แอ็ตและเพิ่ม Event Listener สำหรับการเปลี่ยนแปลงขนาดหน้าจอ
+x.addListener(handleScreenSizeChange);
+
+
     //date-picker
     document.getElementById('startDate').value = formatDate();
     document.getElementById('endDate').value = formatDate();

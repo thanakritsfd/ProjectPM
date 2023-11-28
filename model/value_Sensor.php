@@ -26,7 +26,7 @@ class Value_Sensor{
     //function getValueSensor
     function getValueSensor()
     {
-        $strSQL = "SELECT PM, ROUND(Temperature, 2) as Temperature, ROUND(Humidity, 2) as Humidity, ROUND(Air_Pressure, 2) as Air_Pressure, Wind_Speed, Wind_Direction FROM value_tb ORDER BY ID DESC LIMIT 1";
+        $strSQL = "SELECT PM, ROUND(Temperature, 2) as Temperature, ROUND(Humidity, 2) as Humidity, ROUND(Air_Pressure, 2) as Air_Pressure, Wind_Speed, Wind_Direction FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0  ORDER BY ID DESC LIMIT 1";
 
         $stmt = $this->conn->prepare($strSQL);
 
@@ -37,7 +37,7 @@ class Value_Sensor{
 
     function getPM_avg()
     {
-        $strSQL = "SELECT AVG(PM) AS PMavg FROM (SELECT PM FROM value_tb WHERE PM is not null AND PM!='' AND PM!=0 ORDER BY ID DESC LIMIT 24)AS t1";
+        $strSQL = "SELECT AVG(PM) AS PMavg FROM (SELECT PM FROM value_tb WHERE PM is not null AND PM<>'' AND PM<>0 ORDER BY ID DESC LIMIT 24)AS t1";
 
         $stmt = $this->conn->prepare($strSQL);
 
@@ -59,7 +59,7 @@ class Value_Sensor{
             WHEN AVG_PM < 76 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
             ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
         END as AQI,
-        Reading_Time FROM(SELECT * FROM value_tb ORDER BY ID DESC LIMIT 6)AS T1 ORDER BY T1.ID";
+        Reading_Time FROM(SELECT * FROM value_tb ORDER BY ID DESC LIMIT 6)AS T1 WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0 ORDER BY T1.ID";
 
         $stmt = $this->conn->prepare($strSQL);
 

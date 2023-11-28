@@ -33,7 +33,7 @@ CASE
     WHEN AVG_PM < 76 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
     ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
 END as AQI,
- DATE_FORMAT(Reading_Time, '%d/%m/%Y %H:%i') AS Reading_Time FROM value_tb WHERE Reading_Time BETWEEN '$startDate 00:00:00' AND '$endDate 23:59:59'";
+ DATE_FORMAT(Reading_Time, '%d/%m/%Y %H:%i') AS Reading_Time FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0 AND Reading_Time BETWEEN '$startDate 00:00:00' AND '$endDate 23:59:59'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
