@@ -120,6 +120,10 @@ tfoot tr {
   }
 
   td:nth-of-type(8):before {
+    content: "AQI";
+  }
+
+  td:nth-of-type(9):before {
     content: "Date & Time";
   }
 
