@@ -37,7 +37,7 @@ class Value_Sensor{
 
     function getPM_avg()
     {
-        $strSQL = "SELECT AVG(PM) AS PMavg FROM (SELECT PM FROM value_tb WHERE PM is not null AND PM<>'' AND PM<>0 ORDER BY ID DESC LIMIT 24)AS t1";
+        $strSQL = "SELECT AVG(PM) AS PMavg FROM (SELECT PM FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0 ORDER BY ID DESC LIMIT 24)AS t1";
 
         $stmt = $this->conn->prepare($strSQL);
 
@@ -59,7 +59,7 @@ class Value_Sensor{
             WHEN AVG_PM < 76 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
             ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
         END as AQI,
-        Reading_Time FROM(SELECT * FROM value_tb ORDER BY ID DESC LIMIT 6)AS T1 WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0 ORDER BY T1.ID";
+        Reading_Time FROM(SELECT * FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0 ORDER BY ID DESC LIMIT 6)AS T1 ORDER BY T1.ID";
 
         $stmt = $this->conn->prepare($strSQL);
 
@@ -74,28 +74,28 @@ class Value_Sensor{
 		CREATE TEMPORARY TABLE t3 AS
         SELECT ID, PM
         FROM value_tb
-        WHERE PM is not null AND PM!='' AND PM!=0
+        WHERE PM != 0 AND Air_Pressure != 0
         ORDER BY ID DESC
         LIMIT 24;
       
 		CREATE TEMPORARY TABLE t4 AS
         SELECT ID, PM
         FROM value_tb
-        WHERE PM is not null AND PM!='' AND PM!=0
+        WHERE PM != 0 AND Air_Pressure != 0
         ORDER BY ID DESC
         LIMIT 24;
         
         CREATE TEMPORARY TABLE t5 AS
         SELECT ID, PM
         FROM value_tb
-        WHERE PM is not null AND PM!='' AND PM!=0
+        WHERE PM != 0 AND Air_Pressure != 0
         ORDER BY ID DESC
         LIMIT 24;
         
         CREATE TEMPORARY TABLE t6 AS
         SELECT ID, PM
         FROM value_tb
-        WHERE PM is not null AND PM!='' AND PM!=0
+        WHERE PM != 0 AND Air_Pressure != 0
         ORDER BY ID DESC
         LIMIT 24;
       
@@ -137,4 +137,73 @@ class Value_Sensor{
             return false;
         }          
     }
+
+        //function insertValue ที่ทำงานกับ api_insertValue.php
+        function insertValuetest(){
+            $strSQL = "INSERT INTO value_test (PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction) VALUES(:PM, :Temperature, :Humidity, :Air_Pressure, :Wind_Speed, :Wind_Direction);
+            CREATE TEMPORARY TABLE t7 AS
+            SELECT ID, PM
+            FROM value_tb
+            WHERE PM != 0 AND Air_Pressure != 0
+            ORDER BY ID DESC
+            LIMIT 24;
+          
+            CREATE TEMPORARY TABLE t8 AS
+            SELECT ID, PM
+            FROM value_tb
+            WHERE PM != 0 AND Air_Pressure != 0
+            ORDER BY ID DESC
+            LIMIT 24;
+            
+            CREATE TEMPORARY TABLE t9 AS
+            SELECT ID, PM
+            FROM value_tb
+            WHERE PM != 0 AND Air_Pressure != 0
+            ORDER BY ID DESC
+            LIMIT 24;
+            
+            CREATE TEMPORARY TABLE t10 AS
+            SELECT ID, PM
+            FROM value_tb
+            WHERE Air_Pressure != 0
+            ORDER BY ID DESC LIMIT 1
+          
+          UPDATE value_tb
+          SET AVG_PM = (SELECT AVG(PM) FROM t7),
+          Start_ID = (SELECT MIN(ID) FROM t8),
+          End_ID = (SELECT MAX(ID) FROM t9)
+          WHERE ID = (SELECT MAX(ID) FROM t10);
+          
+          DROP TEMPORARY TABLE IF EXISTS t7;
+          DROP TEMPORARY TABLE IF EXISTS t8;
+          DROP TEMPORARY TABLE IF EXISTS t9;
+          DROP TEMPORARY TABLE IF EXISTS t10;";
+    
+            $stmt = $this->conn->prepare($strSQL);
+    
+            //ตรวจสอบข้อมูล
+            $this->PM = htmlspecialchars(strip_tags($this->PM));
+            $this->Temperature = htmlspecialchars(strip_tags($this->Temperature));
+            $this->Humidity = htmlspecialchars(strip_tags($this->Humidity));
+            $this->Air_Pressure = htmlspecialchars(strip_tags($this->Air_Pressure));
+            $this->Wind_Speed = htmlspecialchars(strip_tags($this->Wind_Speed));
+            $this->Wind_Direction = htmlspecialchars(strip_tags($this->Wind_Direction));
+    
+            //กำหนดข้อมูลให้ Parameter
+            $stmt->bindParam(":PM", $this->PM);
+            $stmt->bindParam(":Temperature", $this->Temperature);
+            $stmt->bindParam(":Humidity", $this->Humidity);
+            $stmt->bindParam(":Air_Pressure", $this->Air_Pressure);
+            $stmt->bindParam(":Wind_Speed", $this->Wind_Speed);
+            $stmt->bindParam(":Wind_Direction", $this->Wind_Direction);
+    
+            //สั่งให้ SQL ทำงาน
+            if($stmt->execute()){
+                //สำเร็จ
+                return true;
+            }else{
+                //ไม่สำเร็จ
+                return false;
+            }          
+        }
 }

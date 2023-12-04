@@ -15,7 +15,7 @@
   <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <script src='https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js'></script>
   <script src='https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js'></script>
   <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
@@ -127,26 +127,15 @@
 </html>
 <script type="text/javascript">
 
-    // ฟังก์ชั่นที่จะทำงานเมื่อมีการเปลี่ยนแปลงขนาดหน้าจอ
-function handleScreenSizeChange(x) {
-  var myForm = document.getElementById("myForm");
 
-  if (x.matches) { // ถ้าขนาดหน้าจอน้อยกว่าหรือเท่ากับ 639px
-    // เพิ่มคลาสให้กับ myForm
-    myForm.classList.add("row", "gy-2", "gx-3", "align-items-center", "mx-auto", "justify-content-center");
-  }
-}
+// ตรวจสอบว่าเป็น Firefox หรือไม่
+const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
-// สร้าง media query
-var x = window.matchMedia("(max-width: 639px)");
-
-// เรียกใช้ฟังก์ชั่นเพื่อตั้งค่าตอนเริ่มต้น
-handleScreenSizeChange(x);
-
-// แอ็ตและเพิ่ม Event Listener สำหรับการเปลี่ยนแปลงขนาดหน้าจอ
-x.addListener(handleScreenSizeChange);
-
-
+if (isFirefox) {
+    // ทำงานที่คุณต้องการทำใน Firefox ที่นี่
+    console.log('This is Firefox.');
+} else {
+    // ทำงานที่คุณต้องการทำในเบราว์เซอร์อื่น ๆ ที่ไม่ใช่ Firefox ที่นี่
     //date-picker
     document.getElementById('startDate').value = formatDate();
     document.getElementById('endDate').value = formatDate();
@@ -178,6 +167,29 @@ function formatDate(date = new Date()) {
   ].join('-');
 }
 
+}
+
+    // ฟังก์ชั่นที่จะทำงานเมื่อมีการเปลี่ยนแปลงขนาดหน้าจอ
+function handleScreenSizeChange(x) {
+  var myForm = document.getElementById("myForm");
+
+  if (x.matches) { // ถ้าขนาดหน้าจอน้อยกว่าหรือเท่ากับ 639px
+    // เพิ่มคลาสให้กับ myForm
+    myForm.classList.add("row", "gy-2", "gx-3", "align-items-center", "mx-auto", "justify-content-center");
+  }
+}
+
+// สร้าง media query
+var x = window.matchMedia("(max-width: 639px)");
+
+// เรียกใช้ฟังก์ชั่นเพื่อตั้งค่าตอนเริ่มต้น
+handleScreenSizeChange(x);
+
+// แอ็ตและเพิ่ม Event Listener สำหรับการเปลี่ยนแปลงขนาดหน้าจอ
+x.addListener(handleScreenSizeChange);
+
+
+    
 
 
   // รับค่าเวลาเมื่อปุ่ม "Confirm" ถูกคลิก
