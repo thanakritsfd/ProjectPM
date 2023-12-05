@@ -1,7 +1,7 @@
 #startDate {
     position: relative;
     width: 120px;
-    color: white;
+    color: black;
     height: 40px;
 }
 
@@ -25,7 +25,7 @@
 #endDate {
     position: relative;
     width: 120px;
-    color: white;
+    color: black;
     height: 40px;
 }
 
@@ -47,7 +47,6 @@
     color: black;
     opacity: 1;
 }
-
 
 @media only screen and (max-width: 639px)  {/*ipad แนวตั้ง*/
   #startDate, #endDate {

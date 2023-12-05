@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="./css/table2.css">
   <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <script src='https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js'></script>
@@ -55,16 +57,18 @@
 <!-- form -->
 <form id="myForm" class="rows gy-2 gx-3 align-items-center">
   <div class="row">
-    <div class="col">
+    <div class="col" id="widthDate">
       <label class="form-label" for="date2">Start Date</label>
       <div class="form-outline">
         <input type="date" id="startDate" class="form-control" data-date="" data-date-format="DD/MM/YYYY">
       </div>
     </div>
-    <div class="col">
+    <div class="col" id="widthDate">
       <label class="form-label" for="date2">End Date</label>
       <div class="form-outline">
+        <div>
         <input type="date" id="endDate" class="form-control" data-date="" data-date-format="DD/MM/YYYY">
+        </div>
       </div>
     </div>
     <div class="col">
@@ -131,10 +135,6 @@
 // ตรวจสอบว่าเป็น Firefox หรือไม่
 const isFirefox = navigator.userAgent.toLowerCase().includes('firefox');
 
-if (isFirefox) {
-    // ทำงานที่คุณต้องการทำใน Firefox ที่นี่
-    console.log('This is Firefox.');
-} else {
     // ทำงานที่คุณต้องการทำในเบราว์เซอร์อื่น ๆ ที่ไม่ใช่ Firefox ที่นี่
     //date-picker
     document.getElementById('startDate').value = formatDate();
@@ -167,7 +167,7 @@ function formatDate(date = new Date()) {
   ].join('-');
 }
 
-}
+
 
     // ฟังก์ชั่นที่จะทำงานเมื่อมีการเปลี่ยนแปลงขนาดหน้าจอ
 function handleScreenSizeChange(x) {
@@ -414,4 +414,34 @@ x.addListener(handleScreenSizeChange);
     var day = dateParts[0];
     return year + '-' + month + '-' + day;
   }
+
+  if (isFirefox) {
+    document.getElementById('widthDate').style.width = "50px";
+    flatpickr("#startDate, #endDate", {
+            altInput: true,
+            altFormat: "d/m/Y",
+            dateFormat: "Y/m/d",
+            onChange: function (selectedDates, dateStr, instance) {
+                var altFormattedDate = moment(dateStr, "YYYY-MM-DD")
+                    .format(instance.input.getAttribute("data-date-format"));
+                instance.altInput.value = altFormattedDate;
+            }
+        });
+}else{
+  $("#startDate").on("change", function() {
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format( this.getAttribute("data-date-format") )
+        )
+    }).trigger("change")
+
+    $("#endDate").on("change", function() {
+        this.setAttribute(
+            "data-date",
+            moment(this.value, "YYYY-MM-DD")
+            .format( this.getAttribute("data-date-format") )
+        )
+    }).trigger("change")
+}
 </script>
