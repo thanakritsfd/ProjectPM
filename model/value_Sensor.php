@@ -26,7 +26,15 @@ class Value_Sensor{
     //function getValueSensor
     function getValueSensor()
     {
-        $strSQL = "SELECT PM, ROUND(Temperature, 2) as Temperature, ROUND(Humidity, 2) as Humidity, ROUND(Air_Pressure, 2) as Air_Pressure, Wind_Speed, Wind_Direction FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0  ORDER BY ID DESC LIMIT 1";
+        $strSQL = "SELECT ROUND(PM, 0)as PM, ROUND(Temperature, 2) as Temperature, ROUND(Humidity, 2) as Humidity, ROUND(Air_Pressure, 2) as Air_Pressure, ROUND(Wind_Speed, 2)as Wind_Speed, Wind_Direction,
+    CASE
+    WHEN AVG_PM < 16 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
+    WHEN AVG_PM < 26 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
+    WHEN AVG_PM < 37.6 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
+    WHEN AVG_PM < 76 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
+    ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
+    END as AQI
+         FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0  ORDER BY ID DESC LIMIT 1";
 
         $stmt = $this->conn->prepare($strSQL);
 
@@ -51,7 +59,7 @@ class Value_Sensor{
     //function getValueSensor_Chart
     function getValueSensor_Chart()
     {
-        $strSQL = "SELECT PM, ROUND(Temperature, 2) as Temperature, ROUND(Humidity, 2) as Humidity, ROUND(Air_Pressure, 2) as Air_Pressure, Wind_Speed, Wind_Direction,
+        $strSQL = "SELECT ROUND(PM, 0)as PM, ROUND(Temperature, 2) as Temperature, ROUND(Humidity, 2) as Humidity, ROUND(Air_Pressure, 2) as Air_Pressure, ROUND(Wind_Speed, 2)as Wind_Speed, Wind_Direction,
         CASE
             WHEN AVG_PM < 16 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
             WHEN AVG_PM < 26 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
@@ -70,6 +78,7 @@ class Value_Sensor{
 
     //function insertValue ที่ทำงานกับ api_insertValue.php
     function insertValue(){
+        if ($this->Humidity != 0 && !is_null($this->Humidity) && $this->Humidity !== '') {
         $strSQL = "INSERT INTO value_tb (PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction) VALUES(:PM, :Temperature, :Humidity, :Air_Pressure, :Wind_Speed, :Wind_Direction);
 		CREATE TEMPORARY TABLE t3 AS
         SELECT ID, PM
@@ -127,7 +136,7 @@ class Value_Sensor{
         $stmt->bindParam(":Air_Pressure", $this->Air_Pressure);
         $stmt->bindParam(":Wind_Speed", $this->Wind_Speed);
         $stmt->bindParam(":Wind_Direction", $this->Wind_Direction);
-
+        
         //สั่งให้ SQL ทำงาน
         if($stmt->execute()){
             //สำเร็จ
@@ -135,7 +144,8 @@ class Value_Sensor{
         }else{
             //ไม่สำเร็จ
             return false;
-        }          
+        }       
+    }   
     }
 
         //function insertValue ที่ทำงานกับ api_insertValue.php

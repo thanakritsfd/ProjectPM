@@ -5,7 +5,7 @@ var Close_Speed = document.getElementById('Close_Speed');
 var Close_Pressure = document.getElementById('Close_Pressure');
 var Close_Direction = document.getElementById('Close_Direction'); 
 
-const ctx = document.getElementById('myChart');
+const ctx = document.getElementById('myChart').getContext('2d');
 var myChart;//สร้างตัวแปร myChart นอกฟังก์ชันเพื่อให้เป็น global scope ถ้าไม่สร้างจะกดปุ่ม call funtion ไม่ได้
   function values() {
     $.ajax({
@@ -161,7 +161,7 @@ function Chart_Temp(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Temperature = data.map(item => parseInt(item.Temperature));
+        const Temperature = data.map(item => parseFloat(item.Temperature).toFixed(2));
         myChart.options.plugins.title.text = "Chart Temperature Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Temperature;
@@ -197,7 +197,7 @@ function Chart_Humid(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Humidity = data.map(item => parseInt(item.Humidity));
+        const Humidity = data.map(item => parseFloat(item.Humidity).toFixed(2));
         myChart.options.plugins.title.text = "Chart Humidity Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Humidity;
@@ -233,7 +233,7 @@ function Chart_Pressure(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Air_Pressure = data.map(item => parseInt(item.Air_Pressure));
+        const Air_Pressure = data.map(item => parseFloat(item.Air_Pressure).toFixed(2));
         myChart.options.plugins.title.text = "Chart Air Pressure Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Air_Pressure;
@@ -268,7 +268,7 @@ function Chart_Speed(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Wind_Speed = data.map(item => parseInt(item.Wind_Speed));
+        const Wind_Speed = data.map(item => parseFloat(item.Wind_Speed).toFixed(2));
         myChart.options.plugins.title.text = "Chart Wind Speed Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Wind_Speed;
@@ -303,7 +303,7 @@ function Chart_Direction(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Wind_Direction = data.map(item => parseInt(item.Wind_Direction));
+        const Wind_Direction = data.map(item => parseFloat(item.Wind_Direction).toFixed(2));
         myChart.options.plugins.title.text = "Chart Wind Direction Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Wind_Direction;
@@ -338,7 +338,7 @@ function Chart_AQI(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const AQI = data.map(item => parseInt(item.AQI));
+        const AQI = data.map(item => parseFloat(item.AQI).toFixed(2));
         myChart.options.plugins.title.text = "Chart AQI Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = AQI;

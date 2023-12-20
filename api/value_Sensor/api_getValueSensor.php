@@ -34,6 +34,7 @@ if ($numrow > 0) {
             "Air_Pressure" => $Air_Pressure,
             "Wind_Speed" => $Wind_Speed,
             "Wind_Direction" => $Wind_Direction,
+            "AQI" => $AQI,
         );
 
         array_push($value_Sensor_arr, $value_Sensor_item);
