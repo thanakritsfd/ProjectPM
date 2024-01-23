@@ -47,6 +47,24 @@
   pointer-events: none;
   cursor: default;
 }
+select option:checked {
+  background-color: #999999;
+  color: white;
+}
+select option{
+  background-color: #454545;
+  color: white;
+}
+select option:hover {
+    background-color: #999999;
+    color: white;
+  }
+  .form-select option {
+    text-align: center;
+}
+.form-select{
+font-size: large;
+}
 </style>
 <body>
 
@@ -153,7 +171,17 @@
     </div>
 </div>
     <!-- Card -->
-  
+    <center>
+    <select id="ddlChart" class="form-select form-select-sm" aria-label="Default select example" style="width:auto;font-weight:blod;background-color:black;color:white;border-radius:20px;background-color:#f9b234" onchange="ddlChange();">
+      <option style="border-radius:20px;" selected value="0">Chart PM2.5 Value</option>
+      <option value="1">Chart AQI Value</option>
+      <option value="2">Chart Temperature Value</option>
+      <option value="3">Chart Humidity Value</option>
+      <option value="4">Chart Air Pressure Value</option>
+      <option value="5">Chart Wind Speed Value</option>
+      <option value="6">Chart Wind Direction Value</option>
+    </select>
+    </center>
     <!-- Chart -->
     <div class="chart">
     <div class="chartBox">
