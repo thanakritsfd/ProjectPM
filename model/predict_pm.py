@@ -5,7 +5,7 @@ import os
 current_time = datetime.now()
 current_time_query = current_time.strftime("%Y%m%d %H:%M:%S")
 time_now = current_time.strftime("%H:%M")
-midnight = datetime.strptime("19:34", "%H:%M").strftime("%H:%M")
+midnight = datetime.strptime("19:37", "%H:%M").strftime("%H:%M")
 if time_now == midnight:
     host = 'localhost'
     user = 'root'
@@ -34,7 +34,7 @@ if time_now == midnight:
         value_tb 
     WHERE 
         PM<>0 AND Humidity<>0 AND Air_Pressure<>0 
-        AND Reading_Time BETWEEN '20231122 21:49:00' AND '{current_time_query} 23:59:59';
+        AND Reading_Time BETWEEN STR_TO_DATE('20231122 21:49:00', '%Y%m%d %H:%i:%s') AND STR_TO_DATE('20240124 23:59:59', '%Y%m%d %H:%i:%s');
     '''
 
     # Create a connection to MySQL
