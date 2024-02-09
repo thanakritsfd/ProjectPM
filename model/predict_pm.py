@@ -5,7 +5,7 @@ import os
 current_time = datetime.now()
 current_time_query = current_time.strftime("%Y%m%d %H:%M:%S")
 time_now = current_time.strftime("%H:%M")
-midnight = datetime.strptime("20:01", "%H:%M").strftime("%H:%M")
+midnight = datetime.strptime("23:01", "%H:%M").strftime("%H:%M")
 if time_now == midnight:
     host = 'localhost'
     user = 'root'
@@ -29,6 +29,10 @@ if time_now == midnight:
             WHEN AVG_PM < 76 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
             ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
         END as AQI,
+        day(Reading_Time) Day,
+        month(Reading_Time) Month,
+        year(Reading_Time) Year,
+        hour(Reading_Time) Time,
         UNIX_TIMESTAMP(Reading_Time) AS Unix
     FROM 
         value_tb 
