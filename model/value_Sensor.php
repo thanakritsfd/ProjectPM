@@ -28,10 +28,10 @@ class Value_Sensor{
     {
         $strSQL = "SELECT ROUND(PM, 0)as PM, ROUND(Temperature, 2) as Temperature, ROUND(Humidity, 2) as Humidity, ROUND(Air_Pressure, 2) as Air_Pressure, ROUND(Wind_Speed, 2)as Wind_Speed, Wind_Direction,
     CASE
-    WHEN AVG_PM < 16 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
-    WHEN AVG_PM < 26 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
-    WHEN AVG_PM < 37.6 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
-    WHEN AVG_PM < 76 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
+    WHEN AVG_PM <= 15 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
+    WHEN AVG_PM <= 25 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
+    WHEN AVG_PM <= 37.5 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
+    WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
     ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
     END as AQI
          FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0  ORDER BY ID DESC LIMIT 1";
@@ -61,10 +61,10 @@ class Value_Sensor{
     {
         $strSQL = "SELECT ROUND(PM, 0)as PM, ROUND(Temperature, 2) as Temperature, ROUND(Humidity, 2) as Humidity, ROUND(Air_Pressure, 2) as Air_Pressure, ROUND(Wind_Speed, 2)as Wind_Speed, Wind_Direction,
         CASE
-            WHEN AVG_PM < 16 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
-            WHEN AVG_PM < 26 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
-            WHEN AVG_PM < 37.6 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
-            WHEN AVG_PM < 76 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
+            WHEN AVG_PM <= 15 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
+            WHEN AVG_PM <= 25 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
+            WHEN AVG_PM <= 37.5 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
+            WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
             ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
         END as AQI,
         Reading_Time FROM(SELECT * FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0 ORDER BY ID DESC LIMIT 6)AS T1 ORDER BY T1.ID";

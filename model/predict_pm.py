@@ -5,7 +5,7 @@ import os
 current_time = datetime.now()
 current_time_query = current_time.strftime("%Y%m%d %H:%M:%S")
 time_now = current_time.strftime("%H:%M")
-midnight = datetime.strptime("23:01", "%H:%M").strftime("%H:%M")
+midnight = datetime.strptime("23:24", "%H:%M").strftime("%H:%M")
 if time_now == midnight:
     host = 'localhost'
     user = 'root'
@@ -23,12 +23,19 @@ if time_now == midnight:
         Wind_Speed, 
         Wind_Direction,
         CASE
-            WHEN AVG_PM < 16 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
-            WHEN AVG_PM < 26 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
-            WHEN AVG_PM < 37.6 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
-            WHEN AVG_PM < 76 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
+            WHEN AVG_PM <= 15 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
+            WHEN AVG_PM <= 25 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
+            WHEN AVG_PM <= 37.5 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
+            WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
             ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
         END as AQI,
+        CASE
+            WHEN AVG_PM <= 15 THEN 'Very good'
+            WHEN AVG_PM <= 25 THEN 'Good'
+            WHEN AVG_PM <= 37.5 THEN 'Moderate'
+            WHEN AVG_PM <= 75 < 201 THEN 'Bad'
+        ELSE 'Very Bad'
+        END AS Status,
         day(Reading_Time) Day,
         month(Reading_Time) Month,
         year(Reading_Time) Year,

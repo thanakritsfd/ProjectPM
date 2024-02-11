@@ -14,28 +14,28 @@ $(document).ready(function() {
                 let Cmax;
                 let AQI_Value;
                 //console.log(PMavg);
-                if(PMavg < 16){
+                if(PMavg <= 15){
                     Imin = 0;
                     Imax = 25;
                     Cmin = 0;
                     Cmax = 15;
                     AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
                 }
-                else if(PMavg < 26){
+                else if(PMavg <= 25){
                     Imin = 26;
                     Imax = 50;
                     Cmin = 15.1;
                     Cmax = 25;
                     AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
                 }
-                else if(PMavg < 37.6){
+                else if(PMavg <= 37.5){
                     Imin = 51;
                     Imax = 100;
                     Cmin = 25.1;
                     Cmax = 37.5;
                     AQI_Value = Math.round((((Imax - Imin)/(Cmax - Cmin))*(PMavg - Cmin)) + Imin);
                 }
-                else if(PMavg < 76){
+                else if(PMavg <= 75){
                     Imin = 101;
                     Imax = 200;
                     Cmin = 37.6;
@@ -61,7 +61,7 @@ $(document).ready(function() {
                 var explain = document.getElementById('explain');
                 var icon = document.getElementById('icon');
 
-                if(AQI_int < 26){//Very Good
+                if(AQI_int <= 25){//Very Good
                     card_aqi.style.backgroundColor = "#6CB4EE";
                     font_air.style.color = "#002244";
                     explain.style.color = "#002244";
@@ -80,7 +80,7 @@ $(document).ready(function() {
                         }
                     }
                 }
-                else if(AQI_int < 51){//Good
+                else if(AQI_int <= 50){//Good
                     card_aqi.style.backgroundColor = "#32de84";
                     font_air.style.color = "#043927";
                     explain.style.color = "#043927";
@@ -99,7 +99,7 @@ $(document).ready(function() {
                         }
                     }
                 }
-                else if(AQI_int < 101){//Mid
+                else if(AQI_int <= 100){//Mid
                     card_aqi.style.backgroundColor = "#FFFF00";
                     font_air.style.color = "#043927";
                     explain.style.color = "#043927";
@@ -118,7 +118,7 @@ $(document).ready(function() {
                         }
                     }
                 }
-                else if(AQI_int < 201){//Bad
+                else if(AQI_int <= 200){//Bad
                     card_aqi.style.backgroundColor = "#FF8C00";
                     font_air.style.color = "#FFFFE0";
                     explain.style.color = "#FFFFE0";
