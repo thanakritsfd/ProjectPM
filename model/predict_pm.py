@@ -5,7 +5,7 @@ import os
 current_time = datetime.now()
 current_time_query = current_time.strftime("%Y%m%d %H:%M:%S")
 time_now = current_time.strftime("%H:%M")
-midnight = datetime.strptime("23:24", "%H:%M").strftime("%H:%M")
+midnight = datetime.strptime("10:45", "%H:%M").strftime("%H:%M")
 if time_now == midnight:
     host = 'localhost'
     user = 'root'
@@ -29,22 +29,22 @@ if time_now == midnight:
             WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
             ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
         END as AQI,
-        CASE
-            WHEN AVG_PM <= 15 THEN 'Very good'
-            WHEN AVG_PM <= 25 THEN 'Good'
-            WHEN AVG_PM <= 37.5 THEN 'Moderate'
-            WHEN AVG_PM <= 75 < 201 THEN 'Bad'
-        ELSE 'Very Bad'
-        END AS Status,
         day(Reading_Time) Day,
         month(Reading_Time) Month,
         year(Reading_Time) Year,
         hour(Reading_Time) Time,
-        UNIX_TIMESTAMP(Reading_Time) AS Unix
+        CASE
+            WHEN AVG_PM <= 15 THEN 'VeryGood'
+            WHEN AVG_PM <= 25 THEN 'Good'
+            WHEN AVG_PM <= 37.5 THEN 'Moderate'
+            WHEN AVG_PM <= 75 THEN 'Bad'
+            ELSE 'VeryBad'
+        END AS Status
     FROM 
         value_tb 
     WHERE 
         PM<>0 AND Humidity<>0 AND Air_Pressure<>0 
+        AND AVG_PM IS NOT NULL
         AND Reading_Time BETWEEN STR_TO_DATE('20231122 21:49:00', '%Y%m%d %H:%i:%s') AND STR_TO_DATE('{current_time_query}', '%Y%m%d %H:%i:%s');
     '''
 
