@@ -5,6 +5,7 @@ from sklearn.metrics import accuracy_score, classification_report
 import numpy as np
 from datetime import datetime, timedelta
 import pymysql
+# เอาขึ้น Linux ห้าม Comment TH ############################################################################
 
 # อ่านข้อมูลจากไฟล์ CSV
 df = pd.read_csv('model/dataset/dataset.csv')
