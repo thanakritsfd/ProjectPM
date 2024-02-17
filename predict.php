@@ -28,8 +28,8 @@
 }
 .dot {
   top: 10%;
-  height: 250px;
-  width: 250px;
+  height: 300px;
+  width: 300px;
   margin: 40px;
   background-color: #37323E;
   border-radius: 50%;
@@ -37,18 +37,21 @@
   justify-content: center;
   align-items: center;
   color: white; /* สีข้อความ */
-  font-size: 50px; /* ขนาดข้อความ */
+  font-size: 30px; /* ขนาดข้อความ */
   border: 2px solid white; /* เพิ่ม border สีขาวขนาด 2px */
   box-sizing: border-box; /* ควบคุมการหารายได้และเส้นขอบ */
   padding: 10px; /* เพิ่มระยะห่างด้านในขอบขอบ */
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 1); /* เพิ่มกรอบ shadow */
   text-align: center;
+  position: relative; /* เพิ่ม line นี้ */
+    z-index: 0;
 }
   .dot-container {
     display: flex;
   justify-content: center;
   align-items: center;
   min-height: 60vh;
+  position: relative;
 }
 @media (max-width: 768px) {
   .dot-container {
@@ -56,17 +59,51 @@
     text-align: center; /* จัดให้ dot อยู่กึ่งกลางแนวนอน */
   }
 }
-
+@media only screen and (min-width: 980px) {
+  .dot, #img_6, #img_12, #img_24 {
+    height: 250px!important;
+    width: 250px!important;
+  }
+}
 @media (max-width: 979px) {
   .dot-container {
     flex-direction: column; /* เปลี่ยนเป็นการแสดงเป็นคอลัมน์เมื่อหน้าจอเล็กขึ้น */
     text-align: center; /* จัดให้ dot อยู่กึ่งกลางแนวนอน */
+  }    
+  p {
+    margin-bottom: 30px
   }
-  .dot{
-    height: 300px;
-  width: 300px;
-  } 
 }
+  #img_6, #img_12, #img_24 {
+    top: 10%;
+  height: 300px;
+  width: 300px;
+  margin: 40px;
+  background-color: #37323E;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; /* สีข้อความ */
+  font-size: 30px; /* ขนาดข้อความ */
+  border: 2px solid white; /* เพิ่ม border สีขาวขนาด 2px */
+  box-sizing: border-box; /* ควบคุมการหารายได้และเส้นขอบ */
+  padding: 10px; /* เพิ่มระยะห่างด้านในขอบขอบ */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 1); /* เพิ่มกรอบ shadow */
+  text-align: center;
+  position: relative; /* เพิ่ม line นี้ */
+}
+.img-hover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  p {
+    margin-top: -5px; /* เพิ่ม margin-top ตามต้องการ */
+    font-size: 30px;
+    margin-bottom: 30px
+  }
   </style>
 </head>
 <body class="d-flex flex-column justify-content-between">
@@ -96,17 +133,40 @@
   <!-- NavBar -->
 
   <div class="dot-container">
-  <span class="dot" id="today"></span>
+  <div class="img-hover">
+    <div class="show-element">
+      <img id="img_6" src="" alt="img6hr">
+    </div>
+    <div class="hide-element" style="display: none;">
+      <span class="dot" id="six"></span>
+    </div>
+    <p>6 ชม. ล่วงหน้า</p>
+  </div>
+  
   <span class="dot3"></span>
   <span class="dot3"></span>
-  <span class="dot" id="twelve"></span>
+  <div class="img-hover">
+    <div class="show-element">
+      <img id="img_12" src="" alt="img12hr">
+    </div>
+    <div class="hide-element" style="display: none;">
+      <span class="dot" id="twelve"></span>
+    </div>
+    <p>12 ชม. ล่วงหน้า</p>
+  </div>
   <span class="dot3"></span>
   <span class="dot3"></span>
-  <span class="dot" id="six"></span>
-  <span class="dot3"></span>
-  <span class="dot3"></span>
-  <span class="dot" id="day"></span>
+  <div class="img-hover">
+    <div class="show-element">
+      <img id="img_24" src="" alt="img24hr">
+    </div>
+    <div class="hide-element" style="display: none;">
+      <span class="dot" id="day"></span>
+    </div>
+    <p>24 ชม. ล่วงหน้า</p>
+  </div>
 </div>
+<script src="js/getPredicted.js"></script>
 
 <!-- footer -->
 <div class="container foot">
@@ -128,16 +188,17 @@
 </div>
 <!-- footer -->
 </body>
-</html>  
+</html>
+
 <script>
-var today = document.getElementById('today');
-var twelve = document.getElementById('twelve');
-var six = document.getElementById('six');
-var day = document.getElementById('day');
-
-today.innerHTML = "Now<br>25";
-twelve.innerHTML = "6 hr.<br>27<br>";
-six.innerHTML = "12 hr.<br>29";
-day.innerHTML = "24 hr.<br>30";
-
+    $(".img-hover").hover(
+      function () {
+        $(this).find(".hide-element").css("display", "block");
+        $(this).find(".show-element").css("display", "none");
+      },
+      function () {
+        $(this).find(".hide-element").css("display", "none");
+        $(this).find(".show-element").css("display", "block");
+      }
+    );
 </script>

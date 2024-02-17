@@ -30,7 +30,10 @@ if ($numrow > 0) {
             "message" => "1",  
             "prediction_6_hours" => $prediction_6_hours,
             "prediction_12_hours" => $prediction_12_hours,
-            "prediction_24_hours" => $prediction_24_hours
+            "prediction_24_hours" => $prediction_24_hours,
+            "datatime6" => $datatime6,
+            "datatime12" => $datatime12,
+            "datatime24" => $datatime24,
         );
 
         array_push($predicted_arr, $predicted_item);
