@@ -91,3 +91,4 @@ df2.to_csv(os.path.join(script_directory, csv_file_relative_path2), index=False)
 
 # Use subprocess to call the script
 subprocess.run(['python', 'model/random_forest.py'])
+subprocess.run(['python', 'model/forest_regression.py'])
