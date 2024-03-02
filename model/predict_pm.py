@@ -55,7 +55,14 @@ query2 = f'''
             Humidity, 
             Air_Pressure, 
             Wind_Speed, 
-            Wind_Direction
+            Wind_Direction,
+        CASE
+            WHEN AVG_PM <= 15 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
+            WHEN AVG_PM <= 25 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
+            WHEN AVG_PM <= 37.5 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
+            WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
+            ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
+        END as AQI
         FROM 
             value_tb 
         WHERE 
@@ -93,3 +100,4 @@ df2.to_csv(os.path.join(script_directory, csv_file_relative_path2), index=False)
 subprocess.run(['python', 'model/random_forest.py'])
 subprocess.run(['python', 'model/forest_regression.py'])
 subprocess.run(['python', 'model/forest_aqi.py'])
+subprocess.run(['python', 'model/mva_aqi.py'])
