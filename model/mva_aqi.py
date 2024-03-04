@@ -6,9 +6,9 @@ import numpy as np
 from datetime import datetime, timedelta
 import pymysql
 
-dfm = pd.read_csv('model/dataset/MVA.csv')
+dfm = pd.read_csv('model/dataset/MVA_AQI.csv')
 
-window_size = 120
+window_size = 48
 
 for _ in range(window_size):
     dfm.loc[len(dfm)] = [None] * len(dfm.columns)
@@ -23,6 +23,8 @@ for x in range(window_size-hr_24):
     dfm = dfm.drop(Rows)
     i += 1
 
+hr_1_AQI = dfm['AQI Average'].iloc[-24]
+hr_3_AQI = dfm['AQI Average'].iloc[-22]
 hr_6_AQI = dfm['AQI Average'].iloc[-19]
 hr_12_AQI = dfm['AQI Average'].iloc[-13]
 hr_24_AQI = dfm['AQI Average'].iloc[-1]
@@ -40,6 +42,8 @@ def map_actual_value(AQI):
         return 1
 
 # Map predicted AQI values to actual values
+actual_value_1_hours = map_actual_value(hr_1_AQI)
+actual_value_3_hours = map_actual_value(hr_3_AQI)
 actual_value_6_hours = map_actual_value(hr_6_AQI)
 actual_value_12_hours = map_actual_value(hr_12_AQI)
 actual_value_24_hours = map_actual_value(hr_24_AQI)
@@ -53,9 +57,9 @@ connection = pymysql.connect(host=host, user=user, password=password, database=d
 
 cursor = connection.cursor()
 
-sql_insert_query = "INSERT INTO predicted_tb_mva_aqi (prediction_6_hours, prediction_12_hours, prediction_24_hours) VALUES (%s, %s, %s)"
+sql_insert_query = "INSERT INTO predicted_tb_mva_aqi (prediction_1_hour, prediction_3_hours, prediction_6_hours, prediction_12_hours, prediction_24_hours) VALUES (%s, %s, %s, %s, %s)"
 
-data_to_insert = (actual_value_6_hours, actual_value_12_hours, actual_value_24_hours)
+data_to_insert = (actual_value_1_hours, actual_value_3_hours, actual_value_6_hours, actual_value_12_hours, actual_value_24_hours)
 
 cursor.execute(sql_insert_query, data_to_insert)
 

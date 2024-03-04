@@ -17,9 +17,21 @@ T = df['Time'].iloc[-1]
 
 Date = datetime.strptime(f"{Y}-{M}-{D} {T}", "%Y-%m-%d %H")
 
+Date_1 = Date + timedelta(hours=1)
+Date_3 = Date + timedelta(hours=3)
 Date_6 = Date + timedelta(hours=6)
 Date_12 = Date + timedelta(hours=12)
 Date_24 = Date + timedelta(hours=24)
+
+D_1 = Date_1.day
+M_1 = Date_1.month
+Y_1 = Date_1.year
+T_1 = Date_1.hour
+
+D_3 = Date_3.day
+M_3 = Date_3.month
+Y_3 = Date_3.year
+T_3 = Date_3.hour
 
 D_6 = Date_6.day
 M_6 = Date_6.month
@@ -45,6 +57,20 @@ def calculate_metrics(df, target_column, features_columns):
     rf_regressor = RandomForestRegressor(n_estimators=100)
     rf_regressor.fit(X, y)
 
+    custom_1 = pd.DataFrame({
+        'Day': [D_1],
+        'Month': [M_1],
+        'Year': [Y_1],
+        'Time': [T_1]
+    })
+
+    custom_3 = pd.DataFrame({
+        'Day': [D_3],
+        'Month': [M_3],
+        'Year': [Y_3],
+        'Time': [T_3]
+    })
+
     custom_6 = pd.DataFrame({
         'Day': [D_6],
         'Month': [M_6],
@@ -66,11 +92,15 @@ def calculate_metrics(df, target_column, features_columns):
         'Time': [T_24]
     })
 
+    predicted_1 = rf_regressor.predict(custom_1)[0]
+    predicted_3 = rf_regressor.predict(custom_3)[0]
     predicted_6 = rf_regressor.predict(custom_6)[0]
     predicted_12 = rf_regressor.predict(custom_12)[0]
     predicted_24 = rf_regressor.predict(custom_24)[0]
 
     result_dict = {
+        f'Predicted {target_column} in 1 hours': predicted_1,
+        f'Predicted {target_column} in 3 hours': predicted_3,
         f'Predicted {target_column} in 6 hours': predicted_6,
         f'Predicted {target_column} in 12 hours': predicted_12,
         f'Predicted {target_column} in 24 hours': predicted_24
@@ -80,9 +110,11 @@ def calculate_metrics(df, target_column, features_columns):
 
 result_AQI = calculate_metrics('model/dataset/dataset.csv', 'AQI', ['Day', 'Month', 'Year', 'Time'])
 
-print(f"Predicted AQI in 6 hours: {result_AQI[f'Predicted AQI in 6 hours']}")
-print(f"Predicted AQI in 12 hours: {result_AQI[f'Predicted AQI in 12 hours']}")
-print(f"Predicted AQI in 24 hours: {result_AQI[f'Predicted AQI in 24 hours']}")
+# print(f"Predicted AQI in 1 hours: {result_AQI[f'Predicted AQI in 1 hours']}")
+# print(f"Predicted AQI in 3 hours: {result_AQI[f'Predicted AQI in 3 hours']}")
+# print(f"Predicted AQI in 6 hours: {result_AQI[f'Predicted AQI in 6 hours']}")
+# print(f"Predicted AQI in 12 hours: {result_AQI[f'Predicted AQI in 12 hours']}")
+# print(f"Predicted AQI in 24 hours: {result_AQI[f'Predicted AQI in 24 hours']}")
 
 def map_actual_value(AQI):
     if AQI <= 25:
@@ -96,15 +128,21 @@ def map_actual_value(AQI):
     else:
         return 1
 
+predicted_aqi_1_hours = result_AQI[f'Predicted AQI in 1 hours'].item()
+predicted_aqi_3_hours = result_AQI[f'Predicted AQI in 3 hours'].item()
 predicted_aqi_6_hours = result_AQI[f'Predicted AQI in 6 hours'].item()
 predicted_aqi_12_hours = result_AQI[f'Predicted AQI in 12 hours'].item()
 predicted_aqi_24_hours = result_AQI[f'Predicted AQI in 24 hours'].item()
 
 # Map predicted AQI values to actual values
+actual_value_1_hours = map_actual_value(predicted_aqi_1_hours)
+actual_value_3_hours = map_actual_value(predicted_aqi_3_hours)
 actual_value_6_hours = map_actual_value(predicted_aqi_6_hours)
 actual_value_12_hours = map_actual_value(predicted_aqi_12_hours)
 actual_value_24_hours = map_actual_value(predicted_aqi_24_hours)
 
+print(actual_value_1_hours)
+print(actual_value_3_hours)
 print(actual_value_6_hours)
 print(actual_value_12_hours)
 print(actual_value_24_hours)
@@ -120,9 +158,9 @@ connection = pymysql.connect(host=host, user=user, password=password, database=d
 cursor = connection.cursor()
 
 
-sql_insert_query = "INSERT INTO predicted_tb_fr_aqi (prediction_6_hours, prediction_12_hours, prediction_24_hours) VALUES (%s, %s, %s)"
+sql_insert_query = "INSERT INTO predicted_tb_fr_aqi (prediction_1_hour, prediction_3_hours, prediction_6_hours, prediction_12_hours, prediction_24_hours) VALUES (%s, %s, %s, %s, %s)"
 
-data_to_insert = (actual_value_6_hours, actual_value_12_hours, actual_value_24_hours)
+data_to_insert = (actual_value_1_hours, actual_value_3_hours, actual_value_6_hours, actual_value_12_hours, actual_value_24_hours)
 
 cursor.execute(sql_insert_query, data_to_insert)
 

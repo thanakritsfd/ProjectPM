@@ -33,9 +33,21 @@ T = df['Time'].iloc[-1]
 Date = datetime.strptime(f"{Y}-{M}-{D} {T}", "%Y-%m-%d %H")
 
 # เพิ่ม 6 ชั่วโมง
+Date_1 = Date + timedelta(hours=1)
+Date_3 = Date + timedelta(hours=3)
 Date_6 = Date + timedelta(hours=6)
 Date_12 = Date + timedelta(hours=12)
 Date_24 = Date + timedelta(hours=24)
+
+D_1 = Date_1.day
+M_1 = Date_1.month
+Y_1 = Date_1.year
+T_1 = Date_1.hour
+
+D_3 = Date_3.day
+M_3 = Date_3.month
+Y_3 = Date_3.year
+T_3 = Date_3.hour
 
 D_6 = Date_6.day
 M_6 = Date_6.month
@@ -79,22 +91,32 @@ for x in range(window_size-hr_24):
     dfm = dfm.drop(Rows)
     i += 1
 
+hr_1_temp = dfm['Temp Average'].iloc[-24]
+hr_3_temp = dfm['Temp Average'].iloc[-22]
 hr_6_temp = dfm['Temp Average'].iloc[-19]
 hr_12_temp = dfm['Temp Average'].iloc[-13]
 hr_24_temp = dfm['Temp Average'].iloc[-1]
 
+hr_1_Humidity = dfm['Humidity Average'].iloc[-24]
+hr_3_Humidity = dfm['Humidity Average'].iloc[-22]
 hr_6_Humidity = dfm['Humidity Average'].iloc[-19]
 hr_12_Humidity = dfm['Humidity Average'].iloc[-13]
 hr_24_Humidity = dfm['Humidity Average'].iloc[-1]
 
+hr_1_Air_Pressure = dfm['Air_Pressure Average'].iloc[-24]
+hr_3_Air_Pressure = dfm['Air_Pressure Average'].iloc[-22]
 hr_6_Air_Pressure = dfm['Air_Pressure Average'].iloc[-19]
 hr_12_Air_Pressure = dfm['Air_Pressure Average'].iloc[-13]
 hr_24_Air_Pressure = dfm['Air_Pressure Average'].iloc[-1]
 
+hr_1_Wind_Speed = dfm['Wind_Speed Average'].iloc[-24]
+hr_3_Wind_Speed = dfm['Wind_Speed Average'].iloc[-22]
 hr_6_Wind_Speed = dfm['Wind_Speed Average'].iloc[-19]
 hr_12_Wind_Speed = dfm['Wind_Speed Average'].iloc[-13]
 hr_24_Wind_Speed = dfm['Wind_Speed Average'].iloc[-1]
 
+hr_1_Wind_Direction = dfm['Wind_Direction Average'].iloc[-24]
+hr_3_Wind_Direction = dfm['Wind_Direction Average'].iloc[-22]
 hr_6_Wind_Direction = dfm['Wind_Direction Average'].iloc[-19]
 hr_12_Wind_Direction = dfm['Wind_Direction Average'].iloc[-13]
 hr_24_Wind_Direction = dfm['Wind_Direction Average'].iloc[-1]
@@ -110,6 +132,31 @@ print(f"Accuracy: {accuracy}%")
 #print(classification_report_result)
 
 # แสดงผลลัพธ์ทำนาย  
+
+custom_1 = pd.DataFrame({
+    'Temperature': [hr_1_temp],
+    'Humidity': [hr_1_Humidity],
+    'Air_Pressure': [hr_1_Air_Pressure],
+    'Wind_Speed': [hr_1_Wind_Speed],
+    'Wind_Direction': [hr_1_Wind_Direction],
+    'Day' : [D_1], 
+    'Month' : [M_1],
+    'Year' : [Y_1],
+    'Time' : [T_1]
+})
+
+custom_3 = pd.DataFrame({
+    'Temperature': [hr_3_temp],
+    'Humidity': [hr_3_Humidity],
+    'Air_Pressure': [hr_3_Air_Pressure],
+    'Wind_Speed': [hr_3_Wind_Speed],
+    'Wind_Direction': [hr_3_Wind_Direction],
+    'Day' : [D_3], 
+    'Month' : [M_3],
+    'Year' : [Y_3],
+    'Time' : [T_3]
+})
+
 custom_6 = pd.DataFrame({
     'Temperature': [hr_6_temp],
     'Humidity': [hr_6_Humidity],
@@ -147,6 +194,12 @@ custom_24 = pd.DataFrame({
 })
 
 # ทำนายค่า y ด้วยโมเดลที่ถูกฝึก
+predicted_1 = rf_classifier.predict(custom_1)
+print('')
+print(f'Predicted 1 hr : {predicted_1[0]}')
+predicted_3 = rf_classifier.predict(custom_3)
+print('')
+print(f'Predicted 3 hr : {predicted_3[0]}')
 predicted_6 = rf_classifier.predict(custom_6)
 print('')
 print(f'Predicted 6 hr : {predicted_6[0]}')
@@ -170,10 +223,10 @@ connection = pymysql.connect(host=host, user=user, password=password, database=d
 cursor = connection.cursor()
 
 # SQL Query สำหรับการเพิ่มข้อมูล
-sql_insert_query = "INSERT INTO predicted_tb (prediction_6_hours, prediction_12_hours, prediction_24_hours) VALUES (%s, %s, %s)"
+sql_insert_query = "INSERT INTO predicted_tb  (prediction_1_hour, prediction_3_hours, prediction_6_hours, prediction_12_hours, prediction_24_hours) VALUES (%s, %s, %s, %s, %s)"
 
 # ข้อมูลที่ต้องการเพิ่ม
-data_to_insert = (predicted_6[0], predicted_12[0], predicted_24[0])
+data_to_insert = (predicted_1[0], predicted_3[0], predicted_6[0], predicted_12[0], predicted_24[0])
 
 # Execute Query
 cursor.execute(sql_insert_query, data_to_insert)
