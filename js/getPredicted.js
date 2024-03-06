@@ -7,7 +7,51 @@ $(document).ready(function() {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-            console.log(data)
+            //console.log(data)
+            switch(data.prediction_1_hour) {
+                case "1":
+                    $('#one').html("คุณภาพแย่มาก<br>"+ data.datatime1 + " น.");
+                    $('#img_1').attr('src', './images/5.png');
+                    break;
+                case "2":
+                    $('#one').html("คุณภาพแย่<br>"+ data.datatime1 + " น.");
+                    $('#img_1').attr('src', './images/4.png');
+                    break;
+                case "3":
+                    $('#one').html("คุณภาพปานกลาง<br>"+ data.datatime1 + " น.");
+                    $('#img_1').attr('src', './images/3.png');
+                    break;
+                case "4":
+                    $('#one').html("คุณภาพดี<br>"+ data.datatime1 + " น.");
+                    $('#img_1').attr('src', './images/2.png');
+                    break;
+                default:
+                    $('#one').html("คุณภาพดีมาก<br>"+ data.datatime1 + " น.");
+                    $('#img_1').attr('src', './images/1.png');
+            }
+
+            switch(data.prediction_3_hour) {
+                case "1":
+                    $('#three').html("คุณภาพแย่มาก<br>"+ data.datatime3 + " น.");
+                    $('#img_3').attr('src', './images/5.png');
+                    break;
+                case "2":
+                    $('#three').html("คุณภาพแย่<br>"+ data.datatime3 + " น.");
+                    $('#img_3').attr('src', './images/4.png');
+                    break;
+                case "3":
+                    $('#three').html("คุณภาพปานกลาง<br>"+ data.datatime3 + " น.");
+                    $('#img_3').attr('src', './images/3.png');
+                    break;
+                case "4":
+                    $('#three').html("คุณภาพดี<br>"+ data.datatime3 + " น.");
+                    $('#img_3').attr('src', './images/2.png');
+                    break;
+                default:
+                    $('#three').html("คุณภาพดีมาก<br>"+ data.datatime3 + " น.");
+                    $('#img_3').attr('src', './images/1.png');
+            }
+
             switch(data.prediction_6_hours) {
                 case "1":
                     $('#six').html("คุณภาพแย่มาก<br>"+ data.datatime6 + " น.");

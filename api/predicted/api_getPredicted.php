@@ -28,12 +28,16 @@ if ($numrow > 0) {
         extract($row);
         $predicted_item = array(
             "message" => "1",  
+            "prediction_1_hour" => $prediction_1_hour,
+            "prediction_3_hours" => $prediction_3_hours,
             "prediction_6_hours" => $prediction_6_hours,
             "prediction_12_hours" => $prediction_12_hours,
             "prediction_24_hours" => $prediction_24_hours,
+            "datatime1" => $datatime1,
+            "datatime3" => $datatime3,
             "datatime6" => $datatime6,
             "datatime12" => $datatime12,
-            "datatime24" => $datatime24,
+            "datatime24" => $datatime24
         );
 
         array_push($predicted_arr, $predicted_item);
