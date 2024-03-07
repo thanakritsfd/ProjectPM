@@ -18,9 +18,10 @@
 
   <title>PM2.5</title>
   <style>
-    body{
-      overflow-y: hidden;
+    body {
+      overflow-x: hidden;
     }
+
     .dot3 {
       top: 10%;
       height: 20px;
@@ -62,22 +63,33 @@
       z-index: 0;
     }
 
+    .dot-container-wrapper {
+      max-width: 100%;
+      /* อาจต้องปรับตามต้องการ */
+      position: relative;
+      text-align: center;
+      /* Center the content horizontally */
+    }
+
     .dot-container {
       display: flex;
-   justify-content: flex-start; /* จัดจุดเริ่มต้นจากซ้าย */
-   align-items: center;
-   min-height: 60vh;
-   position: relative;
-   max-width: 90vw;
-   margin: auto;
-   overflow-x: auto;
+      align-items: center;
+      min-height: 60vh;
+      transition: transform 0.5s ease-in-out;
+      margin: 0 auto;
+      /* Center the images */
     }
 
     .img-container {
-      flex: 0 0 auto; /* ปรับเป็น flex: 0 0 auto; เพื่อให้ flex-basis คงที่ */
+      flex: 0 0 calc(33.333% - 10px);
+      /* ให้แสดงทีละ 3 รูปภาพของกันและขอบเขตระหว่างรูปภาพอย่างที่กำหนด */
       box-sizing: border-box;
-   margin-right: 10px;
-   position: relative;
+      margin-right: 10px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s ease-in-out;
     }
 
     @media (max-width: 768px) {
@@ -86,6 +98,11 @@
         /* เปลี่ยนเป็นการแสดงเป็นคอลัมน์เมื่อหน้าจอเล็กขึ้น */
         text-align: center;
         /* จัดให้ dot อยู่กึ่งกลางแนวนอน */
+      }
+
+      #prev,
+      #next {
+        display: none;
       }
     }
 
@@ -97,8 +114,8 @@
       #img_6,
       #img_12,
       #img_24 {
-        height: 250px !important;
-        width: 250px !important;
+        height: 300px;
+        width: 300px;
       }
     }
 
@@ -112,6 +129,11 @@
 
       p {
         margin-bottom: 30px
+      }
+
+      #prev,
+      #next {
+        display: none;
       }
     }
 
@@ -151,40 +173,58 @@
       flex-direction: column;
       align-items: center;
       position: relative;
+      text-align: center;
+      transition: transform 0.5s ease;
     }
 
     p {
       margin-top: -5px;
       /* เพิ่ม margin-top ตามต้องการ */
       font-size: 30px;
-      margin-bottom: 30px
     }
 
     ::-webkit-scrollbar {
-  width: 14px;
-  height: 18px;
-}
+      width: 14px;
+      height: 18px;
+    }
 
-::-webkit-scrollbar-thumb {
-  height: 6px;
-  border: 4px solid rgba(0, 0, 0, 0);
-  background-clip: padding-box;
-  background-color:#666;
-  -webkit-border-radius: 7px;
-  -webkit-box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05),
-    inset 1px 1px 0px rgba(0, 0, 0, 0.05);
-}
+    ::-webkit-scrollbar-thumb {
+      height: 6px;
+      border: 4px solid rgba(0, 0, 0, 0);
+      background-clip: padding-box;
+      background-color: #666;
+      -webkit-border-radius: 7px;
+      -webkit-box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05),
+        inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+    }
 
-::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
-}
+    ::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
 
-::-webkit-scrollbar-corner {
-  background-color: transparent;
-}
+    ::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
 
+    #prev,
+    #next {
+      font-size: 100px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color:  #BFBDC1;
+      
+    }
+
+    #prev {
+      left: 10px;
+    }
+
+    #next {
+      right: 10px;
+    }
   </style>
 </head>
 
@@ -213,80 +253,77 @@
   </nav><br><br>
   <!-- NavBar -->
 
-  <div class="dot-container">
-    <div class="img-container">
-      <div class="img-hover">
-        <div class="show-element">
-          <img id="img_1" src="" alt="img1hr">
-        </div>
-        <div class="hide-element" style="display: none;">
-          <span class="dot" id="one"></span>
-        </div>
-        <p>1 ชม. ล่วงหน้า</p>
-      </div>
-    </div>
+  <div class="dot-container-wrapper">
 
-    <!-- <span class="dot3"></span>
+    <div class="dot-container">
+      <div class="img-container" id="imgContainer1">
+        <div class="img-hover">
+          <div class="show-element">
+            <img id="img_1" src="" alt="img1hr">
+          </div>
+          <div class="hide-element" style="display: none;">
+            <span class="dot" id="one"></span>
+          </div>
+          <p>1 ชม. ล่วงหน้า</p>
+        </div>
+      </div>
+      <!-- <span class="dot3"></span>
     <span class="dot3"></span> -->
-
-    <div class="img-container">
-      <div class="img-hover">
-        <div class="show-element">
-          <img id="img_3" src="" alt="img3hr">
+      <div class="img-container" id="imgContainer2">
+        <div class="img-hover">
+          <div class="show-element">
+            <img id="img_3" src="" alt="img3hr">
+          </div>
+          <div class="hide-element" style="display: none;">
+            <span class="dot" id="three"></span>
+          </div>
+          <p>3 ชม. ล่วงหน้า</p>
         </div>
-        <div class="hide-element" style="display: none;">
-          <span class="dot" id="three"></span>
-        </div>
-        <p>3 ชม. ล่วงหน้า</p>
       </div>
-    </div>
-
-    <!-- <span class="dot3"></span>
+      <!-- <span class="dot3"></span>
     <span class="dot3"></span> -->
-
-    <div class="img-container">
-      <div class="img-hover">
-        <div class="show-element">
-          <img id="img_6" src="" alt="img6hr">
+      <div class="img-container" id="imgContainer3">
+        <div class="img-hover">
+          <div class="show-element">
+            <img id="img_6" src="" alt="img6hr">
+          </div>
+          <div class="hide-element" style="display: none;">
+            <span class="dot" id="six"></span>
+          </div>
+          <p>6 ชม. ล่วงหน้า</p>
         </div>
-        <div class="hide-element" style="display: none;">
-          <span class="dot" id="six"></span>
-        </div>
-        <p>6 ชม. ล่วงหน้า</p>
       </div>
-    </div>
-
-    <!-- <span class="dot3"></span>
+      <!-- <span class="dot3"></span>
     <span class="dot3"></span> -->
-
-    <div class="img-container">
-      <div class="img-hover">
-        <div class="show-element">
-          <img id="img_12" src="" alt="img12hr">
+      <div class="img-container" id="imgContainer4">
+        <div class="img-hover">
+          <div class="show-element">
+            <img id="img_12" src="" alt="img12hr">
+          </div>
+          <div class="hide-element" style="display: none;">
+            <span class="dot" id="twelve"></span>
+          </div>
+          <p>12 ชม. ล่วงหน้า</p>
         </div>
-        <div class="hide-element" style="display: none;">
-          <span class="dot" id="twelve"></span>
-        </div>
-        <p>12 ชม. ล่วงหน้า</p>
       </div>
-    </div>
-
-
-    <!-- <span class="dot3"></span>
+      <!-- <span class="dot3"></span>
     <span class="dot3"></span> -->
-
-    <div class="img-container">
-      <div class="img-hover">
-        <div class="show-element">
-          <img id="img_24" src="" alt="img24hr">
+      <div class="img-container" id="imgContainer5">
+        <div class="img-hover">
+          <div class="show-element">
+            <img id="img_24" src="" alt="img24hr">
+          </div>
+          <div class="hide-element" style="display: none;">
+            <span class="dot" id="day"></span>
+          </div>
+          <p>24 ชม. ล่วงหน้า</p>
         </div>
-        <div class="hide-element" style="display: none;">
-          <span class="dot" id="day"></span>
-        </div>
-        <p>24 ชม. ล่วงหน้า</p>
       </div>
     </div>
+    <i class="fa-solid fa-angle-left" onclick="prevImage()" id="prev" style="visibility: hidden;"></i>
+    <i class="fa-solid fa-angle-right" onclick="nextImage()" id="next"></i>
   </div>
+
   <script src="js/getPredicted.js"></script>
 
   <!-- footer -->
@@ -323,4 +360,54 @@
       $(this).find(".show-element").css("display", "block");
     }
   );
+
+  let currentImageIndex = 0;
+  const imgContainers = document.querySelectorAll('.img-container');
+  const containerWrapper = document.querySelector('.dot-container');
+
+  function slideImages(direction) {
+    const step = direction === 'next' ? 1 : -1;
+    currentImageIndex += step;
+    const translateValue = `translateX(-${currentImageIndex * (100 / 3)}%)`;
+    containerWrapper.style.transform = translateValue;
+    updateNextButtonVisibility();
+    updatePrevButtonVisibility();
+  }
+
+  function prevImage() {
+    currentImageIndex = Math.max(0, currentImageIndex - 1);
+    slideImages('prev');
+  }
+
+  function nextImage() {
+    currentImageIndex = Math.min(imgContainers.length - 3, currentImageIndex + 1);
+    slideImages('next');
+  }
+
+  function updateNextButtonVisibility() {
+    const nextButton = document.getElementById('next');
+    if (currentImageIndex === imgContainers.length - 3) {
+      nextButton.style.visibility = 'hidden';
+    } else {
+      nextButton.style.visibility = 'visible';
+    }
+  }
+
+  function updatePrevButtonVisibility() {
+    const prevButton = document.getElementById('prev');
+    if (currentImageIndex === 0) {
+      prevButton.style.visibility = 'hidden';
+    } else {
+      prevButton.style.visibility = 'visible';
+    }
+  }
+
+  // Show the first 3 images initially
+  showImage(currentImageIndex);
+  updateNextButtonVisibility();
+  updatePrevButtonVisibility();
+
+  // Add Event Listeners for prev and next buttons
+  document.getElementById('prev').addEventListener('click', prevImage);
+  document.getElementById('next').addEventListener('click', nextImage);
 </script>
