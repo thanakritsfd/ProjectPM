@@ -210,16 +210,15 @@
 
     #prev,
     #next {
-      font-size: 100px;
+      font-size: 50px;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      color:  #BFBDC1;
-      
+      color: #37323E;
     }
 
     #prev {
-      left: 10px;
+      left: 5px;
     }
 
     #next {

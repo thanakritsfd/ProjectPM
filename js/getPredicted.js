@@ -30,7 +30,7 @@ $(document).ready(function() {
                     $('#img_1').attr('src', './images/1.png');
             }
 
-            switch(data.prediction_3_hour) {
+            switch(data.prediction_3_hours) {
                 case "1":
                     $('#three').html("คุณภาพแย่มาก<br>"+ data.datatime3 + " น.");
                     $('#img_3').attr('src', './images/5.png');
