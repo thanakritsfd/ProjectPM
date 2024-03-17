@@ -14,6 +14,7 @@ database = 'pm_db'
 # SQL query
 query = f'''
     SELECT 
+        ID,
         ROW_NUMBER() OVER (ORDER BY Reading_Time) AS No, 
         PM, 
         Temperature, 
@@ -28,17 +29,18 @@ query = f'''
             WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
             ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
         END as AQI,
+        DAYOFWEEK(Reading_Time) DW,
         day(Reading_Time) Day,
         month(Reading_Time) Month,
         year(Reading_Time) Year,
         hour(Reading_Time) Time,
         CASE
-            WHEN AVG_PM <= 15 THEN 5
-            WHEN AVG_PM <= 25 THEN 4
-            WHEN AVG_PM <= 37.5 THEN 3
-            WHEN AVG_PM <= 75 THEN 2
-            ELSE 1
-        END AS Status
+            WHEN AVG_PM <= 15 THEN '5'
+            WHEN AVG_PM <= 25 THEN '4'
+            WHEN AVG_PM <= 37.5 THEN '3'
+            WHEN AVG_PM <= 75 THEN '2'
+            ELSE '1'
+        END AS Status 
     FROM 
         value_tb 
     WHERE 
