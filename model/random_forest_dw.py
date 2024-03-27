@@ -5,23 +5,17 @@ from sklearn.metrics import accuracy_score, classification_report
 import numpy as np
 from datetime import datetime, timedelta
 import pymysql
-# เอาขึ้น Linux ห้าม Comment TH ############################################################################
 
-# อ่านข้อมูลจากไฟล์ CSV
 df = pd.read_csv('model/dataset/dataset.csv')
 
-# เลือก features และ target variable
-X = df[['Temperature', 'Humidity', 'Air_Pressure', 'Wind_Speed', 'Wind_Direction', 'Day', 'Month', 'Year', 'Time']]
+X = df[['Temperature', 'Humidity', 'Air_Pressure', 'Wind_Speed', 'Wind_Direction', 'DW','Time']]
 y = df['Status']
- 
-# แบ่งข้อมูลเป็นชุดฝึกและทดสอบ
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
 
-# สร้างและฝึกโมเดล RandomForestClassifier
 rf_classifier = RandomForestClassifier(n_estimators=100)
 rf_classifier.fit(X_train, y_train)
 
-# ทำนาย
 y_pred = rf_classifier.predict(X_test)
 
 # DMYT
@@ -29,60 +23,54 @@ D = df['Day'].iloc[-1]
 M = df['Month'].iloc[-1]
 Y = df['Year'].iloc[-1]
 T = df['Time'].iloc[-1]
-# สร้างวันที่และเวลาจากคอลัมน์ที่มีข้อมูลล่าสุด
+
 Date = datetime.strptime(f"{Y}-{M}-{D} {T}", "%Y-%m-%d %H")
 
-# เพิ่ม 6 ชั่วโมง
 Date_1 = Date + timedelta(hours=1)
 Date_3 = Date + timedelta(hours=3)
 Date_6 = Date + timedelta(hours=6)
 Date_12 = Date + timedelta(hours=12)
 Date_24 = Date + timedelta(hours=24)
 
-D_1 = Date_1.day
-M_1 = Date_1.month
-Y_1 = Date_1.year
+# python day of week to mysql format
+def python_to_mysql_day(python_day):
+    # Python: 0 (Monday) -> MySQL: 2 (Monday)
+    # Python: 1 (Tuesday) -> MySQL: 3 (Tuesday)
+    # Python: 2 (Wednesday) -> MySQL: 4 (Wednesday)
+    # Python: 3 (Thursday) -> MySQL: 5 (Thursday)
+    # Python: 4 (Friday) -> MySQL: 6 (Friday)
+    # Python: 5 (Saturday) -> MySQL: 7 (Saturday)
+    # Python: 6 (Sunday) -> MySQL: 1 (Sunday)
+    return (python_day + 1) % 7 + 1
+
+DW_1 = python_to_mysql_day(Date_1.weekday())
 T_1 = Date_1.hour
 
-D_3 = Date_3.day
-M_3 = Date_3.month
-Y_3 = Date_3.year
+DW_3 = python_to_mysql_day(Date_3.weekday())
 T_3 = Date_3.hour
 
-D_6 = Date_6.day
-M_6 = Date_6.month
-Y_6 = Date_6.year
+DW_6 = python_to_mysql_day(Date_6.weekday())
 T_6 = Date_6.hour
 
-D_12 = Date_12.day
-M_12 = Date_12.month
-Y_12 = Date_12.year
+DW_12 = python_to_mysql_day(Date_12.weekday())
 T_12 = Date_12.hour
 
-D_24 = Date_24.day
-M_24 = Date_24.month
-Y_24 = Date_24.year
+DW_24 = python_to_mysql_day(Date_24.weekday())
 T_24 = Date_24.hour
 
-# อ่านข้อมูลจากไฟล์ CSV
 dfm = pd.read_csv('model/dataset/MVA.csv')
 
-# จำนวนข้อมูล None ที่ต้องการเพิ่ม
-# ตั้งค่า window size
-window_size = 120 # 120 = 5 วัน วันละ 24 hr. 24 * 5 = 120
+window_size = 120 
 
-# เพิ่มข้อมูล None ในคอลัมน์ 'Temperature'
 for _ in range(window_size):
     dfm.loc[len(dfm)] = [None] * len(dfm.columns)
     
-# คำนวณ Moving Average
 dfm['Temp Average'] = dfm['Temperature'].rolling(window=window_size, min_periods=1).mean()
 dfm['Humidity Average'] = dfm['Humidity'].rolling(window=window_size, min_periods=1).mean()
 dfm['Air_Pressure Average'] = dfm['Air_Pressure'].rolling(window=window_size, min_periods=1).mean()
 dfm['Wind_Speed Average'] = dfm['Wind_Speed'].rolling(window=window_size, min_periods=1).mean()
 dfm['Wind_Direction Average'] = dfm['Wind_Direction'].rolling(window=window_size, min_periods=1).mean()
 
-#ต้องการให้ไปข้างหน้ากี่ frame
 hr_24 = 24
 
 for x in range(window_size-hr_24):
@@ -121,17 +109,12 @@ hr_6_Wind_Direction = dfm['Wind_Direction Average'].iloc[-19]
 hr_12_Wind_Direction = dfm['Wind_Direction Average'].iloc[-13]
 hr_24_Wind_Direction = dfm['Wind_Direction Average'].iloc[-1]
 
-# คำนวณค่าความแม่นยำ (accuracy) และรายงานผลการจำแนกประเภท
 accuracy = accuracy_score(y_test, y_pred)
 classification_report_result = classification_report(y_test, y_pred)
 accuracy = round(accuracy * 100, 4)
 
-# แสดงผลลัพธ์
-print(f"Accuracy: {accuracy}%")
-#print("Classification Report:")
-#print(classification_report_result)
 
-# แสดงผลลัพธ์ทำนาย  
+print(f"Accuracy: {accuracy}%")
 
 custom_1 = pd.DataFrame({
     'Temperature': [hr_1_temp],
@@ -139,9 +122,7 @@ custom_1 = pd.DataFrame({
     'Air_Pressure': [hr_1_Air_Pressure],
     'Wind_Speed': [hr_1_Wind_Speed],
     'Wind_Direction': [hr_1_Wind_Direction],
-    'Day' : [D_1], 
-    'Month' : [M_1],
-    'Year' : [Y_1],
+    'DW' : [DW_1],
     'Time' : [T_1]
 })
 
@@ -151,9 +132,7 @@ custom_3 = pd.DataFrame({
     'Air_Pressure': [hr_3_Air_Pressure],
     'Wind_Speed': [hr_3_Wind_Speed],
     'Wind_Direction': [hr_3_Wind_Direction],
-    'Day' : [D_3], 
-    'Month' : [M_3],
-    'Year' : [Y_3],
+    'DW' : [DW_3],
     'Time' : [T_3]
 })
 
@@ -163,9 +142,7 @@ custom_6 = pd.DataFrame({
     'Air_Pressure': [hr_6_Air_Pressure],
     'Wind_Speed': [hr_6_Wind_Speed],
     'Wind_Direction': [hr_6_Wind_Direction],
-    'Day' : [D_6], 
-    'Month' : [M_6],
-    'Year' : [Y_6],
+    'DW' : [DW_6],
     'Time' : [T_6]
 })
 
@@ -175,9 +152,7 @@ custom_12 = pd.DataFrame({
     'Air_Pressure': [hr_12_Air_Pressure],
     'Wind_Speed': [hr_12_Wind_Speed],
     'Wind_Direction': [hr_12_Wind_Direction],
-    'Day' : [D_12], 
-    'Month' : [M_12],
-    'Year' : [Y_12],
+    'DW' : [DW_12],
     'Time' : [T_12]
 })
 
@@ -187,13 +162,10 @@ custom_24 = pd.DataFrame({
     'Air_Pressure': [hr_24_Air_Pressure],
     'Wind_Speed': [hr_24_Wind_Speed],
     'Wind_Direction': [hr_24_Wind_Direction],
-    'Day' : [D_24], 
-    'Month' : [M_24],
-    'Year' : [Y_24],
+    'DW' : [DW_24],
     'Time' : [T_24]
 })
 
-# ทำนายค่า y ด้วยโมเดลที่ถูกฝึก
 predicted_1 = rf_classifier.predict(custom_1)
 print('')
 print(f'Predicted 1 hr : {predicted_1[0]}')
@@ -210,31 +182,23 @@ print('')
 predicted_24 = rf_classifier.predict(custom_24)
 print(f'Predicted 24 hr : {predicted_24[0]}')
 
-# ข้อมูลการเชื่อมต่อ
 host = 'localhost'
 user = 'root'
 password = '123456789'
 database = 'pm_db'
 
-# เชื่อมต่อกับ MySQL
 connection = pymysql.connect(host=host, user=user, password=password, database=database)
 
-# สร้าง Cursor Object
 cursor = connection.cursor()
 
-# SQL Query สำหรับการเพิ่มข้อมูล
-sql_insert_query = "INSERT INTO predicted_tb  (prediction_1_hour, prediction_3_hours, prediction_6_hours, prediction_12_hours, prediction_24_hours) VALUES (%s, %s, %s, %s, %s)"
+sql_insert_query = "INSERT INTO predicted_tb_dw  (prediction_1_hour, prediction_3_hours, prediction_6_hours, prediction_12_hours, prediction_24_hours) VALUES (%s, %s, %s, %s, %s)"
 
-# ข้อมูลที่ต้องการเพิ่ม
 data_to_insert = (predicted_1[0], predicted_3[0], predicted_6[0], predicted_12[0], predicted_24[0])
 
-# Execute Query
 cursor.execute(sql_insert_query, data_to_insert)
 
-# Commit การเปลี่ยนแปลง
 connection.commit()
 
-# ปิด Cursor และ Connection
 cursor.close()
 connection.close()
 

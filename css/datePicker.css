@@ -1,62 +1,70 @@
 #startDate {
-    position: relative;
-    width: 120px;
-    color: black;
-    height: 40px;
+  position: relative;
+  width: 130px;
+  color: black;
+  height: 39px;
+  display: inline-block;
 }
 
 #startDate:before {
-    content: attr(data-date);
-    display: inline-block;
-    color: black;
+  content: attr(data-date);
+  display: inline-block;
+  color: black;
 }
 
-#startDate::-webkit-datetime-edit, #startDate::-webkit-inner-spin-button, #startDate::-webkit-clear-button {
-    display: none;
+#startDate::-webkit-datetime-edit,
+#startDate::-webkit-inner-spin-button,
+#startDate::-webkit-clear-button {
+  display: none;
 }
 
 #startDate::-webkit-calendar-picker-indicator {
-    position: absolute;
-    right: 0;
-    color: black;
-    opacity: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(-50%, -50%); /* ปรับตำแหน่งให้กึ่งกลาง */
+  color: black;
+  opacity: 1;
 }
 
 #endDate {
-    position: relative;
-    width: 120px;
-    color: black;
-    height: 40px;
+  position: relative;
+  width: 130px;
+  color: black;
+  height: 39px;
+  display: inline-block;
 }
 
 #endDate:before {
-    content: attr(data-date);
-    display: inline-block;
-    color: black;
+  content: attr(data-date);
+  display: inline-block;
+  color: black;
 }
 
 #endDate::-webkit-datetime-edit,
 #endDate::-webkit-inner-spin-button,
 #endDate::-webkit-clear-button {
-    display: none;
+  display: none;
 }
 
 #endDate::-webkit-calendar-picker-indicator {
-    position: absolute;
-    right: 0;
-    color: black;
-    opacity: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(-50%, -50%);
+  color: black;
+  opacity: 1;
 }
 
 @media only screen and (max-width: 639px)  {/*ipad แนวตั้ง*/
   #startDate, #endDate {
-    display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100px;
+    width: 110px;
     color: white;
-}
+  }
 }
 
 /* pagination */
