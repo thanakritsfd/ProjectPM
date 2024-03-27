@@ -33,7 +33,7 @@ class predicted{
         DATE_FORMAT(DATE_ADD(datatime, INTERVAL 6 HOUR), '%d/%m/%Y %H:%i') AS datatime6, 
         DATE_FORMAT(DATE_ADD(datatime, INTERVAL 12 HOUR), '%d/%m/%Y %H:%i') AS datatime12, 
         DATE_FORMAT(DATE_ADD(datatime, INTERVAL 24 HOUR), '%d/%m/%Y %H:%i') AS datatime24
-        FROM predicted_tb ORDER BY ID DESC LIMIT 1";
+        FROM prediction_tb ORDER BY ID DESC LIMIT 1";
 
         $stmt = $this->conn->prepare($strSQL);
 
