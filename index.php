@@ -15,7 +15,7 @@
   <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <title>PM2.5</title>
+  <title>PMStation</title>
 </head>
 <style>
   html {
@@ -71,7 +71,7 @@ font-size: large;
     <!-- NavBar   -->
     <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.php"><strong>PM2.5</strong></a>
+      <a class="navbar-brand" href="index.php"><strong>PMStation</strong></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
