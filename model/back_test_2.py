@@ -8,9 +8,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import pymysql
 
-x = 321; # round dataset
-dd = 321; # round dataset
-r = 568; # round predict
+x = 540; # round dataset
+dd = 540; # round dataset
+r = 564; # round predict
 h = 1; # added hr
 # DW_1
 df = pd.read_csv('model/dataset/dataset.csv')
@@ -31,14 +31,20 @@ for h in range(r):
 
     X = pd.concat([other_features, X_encoded], axis=1)
     y = dw['Status']
-
+    
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
 
     rf_classifier = RandomForestClassifier(n_estimators=100)
     rf_classifier.fit(X_train, y_train)
 
     y_pred = rf_classifier.predict(X_test)
-
+       
+    Temperature = dw['Temperature'].iloc[-1]
+    Humidity = dw['Humidity'].iloc[-1]
+    Air_Pressure = dw['Air_Pressure'].iloc[-1]
+    Wind_Speed = dw['Wind_Speed'].iloc[-1]
+    Wind_Direction = dw['Wind_Direction'].iloc[-1]
+    
     # DMYT
     D = dw['Day'].iloc[-1]
     M = dw['Month'].iloc[-1]
@@ -77,58 +83,6 @@ for h in range(r):
         else:
             return 'Night'
 
-    dfm = pd.read_csv('model/dataset/MVA.csv')
-    dfm2 = pd.read_csv('model/dataset/MVA.csv')
-
-    window_size = 120 
-
-    for _ in range(window_size):
-        dfm.loc[len(dfm)] = [None] * len(dfm.columns)
-        
-    dfm['Temp Average'] = dfm['Temperature'].rolling(window=window_size, min_periods=1).mean()
-    dfm['Humidity Average'] = dfm['Humidity'].rolling(window=window_size, min_periods=1).mean()
-    dfm['Air_Pressure Average'] = dfm['Air_Pressure'].rolling(window=window_size, min_periods=1).mean()
-    dfm['Wind_Speed Average'] = dfm['Wind_Speed'].rolling(window=window_size, min_periods=1).mean()
-    dfm['Wind_Direction Average'] = dfm['Wind_Direction'].rolling(window=window_size, min_periods=1).mean()
-
-    hr_24 = 24
-
-    for xxx in range(window_size-hr_24):
-        i = 1
-        Rows = len(dfm.index)-i
-        dfm = dfm.drop(Rows)
-        i += 1
-
-    hr_1_temp = dfm['Temp Average'].iloc[-24]
-    hr_3_temp = dfm['Temp Average'].iloc[-22]
-    hr_6_temp = dfm['Temp Average'].iloc[-19]
-    hr_12_temp = dfm['Temp Average'].iloc[-13]
-    hr_24_temp = dfm['Temp Average'].iloc[-1]
-
-    hr_1_Humidity = dfm['Humidity Average'].iloc[-24]
-    hr_3_Humidity = dfm['Humidity Average'].iloc[-22]
-    hr_6_Humidity = dfm['Humidity Average'].iloc[-19]
-    hr_12_Humidity = dfm['Humidity Average'].iloc[-13]
-    hr_24_Humidity = dfm['Humidity Average'].iloc[-1]
-
-    hr_1_Air_Pressure = dfm['Air_Pressure Average'].iloc[-24]
-    hr_3_Air_Pressure = dfm['Air_Pressure Average'].iloc[-22]
-    hr_6_Air_Pressure = dfm['Air_Pressure Average'].iloc[-19]
-    hr_12_Air_Pressure = dfm['Air_Pressure Average'].iloc[-13]
-    hr_24_Air_Pressure = dfm['Air_Pressure Average'].iloc[-1]
-
-    hr_1_Wind_Speed = dfm['Wind_Speed Average'].iloc[-24]
-    hr_3_Wind_Speed = dfm['Wind_Speed Average'].iloc[-22]
-    hr_6_Wind_Speed = dfm['Wind_Speed Average'].iloc[-19]
-    hr_12_Wind_Speed = dfm['Wind_Speed Average'].iloc[-13]
-    hr_24_Wind_Speed = dfm['Wind_Speed Average'].iloc[-1]
-
-    hr_1_Wind_Direction = dfm['Wind_Direction Average'].iloc[-24]
-    hr_3_Wind_Direction = dfm['Wind_Direction Average'].iloc[-22]
-    hr_6_Wind_Direction = dfm['Wind_Direction Average'].iloc[-19]
-    hr_12_Wind_Direction = dfm['Wind_Direction Average'].iloc[-13]
-    hr_24_Wind_Direction = dfm['Wind_Direction Average'].iloc[-1]
-
     accuracy = accuracy_score(y_test, y_pred)
     classification_report_result = classification_report(y_test, y_pred)
     accuracy = round(accuracy * 100, 4)
@@ -136,11 +90,11 @@ for h in range(r):
     print(f"Accuracy: {accuracy}%") 
 
     custom_1 = pd.DataFrame({
-        'Temperature': [hr_1_temp],
-        'Humidity': [hr_1_Humidity],
-        'Air_Pressure': [hr_1_Air_Pressure],
-        'Wind_Speed': [hr_1_Wind_Speed],
-        'Wind_Direction': [hr_1_Wind_Direction],
+        'Temperature': [Temperature],
+        'Humidity': [Humidity],
+        'Air_Pressure': [Air_Pressure],
+        'Wind_Speed': [Wind_Speed],
+        'Wind_Direction': [Wind_Direction],
         'Day_Nom_Eight': [D_1 == 8],
         'Day_Nom_Eighteen': [D_1 == 18],
         'Day_Nom_Eleven': [D_1 == 11],
@@ -189,11 +143,11 @@ for h in range(r):
     })
 
     custom_3 = pd.DataFrame({
-        'Temperature': [hr_3_temp],
-        'Humidity': [hr_3_Humidity],
-        'Air_Pressure': [hr_3_Air_Pressure],
-        'Wind_Speed': [hr_3_Wind_Speed],
-        'Wind_Direction': [hr_3_Wind_Direction],
+        'Temperature': [Temperature],
+        'Humidity': [Humidity],
+        'Air_Pressure': [Air_Pressure],
+        'Wind_Speed': [Wind_Speed],
+        'Wind_Direction': [Wind_Direction],
         'Day_Nom_Eight': [D_3 == 8],
         'Day_Nom_Eighteen': [D_3 == 18],
         'Day_Nom_Eleven': [D_3 == 11],
@@ -242,11 +196,11 @@ for h in range(r):
     })
 
     custom_6 = pd.DataFrame({
-        'Temperature': [hr_6_temp],
-        'Humidity': [hr_6_Humidity],
-        'Air_Pressure': [hr_6_Air_Pressure],
-        'Wind_Speed': [hr_6_Wind_Speed],
-        'Wind_Direction': [hr_6_Wind_Direction],
+        'Temperature': [Temperature],
+        'Humidity': [Humidity],
+        'Air_Pressure': [Air_Pressure],
+        'Wind_Speed': [Wind_Speed],
+        'Wind_Direction': [Wind_Direction],
         'Day_Nom_Eight': [D_6 == 8],
         'Day_Nom_Eighteen': [D_6 == 18],
         'Day_Nom_Eleven': [D_6 == 11],
@@ -295,11 +249,11 @@ for h in range(r):
     })
 
     custom_12 = pd.DataFrame({
-        'Temperature': [hr_12_temp],
-        'Humidity': [hr_12_Humidity],
-        'Air_Pressure': [hr_12_Air_Pressure],
-        'Wind_Speed': [hr_12_Wind_Speed],
-        'Wind_Direction': [hr_12_Wind_Direction],
+        'Temperature': [Temperature],
+        'Humidity': [Humidity],
+        'Air_Pressure': [Air_Pressure],
+        'Wind_Speed': [Wind_Speed],
+        'Wind_Direction': [Wind_Direction],
         'Day_Nom_Eight': [D_12 == 8],
         'Day_Nom_Eighteen': [D_12 == 18],
         'Day_Nom_Eleven': [D_12 == 11],
@@ -349,11 +303,11 @@ for h in range(r):
 
     # สร้าง DataFrame จากข้อมูลที่ให้มา
     custom_24 = pd.DataFrame({
-        'Temperature': [hr_24_temp],
-        'Humidity': [hr_24_Humidity],
-        'Air_Pressure': [hr_24_Air_Pressure],
-        'Wind_Speed': [hr_24_Wind_Speed],
-        'Wind_Direction': [hr_24_Wind_Direction],
+        'Temperature': [Temperature],
+        'Humidity': [Humidity],
+        'Air_Pressure': [Air_Pressure],
+        'Wind_Speed': [Wind_Speed],
+        'Wind_Direction': [Wind_Direction],
         'Day_Nom_Eight': [D_24 == 8],
         'Day_Nom_Eighteen': [D_24 == 18],
         'Day_Nom_Eleven': [D_24 == 11],
@@ -435,23 +389,9 @@ for h in range(r):
     if(x >= 1):
         # ดึง record ล่าสุดของ DataFrame df
         latest_record = df.iloc[-x]
-        latest_record_mva = latest_record[['ID', 'Temperature', 'Humidity', 'Air_Pressure', 'Wind_Speed', 'Wind_Direction', 'AQI']]
         
         # เพิ่ม record ล่าสุดของ df ลงใน DataFrame dw
         dw = pd.concat([dw, latest_record.to_frame().T], ignore_index=True)
-        dfm2 = pd.concat([dfm2, latest_record_mva.to_frame().T], ignore_index=True)
-
-        # แปลงประเภทของคอลัมน์เป็น integer
-        dfm2['ID'] = dfm2['ID'].astype(int)
-
-        # ลบ record แรกของ DataFrame dfm
-        dfm2 = dfm2.drop(index=0).reset_index(drop=True)
-        
-        # เรียงลำดับข้อมูลตาม ID
-        dfm2 = dfm2.sort_values(by='ID', ignore_index=True)
-
-        # สามารถเขียนลงไฟล์ CSV ได้ถ้าต้องการ
-        dfm2.to_csv('model/dataset/MVA.csv', index=False)
 
         # แปลงประเภทของคอลัมน์เป็น integer
         dw['ID'] = dw['ID'].astype(int)
