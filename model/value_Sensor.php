@@ -62,6 +62,13 @@ class Value_Sensor
     public $AQI5;
     public $AQI6;
     public $AQI7;
+    public $Today;
+    public $Day2;
+    public $Day3;
+    public $Day4;
+    public $Day5;
+    public $Day6;
+    public $Day7;
     public $Reading_Time;
 
     //ตัวแปรที่เก็บข้อความต่าง ๆ เผื่อไว้ใช้งาน เฉย ๆ
@@ -851,6 +858,46 @@ class Value_Sensor
                 AND AVG_PM <> 0 AND Humidity <> 0 AND Temperature <> 0) AS t7 ON t1.Reading_Time = t7.Reading_Time
             ORDER BY t1.ID;
             ";
+
+        $stmt = $this->conn->prepare($strSQL);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    function getDayCompare()
+    {
+        $strSQL = "SELECT 
+        CONCAT(
+            DATE_FORMAT(MAX(Reading_Time), '%d/%m/'),
+            (YEAR(MAX(Reading_Time)) + 543)
+        ) as Today,
+        CONCAT(
+            DATE_FORMAT(DATE_SUB(MAX(Reading_Time), INTERVAL 1 DAY), '%d/%m/'),
+            (YEAR(DATE_SUB(MAX(Reading_Time), INTERVAL 1 DAY)) + 543)
+        ) as Day2,
+        CONCAT(
+            DATE_FORMAT(DATE_SUB(MAX(Reading_Time), INTERVAL 2 DAY), '%d/%m/'),
+            (YEAR(DATE_SUB(MAX(Reading_Time), INTERVAL 2 DAY)) + 543)
+        ) as Day3,
+        CONCAT(
+            DATE_FORMAT(DATE_SUB(MAX(Reading_Time), INTERVAL 3 DAY), '%d/%m/'),
+            (YEAR(DATE_SUB(MAX(Reading_Time), INTERVAL 3 DAY)) + 543)
+        ) as Day4,
+        CONCAT(
+            DATE_FORMAT(DATE_SUB(MAX(Reading_Time), INTERVAL 4 DAY), '%d/%m/'),
+            (YEAR(DATE_SUB(MAX(Reading_Time), INTERVAL 4 DAY)) + 543)
+        ) as Day5,
+        CONCAT(
+            DATE_FORMAT(DATE_SUB(MAX(Reading_Time), INTERVAL 5 DAY), '%d/%m/'),
+            (YEAR(DATE_SUB(MAX(Reading_Time), INTERVAL 5 DAY)) + 543)
+        ) as Day6,
+        CONCAT(
+            DATE_FORMAT(DATE_SUB(MAX(Reading_Time), INTERVAL 6 DAY), '%d/%m/'),
+            (YEAR(DATE_SUB(MAX(Reading_Time), INTERVAL 6 DAY)) + 543)
+        ) as Day7
+    FROM value_tb;";
 
         $stmt = $this->conn->prepare($strSQL);
 
