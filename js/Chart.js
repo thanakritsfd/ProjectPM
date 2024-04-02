@@ -136,7 +136,7 @@ function Chart_PM(stop){
             const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
             return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
         });
-          const PM = data.map(item => parseInt(item.PM));
+        const PM = data.map(item => item.PM !== null ? parseInt(item.PM) : 0);
           //myChart.options.plugins.title.text = "Chart PM2.5 Value";
           myChart.data.labels = readingTimes;
           myChart.data.datasets[0].data = PM;
@@ -182,7 +182,7 @@ function Chart_Temp(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Temperature = data.map(item => parseFloat(item.Temperature).toFixed(2));
+      const Temperature = data.map(item => item.Temperature !== null ? parseFloat(item.Temperature).toFixed(2) : 0);
         //myChart.options.plugins.title.text = "Chart Temperature Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Temperature;
@@ -228,7 +228,7 @@ function Chart_Humid(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Humidity = data.map(item => parseFloat(item.Humidity).toFixed(2));
+      const Humidity = data.map(item => item.Humidity !== null ? parseFloat(item.Humidity).toFixed(2) : 0);
         //myChart.options.plugins.title.text = "Chart Humidity Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Humidity;
@@ -274,7 +274,7 @@ function Chart_Pressure(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Air_Pressure = data.map(item => parseFloat(item.Air_Pressure).toFixed(2));
+      const Air_Pressure = data.map(item => item.Air_Pressure !== null ? parseFloat(item.Air_Pressure).toFixed(2) : 0);
         //myChart.options.plugins.title.text = "Chart Air Pressure Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Air_Pressure;
@@ -319,7 +319,7 @@ function Chart_Speed(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Wind_Speed = data.map(item => parseFloat(item.Wind_Speed).toFixed(2));
+      const Wind_Speed = data.map(item => item.Wind_Speed !== null ? parseFloat(item.Wind_Speed).toFixed(2) : 0);
         //myChart.options.plugins.title.text = "Chart Wind Speed Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Wind_Speed;
@@ -364,7 +364,7 @@ function Chart_Direction(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const Wind_Direction = data.map(item => parseFloat(item.Wind_Direction).toFixed(2));
+      const Wind_Direction = data.map(item => item.Wind_Direction !== null ? parseFloat(item.Wind_Direction).toFixed(2) : 0);
         //myChart.options.plugins.title.text = "Chart Wind Direction Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Wind_Direction;
@@ -409,7 +409,7 @@ function Chart_AQI(stop){
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
-        const AQI = data.map(item => parseFloat(item.AQI).toFixed(2));
+      const AQI = data.map(item => item.AQI !== null ? parseFloat(item.AQI).toFixed(2) : 0);
         //myChart.options.plugins.title.text = "Chart AQI Value";
         myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = AQI;
@@ -488,13 +488,14 @@ if(ddlChart.value == 0){
     });
 
     const numberOfDatasets = myChart.data.datasets.length;
-    const PM1 = data.map(item => parseInt(item.PM1));
-    const PM2 = data.map(item => parseInt(item.PM2));
-    const PM3 = data.map(item => parseInt(item.PM3));
-    const PM4 = data.map(item => parseInt(item.PM4));
-    const PM5 = data.map(item => parseInt(item.PM5));
-    const PM6 = data.map(item => parseInt(item.PM6));
-    const PM7 = data.map(item => parseInt(item.PM7));
+    const PM1 = data.map(item => item.PM1 !== null ? parseInt(item.PM1) : 0);
+    const PM2 = data.map(item => item.PM2 !== null ? parseInt(item.PM2) : 0);
+    const PM3 = data.map(item => item.PM3 !== null ? parseInt(item.PM3) : 0);
+    const PM4 = data.map(item => item.PM4 !== null ? parseInt(item.PM4) : 0);
+    const PM5 = data.map(item => item.PM5 !== null ? parseInt(item.PM5) : 0);
+    const PM6 = data.map(item => item.PM6 !== null ? parseInt(item.PM6) : 0);
+    const PM7 = data.map(item => item.PM7 !== null ? parseInt(item.PM7) : 0);
+    
 
     if(numberOfDatasets == 1 ){
       if (Check.checked == true) {
@@ -589,13 +590,14 @@ success: function(data) {
     return TimePart;
 });
 const numberOfDatasets = myChart.data.datasets.length;
-const AQI1 = data.map(item => parseFloat(item.AQI1));
-const AQI2 = data.map(item => parseFloat(item.AQI2));
-const AQI3 = data.map(item => parseFloat(item.AQI3));
-const AQI4 = data.map(item => parseFloat(item.AQI4));
-const AQI5 = data.map(item => parseFloat(item.AQI5));
-const AQI6 = data.map(item => parseFloat(item.AQI6));
-const AQI7 = data.map(item => parseFloat(item.AQI7));
+const AQI1 = data.map(item => item.AQI1 !== null ? parseFloat(item.AQI1) : 0);
+const AQI2 = data.map(item => item.AQI2 !== null ? parseFloat(item.AQI2) : 0);
+const AQI3 = data.map(item => item.AQI3 !== null ? parseFloat(item.AQI3) : 0);
+const AQI4 = data.map(item => item.AQI4 !== null ? parseFloat(item.AQI4) : 0);
+const AQI5 = data.map(item => item.AQI5 !== null ? parseFloat(item.AQI5) : 0);
+const AQI6 = data.map(item => item.AQI6 !== null ? parseFloat(item.AQI6) : 0);
+const AQI7 = data.map(item => item.AQI7 !== null ? parseFloat(item.AQI7) : 0);
+
 
 if(numberOfDatasets == 1){
   if (Check.checked == true) {
@@ -691,13 +693,14 @@ success: function(data) {
     return TimePart;
 });
 const numberOfDatasets = myChart.data.datasets.length;
-const Temp1 = data.map(item => parseFloat(item.Temp1));
-const Temp2 = data.map(item => parseFloat(item.Temp2));
-const Temp3 = data.map(item => parseFloat(item.Temp3));
-const Temp4 = data.map(item => parseFloat(item.Temp4));
-const Temp5 = data.map(item => parseFloat(item.Temp5));
-const Temp6 = data.map(item => parseFloat(item.Temp6));
-const Temp7 = data.map(item => parseFloat(item.Temp7));
+const Temp1 = data.map(item => item.Temp1 !== null ? parseFloat(item.Temp1) : 0);
+const Temp2 = data.map(item => item.Temp2 !== null ? parseFloat(item.Temp2) : 0);
+const Temp3 = data.map(item => item.Temp3 !== null ? parseFloat(item.Temp3) : 0);
+const Temp4 = data.map(item => item.Temp4 !== null ? parseFloat(item.Temp4) : 0);
+const Temp5 = data.map(item => item.Temp5 !== null ? parseFloat(item.Temp5) : 0);
+const Temp6 = data.map(item => item.Temp6 !== null ? parseFloat(item.Temp6) : 0);
+const Temp7 = data.map(item => item.Temp7 !== null ? parseFloat(item.Temp7) : 0);
+
 
 if(numberOfDatasets == 1){
  if (Check.checked == true) {
@@ -796,13 +799,13 @@ success: function(data) {
     return TimePart;
 });
 const numberOfDatasets = myChart.data.datasets.length;
-const Humid1 = data.map(item => parseFloat(item.Humid1));
-const Humid2 = data.map(item => parseFloat(item.Humid2));
-const Humid3 = data.map(item => parseFloat(item.Humid3));
-const Humid4 = data.map(item => parseFloat(item.Humid4));
-const Humid5 = data.map(item => parseFloat(item.Humid5));
-const Humid6 = data.map(item => parseFloat(item.Humid6));
-const Humid7 = data.map(item => parseFloat(item.Humid7));
+const Humid1 = data.map(item => item.Humid1 !== null ? parseFloat(item.Humid1) : 0);
+const Humid2 = data.map(item => item.Humid2 !== null ? parseFloat(item.Humid2) : 0);
+const Humid3 = data.map(item => item.Humid3 !== null ? parseFloat(item.Humid3) : 0);
+const Humid4 = data.map(item => item.Humid4 !== null ? parseFloat(item.Humid4) : 0);
+const Humid5 = data.map(item => item.Humid5 !== null ? parseFloat(item.Humid5) : 0);
+const Humid6 = data.map(item => item.Humid6 !== null ? parseFloat(item.Humid6) : 0);
+const Humid7 = data.map(item => item.Humid7 !== null ? parseFloat(item.Humid7) : 0);
 
 if(numberOfDatasets == 1){
   if (Check.checked == true) {
@@ -901,13 +904,14 @@ success: function(data) {
     return TimePart;
 });
 const numberOfDatasets = myChart.data.datasets.length;
-const Air_Pressure1 = data.map(item => parseFloat(item.Air_Pressure1));
-const Air_Pressure2 = data.map(item => parseFloat(item.Air_Pressure2));
-const Air_Pressure3 = data.map(item => parseFloat(item.Air_Pressure3));
-const Air_Pressure4 = data.map(item => parseFloat(item.Air_Pressure4));
-const Air_Pressure5 = data.map(item => parseFloat(item.Air_Pressure5));
-const Air_Pressure6 = data.map(item => parseFloat(item.Air_Pressure6));
-const Air_Pressure7 = data.map(item => parseFloat(item.Air_Pressure7));
+const Air_Pressure1 = data.map(item => item.Air_Pressure1 !== null ? parseFloat(item.Air_Pressure1) : 0);
+const Air_Pressure2 = data.map(item => item.Air_Pressure2 !== null ? parseFloat(item.Air_Pressure2) : 0);
+const Air_Pressure3 = data.map(item => item.Air_Pressure3 !== null ? parseFloat(item.Air_Pressure3) : 0);
+const Air_Pressure4 = data.map(item => item.Air_Pressure4 !== null ? parseFloat(item.Air_Pressure4) : 0);
+const Air_Pressure5 = data.map(item => item.Air_Pressure5 !== null ? parseFloat(item.Air_Pressure5) : 0);
+const Air_Pressure6 = data.map(item => item.Air_Pressure6 !== null ? parseFloat(item.Air_Pressure6) : 0);
+const Air_Pressure7 = data.map(item => item.Air_Pressure7 !== null ? parseFloat(item.Air_Pressure7) : 0);
+
 
 if(numberOfDatasets == 1){
   if (Check.checked == true) {
@@ -1002,13 +1006,14 @@ else if(ddlChart.value == 5){
         return TimePart;
     });
     const numberOfDatasets = myChart.data.datasets.length;
-    const Wind_Speed1 = data.map(item => parseFloat(item.Wind_Speed1));
-    const Wind_Speed2 = data.map(item => parseFloat(item.Wind_Speed2));
-    const Wind_Speed3 = data.map(item => parseFloat(item.Wind_Speed3));
-    const Wind_Speed4 = data.map(item => parseFloat(item.Wind_Speed4));
-    const Wind_Speed5 = data.map(item => parseFloat(item.Wind_Speed5));
-    const Wind_Speed6 = data.map(item => parseFloat(item.Wind_Speed6));
-    const Wind_Speed7 = data.map(item => parseFloat(item.Wind_Speed7));
+    const Wind_Speed1 = data.map(item => item.Wind_Speed1 !== null ? parseFloat(item.Wind_Speed1) : 0);
+    const Wind_Speed2 = data.map(item => item.Wind_Speed2 !== null ? parseFloat(item.Wind_Speed2) : 0);
+    const Wind_Speed3 = data.map(item => item.Wind_Speed3 !== null ? parseFloat(item.Wind_Speed3) : 0);
+    const Wind_Speed4 = data.map(item => item.Wind_Speed4 !== null ? parseFloat(item.Wind_Speed4) : 0);
+    const Wind_Speed5 = data.map(item => item.Wind_Speed5 !== null ? parseFloat(item.Wind_Speed5) : 0);
+    const Wind_Speed6 = data.map(item => item.Wind_Speed6 !== null ? parseFloat(item.Wind_Speed6) : 0);
+    const Wind_Speed7 = data.map(item => item.Wind_Speed7 !== null ? parseFloat(item.Wind_Speed7) : 0);
+    
 
     if(numberOfDatasets == 1){
       if (Check.checked == true) {
@@ -1104,13 +1109,13 @@ else if(ddlChart.value == 6){
             return TimePart;
         });
         const numberOfDatasets = myChart.data.datasets.length;
-        const Wind_Direction1 = data.map(item => parseFloat(item.Wind_Direction1));
-        const Wind_Direction2 = data.map(item => parseFloat(item.Wind_Direction2));
-        const Wind_Direction3 = data.map(item => parseFloat(item.Wind_Direction3));
-        const Wind_Direction4 = data.map(item => parseFloat(item.Wind_Direction4));
-        const Wind_Direction5 = data.map(item => parseFloat(item.Wind_Direction5));
-        const Wind_Direction6 = data.map(item => parseFloat(item.Wind_Direction6));
-        const Wind_Direction7 = data.map(item => parseFloat(item.Wind_Direction7));
+        const Wind_Direction1 = data.map(item => item.Wind_Direction1 !== null ? parseFloat(item.Wind_Direction1) : 0);
+        const Wind_Direction2 = data.map(item => item.Wind_Direction2 !== null ? parseFloat(item.Wind_Direction2) : 0);
+        const Wind_Direction3 = data.map(item => item.Wind_Direction3 !== null ? parseFloat(item.Wind_Direction3) : 0);
+        const Wind_Direction4 = data.map(item => item.Wind_Direction4 !== null ? parseFloat(item.Wind_Direction4) : 0);
+        const Wind_Direction5 = data.map(item => item.Wind_Direction5 !== null ? parseFloat(item.Wind_Direction5) : 0);
+        const Wind_Direction6 = data.map(item => item.Wind_Direction6 !== null ? parseFloat(item.Wind_Direction6) : 0);
+        const Wind_Direction7 = data.map(item => item.Wind_Direction7 !== null ? parseFloat(item.Wind_Direction7) : 0);        
 
         if(numberOfDatasets == 1){
           if (Check.checked == true) {
