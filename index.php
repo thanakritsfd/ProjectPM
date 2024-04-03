@@ -22,10 +22,13 @@
   html {
     overflow-y: auto !important;
   }
+
   .form-check-input:checked {
-    background-color: #C0D6E8!important; /* เปลี่ยนสีเป็นสีฟ้าเมื่อ checkbox ถูกเลือก */
-    box-shadow: 0 0 5px #C0D6E8!important; /* เปลี่ยนสีเงาเป็นสีเดียวกับสีของ checkbox เมื่อ checkbox ถูกเลือก */
-    border: none!important; 
+    background-color: #C0D6E8 !important;
+    /* เปลี่ยนสีเป็นสีฟ้าเมื่อ checkbox ถูกเลือก */
+    box-shadow: 0 0 5px #C0D6E8 !important;
+    /* เปลี่ยนสีเงาเป็นสีเดียวกับสีของ checkbox เมื่อ checkbox ถูกเลือก */
+    border: none !important;
   }
 
   @media only screen and (max-width: 639px) {
@@ -37,6 +40,8 @@
 
     #Compare {
       padding-bottom: 40px;
+      position: relative;
+      z-index: 1;
     }
 
     #myChart {
@@ -206,7 +211,7 @@
   <div id="Compare" class="container d-flex justify-content-center">
     <div class="row">
       <div class="col d-flex justify-content-center align-items-center flex-column">
-        <select id="ddlChart" class="form-select form-select-sm" aria-label="Default select example" style="width:auto;font-weight:blod;background-color:black;color:white;border-radius:20px;background-color:#f9b234" onchange="ddlChange();">
+        <select id="ddlChart" class="form-select form-select-sm mb-2" aria-label="Default select example" style="width:auto;font-weight:blod;background-color:black;color:white;border-radius:20px;background-color:#f9b234" onchange="ddlChange();">
           <option style="border-radius:20px;" selected value="0">Chart PM2.5 Value</option>
           <option value="1">Chart AQI Value</option>
           <option value="2">Chart Temperature Value</option>
@@ -215,15 +220,13 @@
           <option value="5">Chart Wind Speed Value</option>
           <option value="6">Chart Wind Direction Value</option>
         </select>
-        <div class="form-check form-switch mt-2" style="display: flex; align-items: center;">
-          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="Chked();" style="padding: 10px; width:50px; margin-right:10px;">
-          <label class="form-check-label" for="flexSwitchCheckDefault" style="font-size: 16px; margin-bottom: 0;">เปรียบเทียบข้อมูลย้อนหลัง 1 สัปดาห์</label>
+        <div class="form-check form-switch" style="display: flex; align-items: center;">
+          <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" onchange="Chked();" style="padding: 10px; width:50px; margin-right:10px;">
+          <label class="form-check-label mb-0" for="flexSwitchCheckDefault" style="font-size: 16px;">เปรียบเทียบข้อมูลย้อนหลัง 1 สัปดาห์</label>
         </div>
       </div>
     </div>
   </div>
-
-
   <!-- Chart -->
   <div class="chart">
     <div class="chartBox">
