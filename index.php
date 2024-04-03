@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel='stylesheet' href='https://rawcdn.githack.com/SochavaAG/example-mycode/master/_common/css/reset.css'>
-
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
@@ -223,6 +222,7 @@
         <div class="form-check form-switch" style="display: flex; align-items: center;">
           <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault" onchange="Chked();" style="padding: 10px; width:50px; margin-right:10px;">
           <label class="form-check-label mb-0" for="flexSwitchCheckDefault" style="font-size: 16px;">เปรียบเทียบข้อมูลย้อนหลัง 1 สัปดาห์</label>
+          <div style="margin-left:10px; visibility:hidden;" id="loader" class="spinner-border spinner-border-sm" role="status"></div>
         </div>
       </div>
     </div>
@@ -237,7 +237,8 @@
   <script src="js/getValues.js"></script>
   <script src="js/AQI.js"></script>
   <br>
-  <!-- Chart -->
+  <!-- Chart -->  
+
 
   <!-- footer -->
   <div class="container">
@@ -257,6 +258,7 @@
       </ul>
     </footer>
   </div>
+  
   <!-- footer -->
 </body>
 

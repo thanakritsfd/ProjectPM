@@ -6,6 +6,7 @@ var Close_Pressure = document.getElementById('Close_Pressure');
 var Close_Direction = document.getElementById('Close_Direction'); 
 var ddlChart = document.getElementById('ddlChart'); 
 var Check = document.getElementById("flexSwitchCheckDefault");
+var Loader = document.getElementById("loader");
 
 const ctx = document.getElementById('myChart').getContext('2d');
 var myChart;//สร้างตัวแปร myChart นอกฟังก์ชันเพื่อให้เป็น global scope ถ้าไม่สร้างจะกดปุ่ม call funtion ไม่ได้
@@ -558,7 +559,8 @@ if(ddlChart.value == 0){
                   ];
               }
           }
-      };
+      };Check.disabled = false;
+      Loader.style.visibility = "hidden";
       }
     }else{
       myChart.data.datasets[0].data = PM1;
@@ -569,6 +571,8 @@ if(ddlChart.value == 0){
       myChart.data.datasets[5].data = PM6;
       myChart.data.datasets[6].data = PM7;
     }
+    Check.disabled = false;
+    Loader.style.visibility = "hidden";
     myChart.data.datasets[0].borderWidth = 6;
     myChart.data.datasets[0].backgroundColor = "#f9b234";
     myChart.data.datasets[0].borderColor = "#f9b234";
@@ -660,7 +664,8 @@ if(numberOfDatasets == 1){
               ];
           }
       }
-  };
+  };Check.disabled = false;
+  Loader.style.visibility = "hidden";
   }
 }else{
   myChart.data.datasets[0].data = AQI1;
@@ -671,6 +676,8 @@ if(numberOfDatasets == 1){
   myChart.data.datasets[5].data = AQI6;
   myChart.data.datasets[6].data = AQI7;
 }
+Check.disabled = false;
+Loader.style.visibility = "hidden";
 myChart.data.datasets[0].backgroundColor = "#000000";
 myChart.data.datasets[0].borderColor = "#000000";
 myChart.data.datasets[0].borderWidth = 6;
@@ -766,7 +773,8 @@ if(numberOfDatasets == 1){
              ];
          }
      }
- };
+ };Check.disabled = false;
+ Loader.style.visibility = "hidden";
  }
 }else{
   myChart.data.datasets[0].data = Temp1;
@@ -777,6 +785,8 @@ if(numberOfDatasets == 1){
   myChart.data.datasets[5].data = Temp6;
   myChart.data.datasets[6].data = Temp7;
 }
+Check.disabled = false;
+Loader.style.visibility = "hidden";
 myChart.data.datasets[0].backgroundColor = "#3ecd5e";
 myChart.data.datasets[0].borderColor = "#3ecd5e";
 myChart.data.datasets[0].borderWidth = 6;
@@ -871,7 +881,8 @@ if(numberOfDatasets == 1){
               ];
           }
       }
-  };
+  };Check.disabled = false;
+  Loader.style.visibility = "hidden";
   }
 }else{
   myChart.data.datasets[0].data = Humid1;
@@ -882,6 +893,8 @@ if(numberOfDatasets == 1){
   myChart.data.datasets[5].data = Humid6;
   myChart.data.datasets[6].data = Humid7;
 }
+Check.disabled = false;
+Loader.style.visibility = "hidden";
 myChart.data.datasets[0].backgroundColor = "#e44002";
 myChart.data.datasets[0].borderColor = "#e44002";
 myChart.data.datasets[0].borderWidth = 6;
@@ -974,7 +987,8 @@ if(numberOfDatasets == 1){
               ];
           }
       }
-  };
+  };Check.disabled = false;
+  Loader.style.visibility = "hidden";
   }
 }else{
   myChart.data.datasets[0].data = Air_Pressure1;
@@ -985,6 +999,8 @@ if(numberOfDatasets == 1){
   myChart.data.datasets[5].data = Air_Pressure6;
   myChart.data.datasets[6].data = Air_Pressure7;
 }
+Check.disabled = false;
+Loader.style.visibility = "hidden";
 myChart.data.datasets[0].backgroundColor = "#952aff";
 myChart.data.datasets[0].borderColor = "#952aff";
 myChart.data.datasets[0].borderWidth = 6;
@@ -1076,7 +1092,8 @@ else if(ddlChart.value == 5){
                   ];
               }
           }
-      };
+      };Check.disabled = false;
+      Loader.style.visibility = "hidden";
       }
   }else{
     myChart.data.datasets[0].data = Wind_Speed1;
@@ -1087,6 +1104,8 @@ else if(ddlChart.value == 5){
     myChart.data.datasets[5].data = Wind_Speed6;
     myChart.data.datasets[6].data = Wind_Speed7;
   }
+  Check.disabled = false;
+  Loader.style.visibility = "hidden";
   myChart.data.datasets[0].backgroundColor = "#cd3e94";
   myChart.data.datasets[0].borderColor = "#cd3e94";
   myChart.data.datasets[0].borderWidth = 6;
@@ -1178,7 +1197,8 @@ else if(ddlChart.value == 6){
                       ];
                   }
               }
-          };
+          };Check.disabled = false;
+          Loader.style.visibility = "hidden";
           }
       }else{
         myChart.data.datasets[0].data = Wind_Direction1;
@@ -1189,6 +1209,8 @@ else if(ddlChart.value == 6){
         myChart.data.datasets[5].data = Wind_Direction6;
         myChart.data.datasets[6].data = Wind_Direction7;
       }
+      Check.disabled = false;
+      Loader.style.visibility = "hidden";
       myChart.data.datasets[0].backgroundColor = "#4c49ea";
       myChart.data.datasets[0].borderColor = "#4c49ea";
       myChart.data.datasets[0].borderWidth = 6;
@@ -1236,10 +1258,14 @@ else if(ddlChart.value == 6){
 
 function Chked(){
   if(Check.checked == true){
+    Check.disabled = true;
+    Loader.style.visibility = "visible";
     // clearInterval(Compare_Interval);
     // Compare_Interval = setInterval(Compare, 3000); 
     Compare();
 }else{
+  Check.disabled = false;
+  Loader.style.visibility = "hidden";
       // ลบ Legend พวก Today ,....
       myChart.options.plugins.legend = {
         display: false
