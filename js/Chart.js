@@ -20,7 +20,7 @@ var myChart;//สร้างตัวแปร myChart นอกฟังก์
             const dateParts = dateTimeParts[0].split('-');
             const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
             const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
-            const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+            const dateTH2 = dateTH.replace(/-/g, '/');// dd/MM/yyy
             const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
             return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
         });
@@ -132,7 +132,7 @@ function Chart_PM(stop){
             const dateParts = dateTimeParts[0].split('-');
             const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
             const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
-            const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+            const dateTH2 = dateTH.replace(/-/g, '/');// dd/MM/yyy
             const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
             return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
         });
@@ -178,7 +178,7 @@ function Chart_Temp(stop){
           const dateParts = dateTimeParts[0].split('-');
           const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
           const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
-          const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+          const dateTH2 = dateTH.replace(/-/g, '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
@@ -224,7 +224,7 @@ function Chart_Humid(stop){
           const dateParts = dateTimeParts[0].split('-');
           const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
           const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
-          const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+          const dateTH2 = dateTH.replace(/-/g, '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
@@ -270,7 +270,7 @@ function Chart_Pressure(stop){
           const dateParts = dateTimeParts[0].split('-');
           const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
           const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
-          const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+          const dateTH2 = dateTH.replace(/-/g, '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
@@ -315,7 +315,7 @@ function Chart_Speed(stop){
           const dateParts = dateTimeParts[0].split('-');
           const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
           const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
-          const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+          const dateTH2 = dateTH.replace(/-/g, '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
@@ -360,7 +360,7 @@ function Chart_Direction(stop){
           const dateParts = dateTimeParts[0].split('-');
           const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
           const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
-          const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+          const dateTH2 = dateTH.replace(/-/g, '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });
@@ -405,7 +405,7 @@ function Chart_AQI(stop){
           const dateParts = dateTimeParts[0].split('-');
           const yearTH = String((parseInt(dateParts[0])+543)).slice(-2);
           const dateTH = `${dateParts[2]}-${dateParts[1]}-${yearTH}`;//เรียง dd-MM-yyy
-          const dateTH2 = dateTH.replaceAll('-', '/');// dd/MM/yyy
+          const dateTH2 = dateTH.replace(/-/g, '/');// dd/MM/yyy
           const timeParts = dateTimeParts[1].split(':').slice(0, 2).join(':'); // เอาเฉพาะชั่วโมงและนาที slice(0, 2)เริ่มที่ 0 = index[0] |  2 = เริ่มจากค่าสุดท้ายของอาเรย์นับถถอยหลังมาเริ่มนับที่ 1
           return [timeParts, dateTH2];//แบ่งแบบนี้เพื่อขึ้นบรรทัดใหม่
       });

@@ -15,7 +15,6 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/a561507f9a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-  <script type="application/javascript" src="/assets/packages/flutter_inappwebview_web/assets/web/web_support.js" defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <title>PMStation</title>
 </head>
