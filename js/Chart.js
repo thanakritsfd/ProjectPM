@@ -563,6 +563,7 @@ if(ddlChart.value == 0){
       Loader.style.visibility = "hidden";
       }
     }else{
+      myChart.data.labels = readingTimes;
       myChart.data.datasets[0].data = PM1;
       myChart.data.datasets[1].data = PM2;
       myChart.data.datasets[2].data = PM3;
@@ -668,6 +669,7 @@ if(numberOfDatasets == 1){
   Loader.style.visibility = "hidden";
   }
 }else{
+  myChart.data.labels = readingTimes;
   myChart.data.datasets[0].data = AQI1;
   myChart.data.datasets[1].data = AQI2;
   myChart.data.datasets[2].data = AQI3;
@@ -777,6 +779,7 @@ if(numberOfDatasets == 1){
  Loader.style.visibility = "hidden";
  }
 }else{
+  myChart.data.labels = readingTimes;
   myChart.data.datasets[0].data = Temp1;
   myChart.data.datasets[1].data = Temp2;
   myChart.data.datasets[2].data = Temp3;
@@ -885,6 +888,7 @@ if(numberOfDatasets == 1){
   Loader.style.visibility = "hidden";
   }
 }else{
+  myChart.data.labels = readingTimes;
   myChart.data.datasets[0].data = Humid1;
   myChart.data.datasets[1].data = Humid2;
   myChart.data.datasets[2].data = Humid3;
@@ -991,6 +995,7 @@ if(numberOfDatasets == 1){
   Loader.style.visibility = "hidden";
   }
 }else{
+  myChart.data.labels = readingTimes;
   myChart.data.datasets[0].data = Air_Pressure1;
   myChart.data.datasets[1].data = Air_Pressure2;
   myChart.data.datasets[2].data = Air_Pressure3;
@@ -1096,6 +1101,7 @@ else if(ddlChart.value == 5){
       Loader.style.visibility = "hidden";
       }
   }else{
+    myChart.data.labels = readingTimes;
     myChart.data.datasets[0].data = Wind_Speed1;
     myChart.data.datasets[1].data = Wind_Speed2;
     myChart.data.datasets[2].data = Wind_Speed3;
@@ -1201,6 +1207,7 @@ else if(ddlChart.value == 6){
           Loader.style.visibility = "hidden";
           }
       }else{
+        myChart.data.labels = readingTimes;
         myChart.data.datasets[0].data = Wind_Direction1;
         myChart.data.datasets[1].data = Wind_Direction2;
         myChart.data.datasets[2].data = Wind_Direction3;
@@ -1260,8 +1267,8 @@ function Chked(){
   if(Check.checked == true){
     Check.disabled = true;
     Loader.style.visibility = "visible";
-    // clearInterval(Compare_Interval);
-    // Compare_Interval = setInterval(Compare, 3000); 
+    clearInterval(Compare_Interval);
+    Compare_Interval = setInterval(Compare, 3000); 
     Compare();
 }else{
   Check.disabled = false;
@@ -1270,7 +1277,7 @@ function Chked(){
       myChart.options.plugins.legend = {
         display: false
     };
-  // clearInterval(Compare_Interval);
+  clearInterval(Compare_Interval);
   // ลบ datasets ที่เพิ่มเข้าไปล่าสุดออกจากอาร์เรย์
     for (let i = 1; i < 7; i++) {
       myChart.data.datasets.pop();
