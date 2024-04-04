@@ -28,7 +28,12 @@
   <script src="js/Historical.js"></script>
   <title>Historical Data</title>
 </head>
-
+<style>
+  /* เอาตัวเลือกจำนวน record ออก */
+  .dataTables_length {
+    display: none !important;
+  }
+</style>
 <body>
   <!-- NavBar   -->
   <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
@@ -90,7 +95,6 @@
       </div>
     </form>
     <!-- form -->
-
     <table id="example" class="table table-striped" style="width:100%!important;font-size:16px;">
       <thead>
         <tr>
@@ -119,7 +123,7 @@
   </div>
   <!-- Loader -->
 
-  
+
   <!-- footer -->
   <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -208,8 +212,9 @@
   $("#confirm").on("click", function() {
     Loader.style.display = "block";
     var table = $('#example').DataTable();
-    table.destroy(); //ต้องเคลียร์ทุกครั้งที่เรียกใช้ตาราง เพื่อเอาข้อมูลเก่าออกก่อน
-
+    table.destroy(); // ทำลายตารางเพื่อเอาข้อมูลเก่าออก
+    table.clear().draw(); // ล้างข้อมูลในตาราง
+    
     var startDate = $("#startDate").attr("data-date");
     var endDate = $("#endDate").attr("data-date");
 
@@ -353,22 +358,22 @@
               'next': '<span class="fa fa-chevron-right"></span>'
             },
             //customize number of elements to be displayed
-            "lengthMenu": 'Display <select class="form-control input-sm">' +
-              '<option value="10">10</option>' +
-              '<option value="20">20</option>' +
-              '<option value="30">30</option>' +
-              '<option value="40">40</option>' +
-              '<option value="50">50</option>' +
-              '<option value="-1">All</option>' +
-              '</select> results'
+            // "lengthMenu": 'Display <select class="form-control input-sm">' +
+            //   '<option value="10">10</option>' +
+            //   '<option value="20">20</option>' +
+            //   '<option value="30">30</option>' +
+            //   '<option value="40">40</option>' +
+            //   '<option value="50">50</option>' +
+            //   '<option value="-1">All</option>' +
+            //   '</select> results'
           }
         });
       },
       error: function(xhr, status, error) {
         console.error('เกิดข้อผิดพลาด:', error);
       }
-      
-    });    
+
+    });
   }
 
   // ฟังก์ชันสำหรับโหลดข้อมูลว่าง
