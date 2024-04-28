@@ -19,7 +19,7 @@ $endDate = $_GET['end_date']; // เช่น '2023-09-14'
 $startDate = $conn->real_escape_string($startDate);
 $endDate = $conn->real_escape_string($endDate);
 
-$sql = "SELECT ROW_NUMBER() OVER (ORDER BY Reading_Time) No, PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction,
+$sql = "SELECT ROW_NUMBER() OVER (ORDER BY ID) No, PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction,
 CASE
     WHEN AVG_PM <= 15 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
     WHEN AVG_PM <= 25 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
