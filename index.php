@@ -120,7 +120,7 @@
             <a class="nav-link" href="historical.php"><i class="fa-solid fa-clock-rotate-left"></i> Historical Data</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="predict.php"><i class="fa-solid fa-forward-fast"></i> Predict PM2.5</a>
+            <a class="nav-link" href="predict.php"><i class="fa-solid fa-forward-fast"></i> Predict AQI</a>
           </li>
         </ul>
       </div>
