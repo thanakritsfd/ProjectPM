@@ -34,6 +34,7 @@
     display: none !important;
   }
 </style>
+
 <body>
   <!-- NavBar   -->
   <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
@@ -214,7 +215,7 @@
     var table = $('#example').DataTable();
     table.destroy(); // ทำลายตารางเพื่อเอาข้อมูลเก่าออก
     table.clear().draw(); // ล้างข้อมูลในตาราง
-    
+
     var startDate = $("#startDate").attr("data-date");
     var endDate = $("#endDate").attr("data-date");
 
@@ -223,6 +224,7 @@
     var End_Date = formatDate_Table(endDate);
 
     if (new Date(Start_Date) > new Date(End_Date)) {
+      Loader.style.display = "none";
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success'
@@ -286,6 +288,14 @@
     // Construct the export URL
     var exportUrl = './api/value_Sensor/api_exportExcel.php';
     exportUrl += "?start_date=" + Start_Date + "&end_date=" + End_Date;
+    try {
+      Webview_Download = 'https://pmstation.org/pm/api/value_Sensor/api_exportExcel.php';
+      Webview_Download += "?start_date=" + Start_Date + "&end_date=" + End_Date;
+      window.exportUrl.postMessage(Webview_Download); // for webview
+    } catch (e) {
+      // Logs the error for website
+    }
+    
 
     // Use the fetch API to download the Excel file (fetch) เป็น method  ที่ให้เราสามารถ รับ-ส่ง ข้อมูล (HTTP Request) ระหว่างเว็บได้จากเว็บบราวเซอร์ ตัว Fetch API จะ return ค่า Promise กลับมา
     fetch(exportUrl)
