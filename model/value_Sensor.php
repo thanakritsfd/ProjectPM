@@ -905,4 +905,52 @@ class Value_Sensor
 
         return $stmt;
     }
+
+    function exportLogValue($startDate, $endDate)
+    {
+        // สร้าง query โดยใช้พารามิเตอร์ที่รับเข้ามา
+        $strSQL = "SELECT ROW_NUMBER() OVER (ORDER BY ID) No, PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction,
+            CASE
+                WHEN AVG_PM <= 15 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
+                WHEN AVG_PM <= 25 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
+                WHEN AVG_PM <= 37.5 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
+                WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
+                ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
+            END as AQI,
+            DATE_FORMAT(Reading_Time, '%d/%m/%Y %H:%i') AS Reading_Time
+            FROM value_tb
+            WHERE PM <> 0 AND Humidity <> 0 AND Air_Pressure <> 0
+            AND Reading_Time BETWEEN '$startDate 00:00:00' AND '$endDate 23:59:59'";
+
+        // สร้างคำสั่ง SQL และ execute
+        $stmt = $this->conn->prepare($strSQL);
+        $stmt->execute();
+
+        // คืนค่า statement object
+        return $stmt;
+    }
+
+    function getLogValue($startDate, $endDate)
+    {
+        // สร้าง query โดยใช้พารามิเตอร์ที่รับเข้ามา
+        $strSQL = "SELECT ROW_NUMBER() OVER (ORDER BY ID) No, PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction,
+            CASE
+                WHEN AVG_PM <= 15 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
+                WHEN AVG_PM <= 25 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
+                WHEN AVG_PM <= 37.5 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
+                WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
+                ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
+            END as AQI,
+            DATE_FORMAT(Reading_Time, '%d/%m/%Y %H:%i') AS Reading_Time
+            FROM value_tb
+            WHERE PM <> 0 AND Humidity <> 0 AND Air_Pressure <> 0
+            AND Reading_Time BETWEEN '$startDate 00:00:00' AND '$endDate 23:59:59'";
+
+        // สร้างคำสั่ง SQL และ execute
+        $stmt = $this->conn->prepare($strSQL);
+        $stmt->execute();
+
+        // คืนค่า statement object
+        return $stmt;
+    }
 }
