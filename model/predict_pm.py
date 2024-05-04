@@ -4,19 +4,44 @@ import pymysql
 import os
 import subprocess
 
-current_time = datetime.now()
-current_time_query = current_time.strftime("%Y%m%d %H:%M:%S")
-host = 'localhost'
-user = 'root'
-password = '123456789'
-database = 'pm_db'
+class PredictController:
+    def __init__(self, host, user, password, database):
+        self.host = host
+        self.user = user
+        self.password = password
+        self.database = database
 
-# SQL query
-query = f'''
-    SELECT 
+    def execute_query(self, query):
+        connection = pymysql.connect(host=self.host, user=self.user, password=self.password, database=self.database)
+        df = pd.read_sql(query, connection)
+        connection.close()
+        return df
+
+    def createDataset(self, df, file_name):
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        csv_file_path = os.path.join(script_directory, 'dataset', file_name)
+        df.to_csv(csv_file_path, index=False)
+
+    def Predict(self):
+        subprocess.run(['python', 'model/random_forest_norminal.py'])
+        subprocess.run(['python', 'model/random_forest.py'])
+        subprocess.run(['python', 'model/forest_regression.py'])
+        subprocess.run(['python', 'model/forest_aqi.py'])
+        subprocess.run(['python', 'model/mva_aqi.py'])
+
+if __name__ == "__main__":
+    # Parameters
+    host = 'localhost'
+    user = 'root'
+    password = '123456789'
+    database = 'pm_db'
+
+    # SQL queries
+    query1 = '''
+        SELECT 
             ID,
             ROW_NUMBER() OVER (ORDER BY Reading_Time) AS No, 
-   PM,
+    PM,
     Temperature,
     Humidity,
     Air_Pressure,
@@ -40,7 +65,7 @@ query = f'''
     END AS DW,
             day(Reading_Time) Day,
             month(Reading_Time) Month,
-   CASE 
+    CASE 
         WHEN day(Reading_Time) = 1 THEN 'One'
         WHEN day(Reading_Time) = 2 THEN 'Two'
         WHEN day(Reading_Time) = 3 THEN 'Three'
@@ -115,8 +140,8 @@ query = f'''
             AND AVG_PM IS NOT NULL
     '''
 
-query2 = f'''
-    SELECT * FROM
+    query2 = '''
+        SELECT * FROM
         (SELECT
             ID,
             Temperature, 
@@ -142,8 +167,8 @@ query2 = f'''
     ORDER BY t1.ID;
     '''
 
-query3 = f'''
-    SELECT * FROM
+    query3 = '''
+        SELECT * FROM
         (SELECT
             ID,
         CASE
@@ -163,34 +188,14 @@ query3 = f'''
     ORDER BY t1.ID;
     '''
 
-# Create a connection to MySQL
-connection = pymysql.connect(host=host, user=user, password=password, database=database)
+    data_processor = PredictController(host, user, password, database)
 
-# Execute the query and fetch the results into a DataFrame
-df = pd.read_sql(query, connection)
-df2 = pd.read_sql(query2, connection)
-df3 = pd.read_sql(query3, connection)
+    df1 = data_processor.execute_query(query1)
+    df2 = data_processor.execute_query(query2)
+    df3 = data_processor.execute_query(query3)
 
-# Close the MySQL connection
-connection.close()
+    data_processor.createDataset(df1, 'dataset.csv')
+    data_processor.createDataset(df2, 'MVA.csv')
+    data_processor.createDataset(df3, 'MVA_AQI.csv')
 
-def get_script_directory():
-    return os.path.dirname(os.path.abspath(__file__))
-# Get the script directory
-script_directory = get_script_directory()
-
-# Specify the relative path for the CSV file within the script directory
-csv_file_relative_path = os.path.join('dataset', 'dataset.csv')
-csv_file_relative_path2 = os.path.join('dataset', 'MVA.csv')
-csv_file_relative_path3 = os.path.join('dataset', 'MVA_AQI.csv')
-
-# Save the DataFrame to a CSV file
-df.to_csv(os.path.join(script_directory, csv_file_relative_path), index=False)
-df2.to_csv(os.path.join(script_directory, csv_file_relative_path2), index=False)
-df3.to_csv(os.path.join(script_directory, csv_file_relative_path3), index=False)
-
-# Use subprocess to call the script
-subprocess.run(['python', 'model/random_forest.py'])
-subprocess.run(['python', 'model/forest_regression.py'])
-subprocess.run(['python', 'model/forest_aqi.py'])
-subprocess.run(['python', 'model/mva_aqi.py'])
+    data_processor.Predict()
