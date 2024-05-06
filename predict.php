@@ -363,7 +363,7 @@
   let currentImageIndex = 0;
   const imgContainers = document.querySelectorAll('.img-container');
   const containerWrapper = document.querySelector('.dot-container');
-
+  
   function slideImages(direction) {
     const step = direction === 'next' ? 1 : -1;
     currentImageIndex += step;
@@ -401,12 +401,6 @@
     }
   }
 
-  // Show the first 3 images initially
-  showImage(currentImageIndex);
   updateNextButtonVisibility();
   updatePrevButtonVisibility();
-
-  // Add Event Listeners for prev and next buttons
-  document.getElementById('prev').addEventListener('click', prevImage);
-  document.getElementById('next').addEventListener('click', nextImage);
 </script>
