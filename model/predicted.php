@@ -27,13 +27,32 @@ class predicted{
 
     function getPredicted()
     {
-        $strSQL = "SELECT prediction_1_hour, prediction_3_hours, prediction_6_hours, prediction_12_hours, prediction_24_hours, 
-        DATE_FORMAT(DATE_ADD(datatime, INTERVAL 1 HOUR), '%d/%m/%Y %H:%i') AS datatime1, 
-        DATE_FORMAT(DATE_ADD(datatime, INTERVAL 3 HOUR), '%d/%m/%Y %H:%i') AS datatime3, 
-        DATE_FORMAT(DATE_ADD(datatime, INTERVAL 6 HOUR), '%d/%m/%Y %H:%i') AS datatime6, 
-        DATE_FORMAT(DATE_ADD(datatime, INTERVAL 12 HOUR), '%d/%m/%Y %H:%i') AS datatime12, 
-        DATE_FORMAT(DATE_ADD(datatime, INTERVAL 24 HOUR), '%d/%m/%Y %H:%i') AS datatime24
-        FROM prediction_tb ORDER BY ID DESC LIMIT 1";
+        $strSQL = "SELECT 
+        stb1.status AS prediction_1_hour,
+        stb2.status AS prediction_3_hours,
+        stb3.status AS prediction_6_hours,
+        stb4.status AS prediction_12_hours,
+        stb5.status AS prediction_24_hours, 
+            DATE_FORMAT(DATE_ADD(datatime, INTERVAL 1 HOUR), '%d/%m/%Y %H:%i') AS datatime1, 
+            DATE_FORMAT(DATE_ADD(datatime, INTERVAL 3 HOUR), '%d/%m/%Y %H:%i') AS datatime3, 
+            DATE_FORMAT(DATE_ADD(datatime, INTERVAL 6 HOUR), '%d/%m/%Y %H:%i') AS datatime6, 
+            DATE_FORMAT(DATE_ADD(datatime, INTERVAL 12 HOUR), '%d/%m/%Y %H:%i') AS datatime12, 
+            DATE_FORMAT(DATE_ADD(datatime, INTERVAL 24 HOUR), '%d/%m/%Y %H:%i') AS datatime24
+    FROM 
+        prediction_tb ptb
+    LEFT JOIN 
+        status_tb stb1 ON ptb.prediction_1_hour = stb1.id
+    LEFT JOIN 
+        status_tb stb2 ON ptb.prediction_3_hours = stb2.id
+    LEFT JOIN 
+        status_tb stb3 ON ptb.prediction_6_hours = stb3.id
+    LEFT JOIN 
+        status_tb stb4 ON ptb.prediction_12_hours = stb4.id
+    LEFT JOIN 
+        status_tb stb5 ON ptb.prediction_24_hours = stb5.id
+    ORDER BY 
+        ptb.ID DESC 
+    LIMIT 1;";
 
         $stmt = $this->conn->prepare($strSQL);
 

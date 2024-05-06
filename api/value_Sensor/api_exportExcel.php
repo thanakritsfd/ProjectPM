@@ -1,46 +1,18 @@
 <?php
-require './../../vendor/autoload.php'; // ปรับเส้นทางไปยัง autoload.php ตามที่คุณติดตั้ง PhpSpreadsheet
+require './../../vendor/autoload.php';
+require "./../../model/value_Sensor.php";
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-$servername = "localhost";
-$username = "root";
-$password = "123456789";
-$dbname = "pm_db";
+$startDate = $_GET['start_date'] ?? '';
+$endDate = $_GET['end_date'] ?? '';
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// รับวันที่จาก URL
-$startDate = $_GET['start_date']; // เช่น '2023-09-09'
-$endDate = $_GET['end_date']; // เช่น '2023-09-14'
-
-// แปลงวันที่เพื่อป้องกัน SQL Injection
-$startDate = $conn->real_escape_string($startDate);
-$endDate = $conn->real_escape_string($endDate);
-
-$sql = "SELECT ROW_NUMBER() OVER (ORDER BY Reading_Time) No, PM, Temperature, Humidity, Air_Pressure, Wind_Speed, Wind_Direction,
-CASE
-    WHEN AVG_PM <= 15 THEN ROUND((((25 - 0)/(15 - 0))*(AVG_PM - 0)) + 0)
-    WHEN AVG_PM <= 25 THEN ROUND((((50 - 26)/(25 - 15.1))*(AVG_PM - 15.1)) + 26)
-    WHEN AVG_PM <= 37.5 THEN ROUND((((100 - 51)/(37.5 - 25.1))*(AVG_PM - 25.1)) + 51)
-    WHEN AVG_PM <= 75 THEN ROUND((((200 - 101)/(75 - 37.6))*(AVG_PM - 37.6)) + 101)
-    ELSE ROUND((((10000000 - 200)/(10000000 - 75.1))*(AVG_PM - 75.1)) + 200)
-END as AQI,
- DATE_FORMAT(Reading_Time, '%d/%m/%Y %H:%i') AS Reading_Time FROM value_tb WHERE PM<>0 AND Humidity<>0 AND Air_Pressure<>0 AND Reading_Time BETWEEN '$startDate 00:00:00' AND '$endDate 23:59:59'";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // สร้าง Spreadsheet
+// สร้างฟังก์ชันสำหรับสร้างและส่งไฟล์ Excel
+function generateAndSendExcel($stmt)
+{
+    // Create Spreadsheet
     $spreadsheet = new Spreadsheet();
-
-    // เพิ่มข้อมูลลงในหน้างาน
     $sheet = $spreadsheet->getActiveSheet();
     $sheet->setCellValue('A1', 'No');
     $sheet->setCellValue('B1', 'PM');
@@ -49,11 +21,11 @@ if ($result->num_rows > 0) {
     $sheet->setCellValue('E1', 'Air Pressure');
     $sheet->setCellValue('F1', 'Wind Speed');
     $sheet->setCellValue('G1', 'Wind Direction');
-    $sheet->setCellValue('H1', 'Wind Direction');
+    $sheet->setCellValue('H1', 'AQI');
     $sheet->setCellValue('I1', 'Date & Time');
 
     $rowNumber = 2;
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $stmt->fetch_assoc()) { // เปลี่ยนจาก fetch_assoc() เป็น get_result()
         $sheet->setCellValue('A' . $rowNumber, $row["No"]);
         $sheet->setCellValue('B' . $rowNumber, $row["PM"]);
         $sheet->setCellValue('C' . $rowNumber, $row["Temperature"]);
@@ -66,6 +38,7 @@ if ($result->num_rows > 0) {
         $rowNumber++;
     }
 
+    // Save Excel file
     // บันทึกไฟล์ Excel
     $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
     $filename = 'exported_data.xlsx';
@@ -78,9 +51,32 @@ if ($result->num_rows > 0) {
 
     // ลบไฟล์ Excel หลังจากส่งเสร็จ
     unlink($filename);
-} else {
-    echo "ไม่มีข้อมูลที่สอดคล้องกับเงื่อนไขที่ระบุ.";
 }
 
-$conn->close();
+// ตรวจสอบว่ามีการรับค่า startDate และ endDate หรือไม่
+if (!empty($startDate) && !empty($endDate)) {
+    // สร้าง connection ไปยังฐานข้อมูล
+    $conn = new mysqli("localhost", "root", "123456789", "pm_db");
+
+    // แปลงวันที่เพื่อป้องกัน SQL Injection
+    $startDate = $conn->real_escape_string($startDate);
+    $endDate = $conn->real_escape_string($endDate);
+
+    // ตรวจสอบว่า connection เชื่อมต่อได้หรือไม่
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // สร้าง object จากคลาส Value_Sensor และใช้งานฟังก์ชัน exportLogValue
+    $valueSensor = new Value_Sensor($conn);
+    $stmt = $valueSensor->exportLogValue($startDate, $endDate);
+
+    // เรียกใช้ฟังก์ชันสร้างและส่งไฟล์ Excel
+    generateAndSendExcel($stmt->get_result()); // เรียกใช้ get_result() เพื่อรับผลลัพธ์ในรูปแบบของ mysqli_result
+
+    // ปิด connection หลังใช้งานเสร็จสิ้น
+    $conn->close();
+} else {
+    echo "Please provide startDate and endDate parameters.";
+}
 ?>

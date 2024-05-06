@@ -16,7 +16,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-  <title>PM2.5</title>
+  <title>Prediction</title>
   <style>
     body {
       overflow-x: hidden;
@@ -231,7 +231,7 @@
   <!-- NavBar   -->
   <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: #E7F6F2 !important;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.php"><strong>PM2.5</strong></a>
+      <a class="navbar-brand" href="index.php"><strong>PMStation</strong></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -244,7 +244,7 @@
             <a class="nav-link" href="historical.php"><i class="fa-solid fa-clock-rotate-left"></i> Historical Data</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="predict.php"><i class="fa-solid fa-forward-fast"></i> Predict PM2.5</a>
+            <a class="nav-link" href="predict.php"><i class="fa-solid fa-forward-fast"></i> Predict AQI</a>
           </li>
         </ul>
       </div>
@@ -363,7 +363,7 @@
   let currentImageIndex = 0;
   const imgContainers = document.querySelectorAll('.img-container');
   const containerWrapper = document.querySelector('.dot-container');
-
+  
   function slideImages(direction) {
     const step = direction === 'next' ? 1 : -1;
     currentImageIndex += step;
@@ -401,12 +401,6 @@
     }
   }
 
-  // Show the first 3 images initially
-  showImage(currentImageIndex);
   updateNextButtonVisibility();
   updatePrevButtonVisibility();
-
-  // Add Event Listeners for prev and next buttons
-  document.getElementById('prev').addEventListener('click', prevImage);
-  document.getElementById('next').addEventListener('click', nextImage);
 </script>
